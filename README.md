@@ -1,6 +1,8 @@
 # thai.app
 
 妥協したら落ちる!
+終わりだよー
+ありがとうございます
 
 ## Project setup
 
