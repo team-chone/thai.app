@@ -22,7 +22,7 @@ const routes = [
   {
     path: "/map",
     name: "Map",
-    component: () => import("../views/map.vue"),
+    component: () => import("../views/new2map.vue"),
   },
 ]
 
