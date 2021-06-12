@@ -1,11 +1,5 @@
 <template>
-  <!-- <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6"> -->
   <div class="text-center">
-    <!-- <logo />
-        <vuetify-logo /> -->
-
-    <!-- <v-card> -->
     <h1>Google Map</h1>
 
     <GmapMap
@@ -25,6 +19,7 @@
         :clickable="true"
         :draggable="false"
         :icon="m.pinicon"
+        :range="m.range"
         @click="onClickMarker(index, m)"
       />
       <GmapInfoWindow
@@ -39,10 +34,7 @@
         </p>
       </GmapInfoWindow>
     </GmapMap>
-    <button v-on:click="nagasa">{{ nagasa }}</button>
-    <!-- </v-card>
-    </v-col>
-  </v-row> -->
+    <button v-on:click="kyori">{{ search }}</button>
   </div>
 </template>
 
@@ -53,7 +45,10 @@ export default {
       maplocation: { lng: 0, lat: 0 },
       zoom: 16,
       i: 0,
-      nagasa: "長さ",
+      search: "お店を探す",
+      d: 0,
+      mk1: "",
+      mk2: "",
       styleMap: {
         width: "100%",
         height: "400px",
@@ -72,25 +67,7 @@ export default {
       infoWindowPos: null,
       infoWinOpen: false,
       marker: {},
-      markers: [
-        {
-          title: "佐鳴湖",
-          position: { lat: 34.7054595, lng: 137.6852776 },
-          pinicon: {
-            url: require("../image/blue-dot.png"),
-            scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-            // animation: window.google.maps.Animation.DROP,
-          },
-        },
-        {
-          title: "浜名湖ガーデンパーク",
-          position: { lat: 34.7140247, lng: 137.6032967 },
-          pinicon: {
-            url: require("../image/green-dot.png"),
-            scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-          },
-        },
-      ],
+      markers: [],
     }
   },
   async mounted() {
@@ -101,10 +78,10 @@ export default {
     }
     this.maplocation = currentPos
     this.markers.push({
-      title: "現在地",
+      title: "mark0(現在地)",
       position: this.maplocation,
-      // animation: window.google.maps.Animation.DROP,
     })
+    this.i += 1
   },
   methods: {
     getCurrentPosition() {
@@ -122,21 +99,24 @@ export default {
       this.markers.push({
         title: "mark" + this.i,
         position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-        animation: window.google.maps.Animation.DROP,
+        range: 150,
+        pinicon: {
+          url: require("../image/green-dot.png"),
+          scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+        },
       })
       this.i += 1
     },
-    haversine_distance(mk1, mk2) {
-      const R = 6371.071 // Radius of the Earth in kilometers
-      const rlat1 = mk1.position.lat() * (Math.PI / 180)
+    haversine_distance(a, b) {
+      const R = 6371071 // Radius of the Earth in meters
+      const rlat1 = (a.position.lat * Math.PI) / 180
       // Convert degrees to radians
-      const rlat2 = mk2.position.lat() * (Math.PI / 180)
+      const rlat2 = b.position.lat * (Math.PI / 180)
       // Convert degrees to radians
       const difflat = rlat2 - rlat1 // Radian difference (latitudes)
-      const difflon =
-        (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180) // Radian difference (longitudes)
+      const difflon = (b.position.lng - a.position.lng) * (Math.PI / 180) // Radian difference (longitudes)
 
-      const d =
+      this.d =
         2 *
         R *
         Math.asin(
@@ -148,10 +128,17 @@ export default {
                 Math.sin(difflon / 2)
           )
         )
-      return d
     },
-    nagasa() {
-      this.nagasa = "二つのマーカーを選んで"
+    kyori() {
+      for (let j = 1; j <= this.i; j++) {
+        this.haversine_distance(this.markers[j], this.markers[0])
+        if (this.d < this.markers[j].range) {
+          this.markers[j].pinicon = {
+            url: require("../image/blue-dot.png"),
+            scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+          }
+        }
+      }
     },
   },
 }
