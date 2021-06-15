@@ -28,6 +28,7 @@ Vue.use(VueGoogleMaps, {
   //// then disable the following:
   // installComponents: true,
 })
+import "./firebase.js"
 
 Vue.config.productionTip = false
 
