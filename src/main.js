@@ -2,7 +2,7 @@ import Vue from "vue"
 import App from "./App.vue"
 import router from "./router"
 import * as VueGoogleMaps from "vue2-google-maps"
-
+import "./firebase.js"
 Vue.use(VueGoogleMaps, {
   load: {
     key: process.env.VUE_APP_API_KEY,
@@ -28,7 +28,6 @@ Vue.use(VueGoogleMaps, {
   //// then disable the following:
   // installComponents: true,
 })
-import "./firebase.js"
 
 Vue.config.productionTip = false
 
