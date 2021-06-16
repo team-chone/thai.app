@@ -137,8 +137,12 @@ export default {
             url: require("../image/blue-dot.png"),
             scaledSize: { width: 40, height: 40, f: "px", b: "px" },
           }
+          console.log(j + "近い")
+        } else {
+          console.log(j + "遠い")
         }
       }
+      console.log("owari")
     },
   },
 }
