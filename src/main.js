@@ -29,8 +29,6 @@ Vue.use(VueGoogleMaps, {
   //// then disable the following:
   // installComponents: true,
 })
-=======
-
 
 Vue.config.productionTip = false
 
