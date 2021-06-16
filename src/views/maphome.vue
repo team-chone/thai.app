@@ -35,6 +35,7 @@
       </GmapInfoWindow>
     </GmapMap>
     <button v-on:click="kyori">{{ search }}</button>
+    <router-link to="/shopinformation">店の情報へ</router-link>
   </div>
 </template>
 
