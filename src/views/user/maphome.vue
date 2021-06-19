@@ -130,7 +130,7 @@ export default {
         position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
         range: 150,
         pinicon: {
-          url: require("../image/green-dot.png"),
+          url: require("../../image/green-dot.png"),
           scaledSize: { width: 40, height: 40, f: "px", b: "px" },
         },
       })
@@ -163,7 +163,7 @@ export default {
         this.haversine_distance(this.markers[j], this.markers[0])
         if (this.d < this.markers[j].range) {
           this.markers[j].pinicon = {
-            url: require("../image/blue-dot.png"),
+            url: require("../../image/blue-dot.png"),
             scaledSize: { width: 40, height: 40, f: "px", b: "px" },
           }
           console.log(j + "近い")
