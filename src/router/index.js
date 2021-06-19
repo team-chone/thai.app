@@ -12,77 +12,77 @@ const routes = [
   {
     path: "/makeacount",
     name: "Makeacount",
-    component: () => import("../views/Makeacount.vue"),
+    component: () => import("../views/user/Makeacount.vue"),
   },
   {
     path: "/googleacount",
     name: "googleacount",
     component: () => import("../views/googleacount.vue"),
   },
-  {
-    path: "/otheracount",
-    name: "otheracount",
-    component: () => import("../views/otheracount.vue"),
-  },
+  // {
+  //   path: "/otheracount",
+  //   name: "otheracount",
+  //   component: () => import("../views/otheracount.vue"),
+  // },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/user/Login.vue"),
   },
   {
     path: "/maphome",
     name: "maphome",
-    component: () => import("../views/maphome.vue"),
+    component: () => import("../views/user/maphome.vue"),
   },
   {
     path: "/shopinformation",
     name: "shopinformation",
-    component: () => import("../views/shopinformation.vue"),
+    component: () => import("../views/user/shopinformation.vue"),
   },
   {
     path: "/shopanketo",
     name: "shopanketo",
-    component: () => import("../views/shopanketo.vue"),
+    component: () => import("../views/user/shopanketo.vue"),
   },
   {
     path: "/shopkeijiban",
     name: "shopkeijiban",
-    component: () => import("../views/shopkeijiban.vue"),
+    component: () => import("../views/user/shopkeijiban.vue"),
   },
   {
     path: "/comlogin",
     name: "comlogin",
-    component: () => import("../views/comlogin.vue"),
+    component: () => import("../views/company/comlogin.vue"),
   },
   {
     path: "/commaphome",
     name: "commaphome",
-    component: () => import("../views/commaphome.vue"),
+    component: () => import("../views/company/commaphome.vue"),
   },
   {
     path: "/combuildpin",
     name: "combuildpin",
-    component: () => import("../views/combuildpin.vue"),
+    component: () => import("../views/company/combuildpin.vue"),
   },
   {
     path: "/compinview",
     name: "compinview",
-    component: () => import("../views/compinview.vue"),
+    component: () => import("../views/company/compinview.vue"),
   },
   {
     path: "/compininformation",
     name: "compininformation",
-    component: () => import("../views/compininformation.vue"),
+    component: () => import("../views/company/compininformation.vue"),
   },
   {
     path: "/comanketoview",
     name: "comanketoview",
-    component: () => import("../views/comanketoview.vue"),
+    component: () => import("../views/company/comanketoview.vue"),
   },
   {
     path: "/comkeijibanview",
     name: "comkeijibanview",
-    component: () => import("../views/comkeijibanview.vue"),
+    component: () => import("../views/company/comkeijibanview.vue"),
   },
   {
     path: "/aboutmibet",
@@ -92,12 +92,12 @@ const routes = [
   {
     path: "/acount",
     name: "acount",
-    component: () => import("../views/acount.vue"),
+    component: () => import("../views/user/acount.vue"),
   },
   {
     path: "/wolet",
     name: "wolet",
-    component: () => import("../views/wolet.vue"),
+    component: () => import("../views/user/wolet.vue"),
   },
 ]
 
