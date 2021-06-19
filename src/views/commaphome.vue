@@ -50,17 +50,6 @@
         :range="m.range"
         @click="onClickMarker(index, m)"
       />
-      <GmapInfoWindow
-        :options="infoOptions"
-        :position="infoWindowPos"
-        :opened="infoWinOpen"
-        @closeclick="infoWinOpen = false"
-      >
-        <p style="color: #000">
-          {{ marker.title }}
-          {{ marker.position }}
-        </p>
-      </GmapInfoWindow>
     </GmapMap>
   </div>
 </template>
@@ -70,6 +59,8 @@ export default {
   data() {
     return {
       ActiveBtn: false,
+      maplocation: { lng: 0, lat: 0 },
+      zoom: 16,
       styleMap: {
         width: "100%",
         height: "400px",
@@ -78,13 +69,9 @@ export default {
         streetViewControl: false,
         styles: [],
       },
-      infoOptions: {
-        minWidth: 200,
-        pixelOffset: {
-          width: 0,
-          height: -35,
-        },
-      },
+
+      marker: {},
+      markers: [],
     }
   },
   async mounted() {
@@ -101,6 +88,11 @@ export default {
     this.i += 1
   },
   methods: {
+    getCurrentPosition() {
+      return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      })
+    },
     mark(event) {
       this.markers.push({
         title: "mark" + this.i,
