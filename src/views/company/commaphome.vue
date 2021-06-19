@@ -58,7 +58,7 @@
 export default {
   data() {
     return {
-      ActiveBtn: false,
+      ActiveBtn: false, //これだけハンバーガーバーの変数
       maplocation: { lng: 0, lat: 0 },
       zoom: 16,
       styleMap: {
