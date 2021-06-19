@@ -2,6 +2,10 @@
 
 浦部変更したよ
 practice-urabe でいじったよ
+<<<<<<< HEAD
+=======
+practice-urabe でいじったよ 6/19
+>>>>>>> practice-urabe
 浦部再び変更したよ
 =======
 妥協したら落ちる!！
