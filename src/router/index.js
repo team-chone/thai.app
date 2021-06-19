@@ -84,6 +84,21 @@ const routes = [
     name: "comkeijibanview",
     component: () => import("../views/comkeijibanview.vue"),
   },
+  {
+    path: "/aboutmibet",
+    name: "aboutmibet",
+    component: () => import("../views/aboutmibet.vue"),
+  },
+  {
+    path: "/acount",
+    name: "acount",
+    component: () => import("../views/acount.vue"),
+  },
+  {
+    path: "/wolet",
+    name: "wolet",
+    component: () => import("../views/wolet.vue"),
+  },
 ]
 
 const router = new VueRouter({
