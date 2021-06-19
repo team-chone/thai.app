@@ -99,7 +99,7 @@ export default {
         position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
         range: 150,
         pinicon: {
-          url: require("../image/green-dot.png"),
+          url: require("../../image/green-dot.png"),
           scaledSize: { width: 40, height: 40, f: "px", b: "px" },
         },
       })
