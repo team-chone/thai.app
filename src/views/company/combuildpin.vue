@@ -21,7 +21,6 @@
         :draggable="false"
         :icon="m.pinicon"
         :range="m.range"
-        @click="onClickMarker(index, m)"
       />
     </GmapMap>
   </div>
@@ -65,16 +64,13 @@ export default {
       })
     },
     mark(event) {
-      this.markers.push({
-        title: "mark" + this.i,
-        position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-        range: 150,
-        pinicon: {
-          url: require("../../image/green-dot.png"),
-          scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+      this.$router.push({
+        name: "compininformation", //ピン情報入力画面に遷移
+        params: {
+          pinlat: event.latLng.lat(), //緯度、経度をそれぞれpinlat,pinlngで渡す
+          pinlng: event.latLng.lng(),
         },
       })
-      this.i += 1
     },
   },
 }
