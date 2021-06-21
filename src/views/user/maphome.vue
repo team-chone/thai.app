@@ -41,12 +41,15 @@
       <GmapMarker
         v-for="(m, index) in markers"
         :key="index"
-        :title="m.title"
-        :position="m.position"
+        :pin_name="m.pin_name"
+        :id="m.id"
+        :position="{ lat: m.pin_lat, lng: m.pin_lng }"
         :clickable="true"
         :draggable="false"
         :icon="m.pinicon"
-        :range="m.range"
+        :range="m.pin_range"
+        :canmove="false"
+        :pin_type="m.pin_type"
         @click="onClickMarker(index, m)"
       />
       <GmapInfoWindow
@@ -57,24 +60,50 @@
       >
         <p style="color: #000">
           {{ marker.title }}
-          {{ marker.position }}
+          {{ movebutton }}
         </p>
       </GmapInfoWindow>
     </GmapMap>
-    <button v-on:click="kyori">{{ search }}</button>
-    <router-link to="/shopinformation">店の情報へ</router-link>
+    <button v-on:click="kyori">お店を探す</button>
+    <button v-on:click="opensearch">条件を絞る</button>
+    <!-- 範囲内のピンをクリックしたときに出てくる -->
+    <div v-if="pagemove">
+      <h2>{{ marker.pin_name }}</h2>
+      <button v-on:click="toanketo">アンケートに答える</button>
+      <button v-on:click="tokeijiban">掲示板</button>
+    </div>
+    <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
+    <!-- 条件を絞るを押したときに出てくる -->
+    <div v-if="kensaku">
+      店名<input type="text" v-model="tenmei" />
+      <p>
+        業種<select v-model="gyousyu_select">
+          <option value="">指定なし</option>
+          <option value="apparel">アパレル</option>
+          <option value="restaurant">レストラン</option>
+          <option value="others">その他</option>
+        </select>
+      </p>
+      <button v-on:click="search">この条件で絞る</button>
+    </div>
+    <!-- 条件を絞るを押した時に出てくるここまで -->
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+import firebase from "firebase"
 export default {
   data() {
     return {
       maplocation: { lng: 0, lat: 0 },
       zoom: 16,
-      i: 0,
-      search: "お店を探す",
-      d: 0,
+      pagemove: false, //範囲内のピンを選ぶとtrueになり移動の選択肢が出てくる
+      movebutton: "範囲外のため答えられません",
+      kensaku: false, //条件を絞るを押すとtrueになり、検索入力画面が出てくる
+      tenmei: "",
+      gyousyu_select: "",
+      pin_id: "",
+      nagasa: 0,
       mk1: "",
       mk2: "",
       ActiveBtn: false,
@@ -99,6 +128,7 @@ export default {
       markers: [],
     }
   },
+  //ページを開いた時の動作、範囲内のピンを判断するところまでしている
   async mounted() {
     const currentPosTmp = await this.getCurrentPosition()
     const currentPos = {
@@ -107,45 +137,66 @@ export default {
     }
     this.maplocation = currentPos
     this.markers.push({
-      title: "mark0(現在地)",
-      position: this.maplocation,
+      pin_name: "mark0(現在地)",
+      pin_lat: this.maplocation.lat,
+      pin_lng: this.maplocation.lng,
     })
-    this.i += 1
+
+    firebase
+      .firestore()
+      .collection("pins")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          this.markers.push({
+            id: doc.id,
+            ...doc.data(),
+            pinicon: {
+              url: require("../../image/green-dot.png"),
+              scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+            },
+          })
+        })
+      })
+
+      .then(() => {
+        this.kyori()
+      })
   },
+
   methods: {
+    //現在地を取得する関数
     getCurrentPosition() {
       return new Promise(function (resolve, reject) {
         navigator.geolocation.getCurrentPosition(resolve, reject)
       })
     },
+    //ピンを押したときの関数
     onClickMarker(index, marker) {
-      this.$refs.gmp.panTo(marker.position)
-      this.infoWindowPos = marker.position
+      this.$refs.gmp.panTo({ lat: marker.pin_lat, lng: marker.pin_lng })
+      this.infoWindowPos = { lat: marker.pin_lat, lng: marker.pin_lng }
       this.marker = marker
-      this.infoWinOpen = true
+      if (this.marker.canmove) {
+        this.infoWinOpen = false
+        this.pagemove = true
+        this.pin_id = this.marker.id
+      } else {
+        this.infoWinOpen = true
+        this.pagemove = false
+      }
     },
-    mark(event) {
-      this.markers.push({
-        title: "mark" + this.i,
-        position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-        range: 150,
-        pinicon: {
-          url: require("../../image/green-dot.png"),
-          scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-        },
-      })
-      this.i += 1
-    },
+
+    //距離を測る関数,nagasa(メートル)で得られる。
     haversine_distance(a, b) {
       const R = 6371071 // Radius of the Earth in meters
-      const rlat1 = (a.position.lat * Math.PI) / 180
+      const rlat1 = (a.pin_lat * Math.PI) / 180
       // Convert degrees to radians
-      const rlat2 = b.position.lat * (Math.PI / 180)
+      const rlat2 = b.pin_lat * (Math.PI / 180)
       // Convert degrees to radians
       const difflat = rlat2 - rlat1 // Radian difference (latitudes)
-      const difflon = (b.position.lng - a.position.lng) * (Math.PI / 180) // Radian difference (longitudes)
+      const difflon = (b.pin_lng - a.pin_lng) * (Math.PI / 180) // Radian difference (longitudes)
 
-      this.d =
+      this.nagasa =
         2 *
         R *
         Math.asin(
@@ -158,20 +209,144 @@ export default {
           )
         )
     },
+
+    //距離を比較して範囲内のものを見つける関数
     kyori() {
-      for (let j = 1; j <= this.i; j++) {
+      for (let j = 1; j <= this.markers.length; j++) {
         this.haversine_distance(this.markers[j], this.markers[0])
-        if (this.d < this.markers[j].range) {
+        if (this.nagasa < this.markers[j].range) {
           this.markers[j].pinicon = {
             url: require("../../image/blue-dot.png"),
             scaledSize: { width: 40, height: 40, f: "px", b: "px" },
           }
-          console.log(j + "近い")
+          this.markers[j].canmove = true
         } else {
-          console.log(j + "遠い")
+          this.markers[j].pinicon = {
+            url: require("../../image/green-dot.png"),
+            scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+          }
+          this.markers[j].canmove = false
         }
       }
-      console.log("owari")
+    },
+    //アンケートへを押したときの動作pin_idを渡す
+    toanketo() {
+      this.$router.push({
+        name: "shopanketo", //アンケートページに遷移
+        params: {
+          pin_id: this.pin_id,
+        },
+      })
+    },
+    //掲示板へを押したときの動作pin_idを渡す
+    tokeijiban() {
+      this.$router.push({
+        name: "shopkeijiban", //掲示板ページに遷移
+        params: {
+          pin_id: this.pin_id,
+        },
+      })
+    },
+    //条件を絞るを押したときの動作
+    opensearch() {
+      this.kensaku = true
+    },
+    //この条件で絞るを押したときの動作
+    search() {
+      this.markers = [] //一回配列を空にする
+      //現在地のピンを立てる
+      this.markers.push({
+        pin_name: "mark0(現在地)",
+        pin_lat: this.maplocation.lat,
+        pin_lng: this.maplocation.lng,
+      })
+      //tenmei,gyousyu_selectのあるなしで場合分けしてそれぞれと一致するピンだけを取得する
+      //tenmeiが完全一致になってるのが微妙
+      if (this.tenmei !== "" && this.gyousyu_select !== "") {
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_name", "==", this.tenmei)
+          .where("pin_type", "==", this.gyousyu_select)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
+          .then(() => {
+            this.kyori()
+          })
+      } else if (this.tenmei == "" && this.gyousyu_select !== "") {
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_type", "==", this.gyousyu_select)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
+          .then(() => {
+            this.kyori()
+          })
+      } else if (this.tenmei !== "" && this.gyousyu_select == "") {
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_name", "==", this.tenmei)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
+          .then(() => {
+            this.kyori()
+          })
+      } else {
+        firebase
+          .firestore()
+          .collection("pins")
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
+          .then(() => {
+            this.kyori()
+          })
+      }
     },
   },
 }
