@@ -34,11 +34,11 @@ const routes = [
     name: "maphome",
     component: () => import("../views/user/maphome.vue"),
   },
-  {
-    path: "/shopinformation",
-    name: "shopinformation",
-    component: () => import("../views/user/shopinformation.vue"),
-  },
+  // {
+  //   path: "/shopinformation",
+  //   name: "shopinformation",
+  //   component: () => import("../views/user/shopinformation.vue"),
+  // },
   {
     path: "/shopanketo",
     name: "shopanketo",
