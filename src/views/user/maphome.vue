@@ -240,6 +240,7 @@ export default {
         name: "shopanketo", //アンケートページに遷移
         params: {
           pin_id: this.pin_id,
+          pin_name: this.pin_name,
         },
       })
     },
@@ -249,6 +250,7 @@ export default {
         name: "shopkeijiban", //掲示板ページに遷移
         params: {
           pin_id: this.pin_id,
+          pin_name: this.pin_name,
         },
       })
     },
