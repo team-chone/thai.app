@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     screenChange1() {
+      //表示されるコンポーネントの切り替え
       this.screen_type = "1"
     },
     screenChange2() {
