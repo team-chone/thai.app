@@ -15,7 +15,7 @@
       </div>
       <div v-else>
         <div v-for="question_select in question.question_selects">
-          <label><input type="radio" v-bind:name="ques"/>{{ question_select }}</label>
+          <label><input type="radio" />{{ question_select }}</label>
         </div>
           
       </div>
