@@ -4,7 +4,17 @@
 
     <router-link to="/compinview">戻る</router-link> |
     <router-link to="/comkeijibanview">掲示板を見る</router-link>
+
+    <button v-on:click="screenChange1">アンケートを作成する</button>
+    <button v-on:click="screenChange2">アンケートを編集する</button>
+    <button v-on:click="screenChange3">アンケートの結果をみる</button>
+    <com-make-question v-if="screen_type === '1'"></com-make-question>
+    <com-edit-question v-if="screen_type === '2'"></com-edit-question>
+    <com-analyze-question v-if="screen_type === '3'"></com-analyze-question>
+    <!-- <div>
+
     <div>
+
       <h2>アンケートの新規作成</h2>
       <p>アンケートの題名を入力</p>
       <input type="text" v-model="questionnaire_title" />
@@ -68,11 +78,105 @@
       <button v-on:click="addQuestionnaire">
         以上の内容でアンケートを作成
       </button>
+
+    </div> -->
+
     </div>
+
   </div>
 </template>
 
 <script>
+
+import comMakeQuestion from "../../components/comMakeQuestion.vue"
+import comEditQuestion from "../../components/comEditQuestion.vue"
+import comAnalyzeQuestion from "../../components/comAnalyzeQuestion.vue"
+export default {
+  components: { comMakeQuestion, comEditQuestion, comAnalyzeQuestion },
+  data() {
+    return {
+      pin_name: this.$route.params.pin_name,
+      screen_type: false,
+    }
+  },
+  methods: {
+    screenChange1() {
+      //表示されるコンポーネントの切り替え
+      this.screen_type = "1"
+    },
+    screenChange2() {
+      this.screen_type = "2"
+    },
+    screenChange3() {
+      this.screen_type = "3"
+    },
+  },
+}
+// import firebase from "firebase"
+// export default {
+//   data() {
+//     return {
+//       pin_id: String(this.$route.params.pin_id),
+//       pin_name: this.$route.params.pin_name,
+//       questionnaire_title: "",
+//       questionnaire_limit: "",
+//       question_title: "",
+//       question_type1: "",
+//       question_type2: "",
+//       question_select: "",
+//       questions: [],
+//       selects: [],
+//     }
+//   },
+//   methods: {
+//     addQuestionnaire() {
+//       //アンケート情報（questionnaire_title,_limit_questions)をpins内に格納
+//       firebase
+//         .firestore()
+//         .collection("pins")
+//         .doc(this.pin_id)
+//         .set(
+//           {
+//             questionnaire_title: this.questionnaire_title,
+//             questionnaire_limit: this.questionnaire_limit,
+//             questions: this.questions,
+//           },
+//           { merge: true }
+//         )
+//         .then(() => {
+//           this.questionnaire_title = ""
+//           this.questionnaire_limit = ""
+//           this.questions = []
+//         })
+//     },
+//     addQuestion() {
+//       //questionをquestions配列内に格納
+//       const question = {
+//         question_title: this.question_title,
+//         question_type1: this.question_type1,
+//         question_type2: this.question_type2,
+//         question_selects: this.selects,
+//       }
+//       this.questions.push(question)
+//       this.question_title = ""
+//       this.question_type1 = ""
+//       this.question_type2 = ""
+//       this.selects = []
+//     },
+//     addSelect() {
+//       //selectをselects配列内に格納
+//       this.selects.push(this.question_select)
+//       this.question_select = ""
+//     },
+//     deleteSelect(index) {
+//       this.selects.splice(index, 1)
+//     },
+//     deleteQuestion(index) {
+//       this.questions.splice(index, 1)
+//     },
+//   },
+// }
+
 import firebase from "firebase"
 export default {
   data() {
@@ -141,4 +245,5 @@ export default {
     },
   },
 }
+
 </script>
