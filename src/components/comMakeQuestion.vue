@@ -5,12 +5,12 @@
     <input type="text" v-model="questionnaire_title" />
     <p>回答数の上限を設定</p>
     <input type="number" v-model="questionnaire_limit" />
-    <div v-for="(question, index) in questions">
+    <div v-for="(question, index) in questions" :key="question.id">
       <div>質問{{ index + 1 }}</div>
       <div>{{ question.question_title }}</div>
       <div v-if="question.question_type1 === 'ture'">必須</div>
       <div v-if="question.question_type2 === 'ture'">複数回答可能</div>
-      <div v-for="select in question.question_selects">
+      <div v-for="select in question.question_selects" :key="select.id">
         <div>{{ select }}</div>
       </div>
       <div v-on:click="deleteQuestion(index)">消去</div>
@@ -47,7 +47,7 @@
           v-model="question_type2"
         />不可能</label
       >
-      <div v-for="(select, index) in selects">
+      <div v-for="(select, index) in selects" :key="select.id">
         {{ select }}
         <div v-on:click="deleteSelect(index)">消去</div>
       </div>

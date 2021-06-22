@@ -80,14 +80,10 @@
       </button>
 
     </div> -->
-
-    </div>
-
   </div>
 </template>
 
 <script>
-
 import comMakeQuestion from "../../components/comMakeQuestion.vue"
 import comEditQuestion from "../../components/comEditQuestion.vue"
 import comAnalyzeQuestion from "../../components/comAnalyzeQuestion.vue"
@@ -177,73 +173,72 @@ export default {
 //   },
 // }
 
-import firebase from "firebase"
-export default {
-  data() {
-    return {
-      pin_id: String(this.$route.params.pin_id),
-      pin_name: this.$route.params.pin_name,
-      questionnaire_title: "",
-      questionnaire_limit: "",
-      question_title: "",
-      question_type1: "",
-      question_type2: "",
-      question_select: "",
-      questions: [],
-      selects: [],
-    }
-  },
-  methods: {
-    addQuestionnaire() {
-      if (
-        firebase.firestore().collection("pins").doc(this.pin_id)
-          .questionnaire_title
-      ) {
-        alert("すでにアンケートは設定されています")
-      } else {
-        firebase
-          .firestore()
-          .collection("pins")
-          .doc(this.pin_id)
-          .set(
-            {
-              questionnaire_title: this.questionnaire_title,
-              questionnaire_limit: this.questionnaire_limit,
-              questions: this.questions,
-            },
-            { merge: true }
-          )
-          .then(() => {
-            this.questionnaire_title = ""
-            this.questionnaire_limit = ""
-            this.questions = []
-          })
-      }
-    },
-    addQuestion() {
-      const question = {
-        question_title: this.question_title,
-        question_type1: this.question_type1,
-        question_type2: this.question_type2,
-        question_selects: this.selects,
-      }
-      this.questions.push(question)
-      this.question_title = ""
-      this.question_type1 = ""
-      this.question_type2 = ""
-      this.selects = []
-    },
-    addSelect() {
-      this.selects.push(this.question_select)
-      this.question_select = ""
-    },
-    deleteSelect(index) {
-      this.selects.splice(index, 1)
-    },
-    deleteQuestion(index) {
-      this.questions.splice(index, 1)
-    },
-  },
-}
-
+// import firebase from "firebase"
+// export default {
+//   data() {
+//     return {
+//       pin_id: String(this.$route.params.pin_id),
+//       pin_name: this.$route.params.pin_name,
+//       questionnaire_title: "",
+//       questionnaire_limit: "",
+//       question_title: "",
+//       question_type1: "",
+//       question_type2: "",
+//       question_select: "",
+//       questions: [],
+//       selects: [],
+//     }
+//   },
+//   methods: {
+//     addQuestionnaire() {
+//       if (
+//         firebase.firestore().collection("pins").doc(this.pin_id)
+//           .questionnaire_title
+//       ) {
+//         alert("すでにアンケートは設定されています")
+//       } else {
+//         firebase
+//           .firestore()
+//           .collection("pins")
+//           .doc(this.pin_id)
+//           .set(
+//             {
+//               questionnaire_title: this.questionnaire_title,
+//               questionnaire_limit: this.questionnaire_limit,
+//               questions: this.questions,
+//             },
+//             { merge: true }
+//           )
+//           .then(() => {
+//             this.questionnaire_title = ""
+//             this.questionnaire_limit = ""
+//             this.questions = []
+//           })
+//       }
+//     },
+//     addQuestion() {
+//       const question = {
+//         question_title: this.question_title,
+//         question_type1: this.question_type1,
+//         question_type2: this.question_type2,
+//         question_selects: this.selects,
+//       }
+//       this.questions.push(question)
+//       this.question_title = ""
+//       this.question_type1 = ""
+//       this.question_type2 = ""
+//       this.selects = []
+//     },
+//     addSelect() {
+//       this.selects.push(this.question_select)
+//       this.question_select = ""
+//     },
+//     deleteSelect(index) {
+//       this.selects.splice(index, 1)
+//     },
+//     deleteQuestion(index) {
+//       this.questions.splice(index, 1)
+//     },
+//   },
+// }
 </script>
