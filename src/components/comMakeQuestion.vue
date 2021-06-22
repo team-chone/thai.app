@@ -80,23 +80,27 @@ export default {
   methods: {
     addQuestionnaire() {
       //アンケート情報（questionnaire_title,_limit_questions)をpins内に格納
-      firebase
-        .firestore()
-        .collection("pins")
-        .doc(this.pin_id)
-        .set(
-          {
-            questionnaire_title: this.questionnaire_title,
-            questionnaire_limit: this.questionnaire_limit,
-            questions: this.questions,
-          },
-          { merge: true }
-        )
-        .then(() => {
-          this.questionnaire_title = ""
-          this.questionnaire_limit = ""
-          this.questions = []
-        })
+      if (this.questionnaire_title === "") {
+        firebase
+          .firestore()
+          .collection("pins")
+          .doc(this.pin_id)
+          .set(
+            {
+              questionnaire_title: this.questionnaire_title,
+              questionnaire_limit: this.questionnaire_limit,
+              questions: this.questions,
+            },
+            { merge: true }
+          )
+          .then(() => {
+            this.questionnaire_title = ""
+            this.questionnaire_limit = ""
+            this.questions = []
+          })
+      } else {
+        alert("一つのピンに設定できるアンケートは一つまでです")
+      }
     },
     addQuestion() {
       //questionをquestions配列内に格納
