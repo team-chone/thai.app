@@ -42,19 +42,31 @@
       <GmapMarker
         v-for="(m, index) in markers"
         :key="index"
-        :title="m.title"
-        :position="m.position"
+        :pin_name="m.pin_name"
+        :id="m.id"
+        :position="{ lat: m.pin_lat, lng: m.pin_lng }"
         :clickable="true"
         :draggable="false"
         :icon="m.pinicon"
-        :range="m.range"
+        :range="m.pin_range"
+        :pin_type="m.pin_type"
         @click="onClickMarker(index, m)"
       />
+      <GmapInfoWindow
+        :options="infoOptions"
+        :position="infoWindowPos"
+        :opened="infoWinOpen"
+        @closeclick="infoWinOpen = false"
+      >
+        <p style="color: #000">name: {{ name }}</p>
+        <p>type:{{ type }}</p>
+      </GmapInfoWindow>
     </GmapMap>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+import firebase from "firebase"
 export default {
   data() {
     return {
@@ -69,9 +81,20 @@ export default {
         streetViewControl: false,
         styles: [],
       },
-
+      pin_company: "神奈川県",
       marker: {},
       markers: [],
+      infoOptions: {
+        minWidth: 200,
+        pixelOffset: {
+          width: 0,
+          height: -35,
+        },
+      },
+      name: "",
+      type: "",
+      infoWinOpen: false,
+      infoWindowPos: null,
     }
   },
   async mounted() {
@@ -82,10 +105,27 @@ export default {
     }
     this.maplocation = currentPos
     this.markers.push({
-      title: "mark0(現在地)",
-      position: this.maplocation,
+      pin_name: "現在地",
+      pin_lat: this.maplocation.lat,
+      pin_lng: this.maplocation.lng,
     })
-    this.i += 1
+    firebase
+      .firestore()
+      .collection("pins")
+      .where("pin_company", "==", this.pin_company)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          this.markers.push({
+            id: doc.id,
+            ...doc.data(),
+            pinicon: {
+              url: require("../../image/green-dot.png"),
+              scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+            },
+          })
+        })
+      })
   },
   methods: {
     getCurrentPosition() {
@@ -93,18 +133,24 @@ export default {
         navigator.geolocation.getCurrentPosition(resolve, reject)
       })
     },
-    mark(event) {
-      this.markers.push({
-        title: "mark" + this.i,
-        position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-        range: 150,
-        pinicon: {
-          url: require("../../image/green-dot.png"),
-          scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-        },
-      })
-      this.i += 1
+    onClickMarker(index, marker) {
+      this.infoWindowPos = { lat: marker.pin_lat, lng: marker.pin_lng }
+      this.name = marker.pin_name
+      this.type = marker.pin_type
+      this.infoWinOpen = true
     },
+    // mark(event) {
+    //   this.markers.push({
+    //     title: "mark" + this.i,
+    //     position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
+    //     range: 150,
+    //     pinicon: {
+    //       url: require("../../image/green-dot.png"),
+    //       scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+    //     },
+    //   })
+    //   this.i += 1
+    // },
   },
 }
 </script>

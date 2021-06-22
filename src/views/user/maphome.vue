@@ -161,10 +161,6 @@ export default {
       })
 
       .then(() => {
-        console.log(this.markers)
-        console.log(this.markers[0])
-        console.log(this.markers[1])
-        console.log(this.markers[1].pin_lat)
         this.kyori()
       })
   },
