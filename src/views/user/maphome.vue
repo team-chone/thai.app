@@ -160,6 +160,10 @@ export default {
       })
 
       .then(() => {
+        console.log(this.markers)
+        console.log(this.markers[0])
+        console.log(this.markers[1])
+        console.log(this.markers[1].pin_lat)
         this.kyori()
       })
   },
@@ -208,13 +212,14 @@ export default {
                 Math.sin(difflon / 2)
           )
         )
+      console.log(this.nagasa)
     },
 
     //距離を比較して範囲内のものを見つける関数
     kyori() {
       for (let j = 1; j <= this.markers.length; j++) {
         this.haversine_distance(this.markers[j], this.markers[0])
-        if (this.nagasa < this.markers[j].range) {
+        if (this.nagasa < this.markers[j].pin_range) {
           this.markers[j].pinicon = {
             url: require("../../image/blue-dot.png"),
             scaledSize: { width: 40, height: 40, f: "px", b: "px" },
