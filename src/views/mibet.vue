@@ -23,7 +23,7 @@
           <ul>
             <li><a href="#">項目1</a></li>
             <li><router-link to="/aboutmibet">サービス概要</router-link></li>
-            <li><router-link to="/cominfo">企業の方へ</router-link></li>
+            <li><router-link to="/com">企業の方へ</router-link></li>
           </ul>
         </div>
       </transition>
@@ -40,21 +40,46 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 import firebase from "firebase"
-
-// export default {
-// methods: {
-//   logIn() {
-//     const provider = new firebase.auth.GoogleAuthProvider()
-//     firebase.auth().signInWithPopup(provider).then(
-//       firebase.firestore().collection("users").doc(this.$auth.uid).set({
-//         nicknamE: this.nickname
-//         agE: this.age
-//         gendeR: this.gender
-//       })
-//     )
+//  data() {
+//     return {
+//       ActiveBtn: false,
+//       message: "",
+//       user: this.$auth.currentUser.uid,
+//     }
 //   },
-// },
-// }
+//   watch: {
+//     user: firebase
+//       .firestore()
+//       .collection("users")
+//       .doc(this.$auth.currentUser.uid)
+//       .get()
+//       .then((doc) => {
+//         if (doc.exists) {
+//           this.message = "既にアカウントがあります"
+//         } else {
+//           this.$router.push("/makeacount")
+//         }
+//       }),
+//   },
+//   methods: {
+//     createAcount() {
+//       const provider = new firebase.auth.GoogleAuthProvider()
+//       firebase.auth().signOut().then(firebase.auth().signInWithPopup(provider))
+
+//       // firebase
+//       //   .firestore()
+//       //   .collection("users")
+//       //   .doc(this.$auth.currentUser.uid)
+//       //   .get()
+//       //   .then((doc) => {
+//       //     if (doc.exists) {
+//       //       this.message = "既にアカウントがあります"
+//       //     } else {
+//       //       this.$router.push("/makeacount")
+//       //     }
+//       //   })
+//     },
+
 export default {
   data() {
     return {
@@ -68,20 +93,22 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(this.$auth.currentUser.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                this.message = "既にアカウントがあります"
-              } else {
-                this.$router.push("/makeacount")
-              }
-            })
-        )
+        .then(() => {
+          this.$router.push("/makeacount")
+        })
+
+      // firebase
+      //   .firestore()
+      //   .collection("users")
+      //   .doc(this.$auth.currentUser.uid)
+      //   .get()
+      //   .then((doc) => {
+      //     if (doc.exists) {
+      //       this.message = "既にアカウントがあります"
+      //     } else {
+      //       this.$router.push("/makeacount")
+      //     }
+      //   })
     },
     logIn() {
       const provider = new firebase.auth.GoogleAuthProvider()
