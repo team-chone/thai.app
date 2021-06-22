@@ -23,20 +23,23 @@
           <ul>
             <li><a href="#">項目1</a></li>
             <li><router-link to="/aboutmibet">サービス概要</router-link></li>
-            <li><router-link to="/comlogin">企業の方へ</router-link></li>
+            <li><router-link to="/cominfo">企業の方へ</router-link></li>
           </ul>
         </div>
       </transition>
     </div>
 
-    <button>アカウント作成</button>
-    <router-link to="/login">ログイン</router-link>
+    <button @click="createAcount">アカウント作成</button>
+    <button @click="logIn">ログイン</button>
     <button @click="check">確認</button>
+    <div>
+      {{ message }}
+    </div>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-// import firebase from "firebase"
+import firebase from "firebase"
 
 // export default {
 // methods: {
@@ -56,9 +59,54 @@ export default {
   data() {
     return {
       ActiveBtn: false,
+      message: "",
     }
   },
   methods: {
+    createAcount() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(this.$auth.currentUser.uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                this.message = "既にアカウントがあります"
+              } else {
+                this.$router.push("/makeacount")
+              }
+            })
+        )
+    },
+    logIn() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          this.$router.push("/maphome")
+        })
+
+      // .then(
+      //   firebase.firestore().collection("users").doc(this.$auth.uid).set({
+      //     nicknamE: "rekking"
+      //   })
+      // )
+    },
+
+    // created: {
+    //   check() {
+    //     if (this.$auth.currentUser) {
+    //       this.$router.push("/maphome")
+    //     } else {
+    //     }
+    //   },
+    // },
     check() {
       if (this.$auth.currentUser) {
         console.log("ログインしてるよ")

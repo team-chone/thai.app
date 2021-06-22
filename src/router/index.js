@@ -1,5 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+import firebase from "firebase"
 
 Vue.use(VueRouter)
 
@@ -10,24 +11,25 @@ const routes = [
     component: () => import("../views/mibet.vue"),
   },
   {
+    path: "/comcreateacount",
+    name: "comCreateAcount",
+    component: () => import("../views/comcreateacount.vue"),
+  },
+  {
+    path: "/comlogin",
+    name: "comLogin",
+    component: () => import("../views/comlogin.vue"),
+  },
+  {
     path: "/makeacount",
     name: "Makeacount",
     component: () => import("../views/Makeacount.vue"),
   },
-  {
-    path: "/googleacount",
-    name: "googleacount",
-    component: () => import("../views/googleacount.vue"),
-  },
+
   {
     path: "/otheracount",
     name: "otheracount",
     component: () => import("../views/otheracount.vue"),
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/Login.vue"),
   },
   {
     path: "/maphome",
@@ -50,9 +52,9 @@ const routes = [
     component: () => import("../views/shopkeijiban.vue"),
   },
   {
-    path: "/comlogin",
-    name: "comlogin",
-    component: () => import("../views/comlogin.vue"),
+    path: "/cominfo",
+    name: "comInfo",
+    component: () => import("../views/cominfo.vue"),
   },
   {
     path: "/commaphome",
@@ -105,6 +107,18 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+})
+
+let isSignedIn = () => {
+  return firebase.auth().currentUser
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== "mibet" && !isSignedIn()) {
+    next("/BeforeSignIn")
+  } else {
+    next()
+  }
 })
 
 export default router

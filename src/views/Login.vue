@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1>ログイン</h1>
-    <button @click="logIn">ログイン</button> |
-    <router-link to="/maphome">maphome</router-link>
+    <button @click="logIn">ログイン</button>
   </div>
 </template>
 <script>
