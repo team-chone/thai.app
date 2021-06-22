@@ -103,6 +103,7 @@ export default {
       tenmei: "",
       gyousyu_select: "",
       pin_id: "",
+      pin_name: "",
       nagasa: 0,
       mk1: "",
       mk2: "",
@@ -184,6 +185,7 @@ export default {
         this.infoWinOpen = false
         this.pagemove = true
         this.pin_id = this.marker.id
+        this.pin_name = this.marker.pin_name
       } else {
         this.infoWinOpen = true
         this.pagemove = false
