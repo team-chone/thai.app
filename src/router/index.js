@@ -36,11 +36,11 @@ const routes = [
   //   name: "otheracount",
   //   component: () => import("../views/otheracount.vue"),
   // },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/user/login.vue"),
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: () => import("../views/user/login.vue"),
+  // },
   {
     path: "/maphome",
     name: "maphome",
