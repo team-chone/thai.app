@@ -18,19 +18,19 @@ const routes = [
   {
     path: "/comcreateacount",
     name: "comCreateAcount",
-    component: () => import("../views/comcreateacount.vue"),
+    component: () => import("../views/company/comcreateacount.vue"),
   },
   {
     path: "/comlogin",
     name: "comLogin",
-    component: () => import("../views/comlogin.vue"),
+    component: () => import("../views/company/comlogin.vue"),
   },
 
-  {
-    path: "/googleacount",
-    name: "googleacount",
-    component: () => import("../views/googleacount.vue"),
-  },
+  // {
+  //   path: "/googleacount",
+  //   name: "googleacount",
+  //   component: () => import("../views/googleacount.vue"),
+  // },
   // {
   //   path: "/otheracount",
   //   name: "otheracount",
