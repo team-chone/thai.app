@@ -87,18 +87,25 @@
 import comMakeQuestion from "../../components/comMakeQuestion.vue"
 import comEditQuestion from "../../components/comEditQuestion.vue"
 import comAnalyzeQuestion from "../../components/comAnalyzeQuestion.vue"
+import firebase from "firebase"
 export default {
   components: { comMakeQuestion, comEditQuestion, comAnalyzeQuestion },
   data() {
     return {
       pin_name: this.$route.params.pin_name,
+      pin_id: this.$route.params.pin_id,
       screen_type: false,
+      questionnaire_title: "",
     }
   },
   methods: {
     screenChange1() {
       //表示されるコンポーネントの切り替え
-      this.screen_type = "1"
+      if (this.questionnaire_title === "") {
+        this.screen_type = "1"
+      } else {
+        alert("一つのピンに設定できるアンケートは一つまでです")
+      }
     },
     screenChange2() {
       this.screen_type = "2"
@@ -107,138 +114,16 @@ export default {
       this.screen_type = "3"
     },
   },
+  created() {
+    firebase
+      .firestore()
+      .collection("pins")
+      .doc(this.pin_id)
+      .get()
+      .then((doc) => {
+        this.questionnaire_title = doc.data().questionnaire_title
+        console.log(this.questionnaire_title)
+      })
+  },
 }
-// import firebase from "firebase"
-// export default {
-//   data() {
-//     return {
-//       pin_id: String(this.$route.params.pin_id),
-//       pin_name: this.$route.params.pin_name,
-//       questionnaire_title: "",
-//       questionnaire_limit: "",
-//       question_title: "",
-//       question_type1: "",
-//       question_type2: "",
-//       question_select: "",
-//       questions: [],
-//       selects: [],
-//     }
-//   },
-//   methods: {
-//     addQuestionnaire() {
-//       //アンケート情報（questionnaire_title,_limit_questions)をpins内に格納
-//       firebase
-//         .firestore()
-//         .collection("pins")
-//         .doc(this.pin_id)
-//         .set(
-//           {
-//             questionnaire_title: this.questionnaire_title,
-//             questionnaire_limit: this.questionnaire_limit,
-//             questions: this.questions,
-//           },
-//           { merge: true }
-//         )
-//         .then(() => {
-//           this.questionnaire_title = ""
-//           this.questionnaire_limit = ""
-//           this.questions = []
-//         })
-//     },
-//     addQuestion() {
-//       //questionをquestions配列内に格納
-//       const question = {
-//         question_title: this.question_title,
-//         question_type1: this.question_type1,
-//         question_type2: this.question_type2,
-//         question_selects: this.selects,
-//       }
-//       this.questions.push(question)
-//       this.question_title = ""
-//       this.question_type1 = ""
-//       this.question_type2 = ""
-//       this.selects = []
-//     },
-//     addSelect() {
-//       //selectをselects配列内に格納
-//       this.selects.push(this.question_select)
-//       this.question_select = ""
-//     },
-//     deleteSelect(index) {
-//       this.selects.splice(index, 1)
-//     },
-//     deleteQuestion(index) {
-//       this.questions.splice(index, 1)
-//     },
-//   },
-// }
-
-// import firebase from "firebase"
-// export default {
-//   data() {
-//     return {
-//       pin_id: String(this.$route.params.pin_id),
-//       pin_name: this.$route.params.pin_name,
-//       questionnaire_title: "",
-//       questionnaire_limit: "",
-//       question_title: "",
-//       question_type1: "",
-//       question_type2: "",
-//       question_select: "",
-//       questions: [],
-//       selects: [],
-//     }
-//   },
-//   methods: {
-//     addQuestionnaire() {
-//       if (
-//         firebase.firestore().collection("pins").doc(this.pin_id)
-//           .questionnaire_title
-//       ) {
-//         alert("すでにアンケートは設定されています")
-//       } else {
-//         firebase
-//           .firestore()
-//           .collection("pins")
-//           .doc(this.pin_id)
-//           .set(
-//             {
-//               questionnaire_title: this.questionnaire_title,
-//               questionnaire_limit: this.questionnaire_limit,
-//               questions: this.questions,
-//             },
-//             { merge: true }
-//           )
-//           .then(() => {
-//             this.questionnaire_title = ""
-//             this.questionnaire_limit = ""
-//             this.questions = []
-//           })
-//       }
-//     },
-//     addQuestion() {
-//       const question = {
-//         question_title: this.question_title,
-//         question_type1: this.question_type1,
-//         question_type2: this.question_type2,
-//         question_selects: this.selects,
-//       }
-//       this.questions.push(question)
-//       this.question_title = ""
-//       this.question_type1 = ""
-//       this.question_type2 = ""
-//       this.selects = []
-//     },
-//     addSelect() {
-//       this.selects.push(this.question_select)
-//       this.question_select = ""
-//     },
-//     deleteSelect(index) {
-//       this.selects.splice(index, 1)
-//     },
-//     deleteQuestion(index) {
-//       this.questions.splice(index, 1)
-//     },
-//   },
-// }
 </script>

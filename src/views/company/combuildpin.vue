@@ -157,6 +157,7 @@ export default {
         pin_name: this.pin_name,
         pin_type: this.pin_type,
         pin_range: this.pin_range,
+        questionnaire_title: "", //アンケートがすでに設定されているかで場合分けする際に、questionnaire_title: ""という条件を使うため、このタイミングで登録
       }
       if (
         //ピン情報入力に漏れがある場合はアラート
