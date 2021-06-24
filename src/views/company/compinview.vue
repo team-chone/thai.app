@@ -18,9 +18,9 @@
                 pin_range: pin.pin_range,
               },
             }"
-            >アンケートを見る</router-link
+            >アンケート</router-link
           >|
-          <router-link to="/comkeijibanview">掲示板を見る</router-link>
+          <router-link to="/comkeijibanview">掲示板</router-link>
         </div>
       </div>
     </div>
