@@ -31,7 +31,6 @@
 
     <button @click="createAcount">アカウント作成</button>
     <button @click="logIn">ログイン</button>
-    <button @click="check">確認</button>
     <div>
       {{ message }}
     </div>
@@ -45,28 +44,8 @@ export default {
     return {
       ActiveBtn: false,
       message: "",
-      // user: this.$auth.currentUser.uid,
     }
   },
-  // computed: {
-  //   user: function () {
-  //     return this.$auth.currentUser.uid
-  //   },
-  // },
-  // watch: {
-  //   user: firebase
-  //     .firestore()
-  //     .collection("users")
-  //     .doc(this.$auth.currentUser.uid)
-  //     .get()
-  //     .then((doc) => {
-  //       if (doc.exists) {
-  //         this.message = "既にアカウントがあります"
-  //       } else {
-  //         this.$router.push("/makeacount")
-  //       }
-  //     }),
-  // },
   methods: {
     createAcount() {
       const provider = new firebase.auth.GoogleAuthProvider()
@@ -82,70 +61,32 @@ export default {
         })
         .then((doc) => {
           if (doc.exists) {
-            this.message = "既にアカウント"
+            this.message = "既にアカウントが存在します"
           } else {
             this.$router.push("/makeacount")
           }
         })
-
-      // firebase
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(this.$auth.currentUser.uid)
-      //   .get()
-      //   .then((doc) => {
-      //     if (doc.exists) {
-      //       this.message = "既にアカウントがあります"
-      //     } else {
-      //       this.$router.push("/makeacount")
-      //     }
-      //   })
     },
-
-    // export default {
-    //   data() {
-    //     return {
-    //       ActiveBtn: false,
-    //       message: "",
-    //     }
-    //   },
-    //   methods: {
-    //     createAcount() {
-    //       const provider = new firebase.auth.GoogleAuthProvider()
-    //       firebase
-    //         .auth()
-    //         .signInWithPopup(provider)
-    //         .then(() => {
-    //           this.$router.push("/makeacount")
-    //         })
-
-    //       // firebase
-    //       //   .firestore()
-    //       //   .collection("users")
-    //       //   .doc(this.$auth.currentUser.uid)
-    //       //   .get()
-    //       //   .then((doc) => {
-    //       //     if (doc.exists) {
-    //       //       this.message = "既にアカウントがあります"
-    //       //     } else {
-    //       //       this.$router.push("/makeacount")
-    //       //     }
-    //       //   })
-    //     },
     logIn() {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => {
-          this.$router.push("/maphome")
+        .then((result) => {
+          return firebase
+            .firestore()
+            .collection("users")
+            .doc(result.user.uid)
+            .get()
         })
-
-      // .then(
-      //   firebase.firestore().collection("users").doc(this.$auth.uid).set({
-      //     nicknamE: "rekking"
-      //   })
-      // )
+        .then((doc) => {
+          if (doc.exists) {
+            this.$router.push("/maphome")
+          } else {
+            this.message =
+              "存在しないアカウントです。初めにアカウント登録をしてください。"
+          }
+        })
     },
 
     // created: {
@@ -156,13 +97,6 @@ export default {
     //     }
     //   },
     // },
-    check() {
-      if (this.$auth.currentUser) {
-        console.log(this.$auth.currentUser.uid)
-      } else {
-        console.log("ログインしてないよ")
-      }
-    },
   },
 }
 </script>
