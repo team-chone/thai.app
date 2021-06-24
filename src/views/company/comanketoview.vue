@@ -101,11 +101,19 @@ export default {
   methods: {
     screenChange1() {
       //表示されるコンポーネントの切り替え
-      if (this.questionnaire_title === "") {
-        this.screen_type = "1"
-      } else {
-        alert("一つのピンに設定できるアンケートは一つまでです")
-      }
+      firebase
+        .firestore()
+        .collection("pins")
+        .doc(this.pin_id)
+        .get()
+        .then((doc) => {
+          this.questionnaire_title = doc.data().questionnaire_title
+          if (this.questionnaire_title === "") {
+            this.screen_type = "1"
+          } else {
+            alert("一つのピンに設定できるアンケートは一つまでです")
+          }
+        })
     },
     screenChange2() {
       this.screen_type = "2"
@@ -122,7 +130,6 @@ export default {
       .get()
       .then((doc) => {
         this.questionnaire_title = doc.data().questionnaire_title
-        console.log(this.questionnaire_title)
       })
   },
 }

@@ -3,8 +3,8 @@
     <h2>アンケートの新規作成</h2>
     <p>アンケートの題名を入力</p>
     <input type="text" v-model="questionnaire_title" />
-    <p>回答数の上限を設定</p>
-    <input type="number" v-model="questionnaire_limit" />
+    <p>回答数の上限を設定（最小10）</p>
+    <input type="number" min="10" v-model="questionnaire_limit" />
     <div v-for="(question, index) in questions" :key="question.id">
       <div>質問{{ index + 1 }}</div>
       <div>{{ question.question_title }}</div>
@@ -80,27 +80,32 @@ export default {
   methods: {
     addQuestionnaire() {
       //アンケート情報（questionnaire_title,_limit_questions)をpins内に格納
-      if (this.questionnaire_title === "") {
-        firebase
-          .firestore()
-          .collection("pins")
-          .doc(this.pin_id)
-          .set(
-            {
-              questionnaire_title: this.questionnaire_title,
-              questionnaire_limit: this.questionnaire_limit,
-              questions: this.questions,
-            },
-            { merge: true }
-          )
-          .then(() => {
-            this.questionnaire_title = ""
-            this.questionnaire_limit = ""
-            this.questions = []
+      //   if (this.questionnaire_title === "") {
+      firebase
+        .firestore()
+        .collection("pins")
+        .doc(this.pin_id)
+        .set(
+          {
+            questionnaire_title: this.questionnaire_title,
+            questionnaire_limit: this.questionnaire_limit,
+            questionnaire_remains: this.questionnaire_limit,
+            questions: this.questions,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          this.questionnaire_title = ""
+          this.questionnaire_limit = ""
+          this.questions = []
+          alert("アンケートを設定しました")
+          this.$router.push({
+            name: "commaphome",
           })
-      } else {
-        alert("一つのピンに設定できるアンケートは一つまでです")
-      }
+        })
+      //   } else {
+      //     alert("一つのピンに設定できるアンケートは一つまでです")
+      //   }
     },
     addQuestion() {
       //questionをquestions配列内に格納
