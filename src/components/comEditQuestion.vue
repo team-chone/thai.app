@@ -60,8 +60,6 @@ export default {
             questionnaire_title: "",
             questionnaire_limit: "",
             questionnaire_remains: "",
-            question_type1: "",
-            question_type2: "",
             questions: [],
           },
           { merge: true }

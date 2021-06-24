@@ -102,9 +102,11 @@ export default {
       checked: "",
 
       questions: [],
+
+      user_id: "",
       user_age: "",
       user_gender: "",
-      user_nickname: "蒼太",
+      user_nickname: "",
       ansered_nicknames: [],
     }
   },
@@ -162,6 +164,13 @@ export default {
         this.questionnaire_limit = doc.data().questionnaire_limit
         this.questionnaire_remains = doc.data().questionnaire_remains
         this.questions = doc.data().questions
+        for (let i = 0; i < this.questions.length; i++) {
+          if (this.questions[i].question_type1 === "ture") {
+            this.anser_question[i] = "未回答だよ"
+          } else {
+            this.anser_question[i] = ""
+          }
+        }
         //DOM作成時にすでに回答をしているニックネームを取得しansered_nicknamesに格納
         firebase
           .firestore()
@@ -175,13 +184,17 @@ export default {
             })
           })
       })
-    // firebase.firestore().collection("users").doc(this.$auth.currentUser.uid)
-    // .get()
-    // .then((doc)=>{
-    //   this.user_age=doc.data().age
-    //   this.user_gender=doc.data().gender
-    //   this.user_nickname=doc.data().nickname
-    // })
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.user_id = doc.id
+        this.user_age = doc.data().age
+        this.user_gender = doc.data().gender
+        this.user_nickname = doc.data().nickname
+      })
   },
 }
 </script>

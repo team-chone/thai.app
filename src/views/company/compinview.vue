@@ -20,7 +20,19 @@
             }"
             >アンケート</router-link
           >|
-          <router-link to="/comkeijibanview">掲示板</router-link>
+          <router-link
+            :to="{
+              name: 'comkeijibanview',
+              params: {
+                company_name: pin.company_name,
+                pin_id: pin.id,
+                pin_name: pin.pin_name,
+                pin_type: pin.pin_type,
+                pin_range: pin.pin_range,
+              },
+            }"
+            >掲示板</router-link
+          >
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@
     <h2>アンケートの新規作成</h2>
     <p>アンケートの題名を入力</p>
     <input type="text" v-model="questionnaire_title" />
-    <p>回答数の上限を設定</p>
-    <input type="number" v-model="questionnaire_limit" />
+    <p>回答数の上限を設定（最小10）</p>
+    <input type="number" min="10" v-model="questionnaire_limit" />
     <div v-for="(question, index) in questions" :key="question.id">
       <div>質問{{ index + 1 }}</div>
       <div>{{ question.question_title }}</div>
