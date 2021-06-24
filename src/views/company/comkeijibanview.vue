@@ -8,7 +8,7 @@
         v-model="input_reply"
         placeholder="ご意見ありがとうございます"
       ></textarea>
-      <button v-on:click="submitReply">リプライを送信する</button>
+      <button v-on:click="submitReply">リプライ送信</button>
     </div>
     <h2>
       コメントをみる
