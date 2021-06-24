@@ -1,15 +1,15 @@
 <template>
   <div class="input">
     <div>
-      企業名：
+      企業名*：
       <input type="text" v-model="comName" />
     </div>
     <div>
-      メールアドレス：
+      メールアドレス*：
       <input type="text" v-model="comMail" />
     </div>
     <div>
-      電話番号：
+      電話番号*：
       <input type="text" v-model="comPhone" />
     </div>
     <div>
@@ -22,7 +22,7 @@
       </select>
     </div>
     <div>
-      パスワード：
+      パスワード*（6文字以上）:
       <input type="text" v-model="comPassword" />
     </div>
     <br />
@@ -67,7 +67,8 @@ export default {
             this.$router.push("/commaphome")
           })
           .catch(() => {
-            this.message = "パスワードかメールアドレスが適切ではありません"
+            this.message =
+              "パスワードかメールアドレスが適切ではない、もしくは既に登録されているメールアドレスです。"
           })
       } else {
         this.message = "必須項目を記入してください"
