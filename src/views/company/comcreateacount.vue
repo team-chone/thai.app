@@ -27,6 +27,7 @@
     </div>
     <br />
     <button @click="makeComAcount">登録</button>
+    {{ message }}
   </div>
 </template>
 <script>
@@ -40,32 +41,37 @@ export default {
       comMail: "",
       comName: "",
       comIndustry: "",
+      message: "",
     }
   },
   methods: {
     makeComAcount() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.comMail, this.comPassword)
-        .then((userCredential) => {
-          const user = userCredential.user
-          if (user) {
-            console.log(user)
-          }
-        })
-      //   firebase
-      //     .firestore()
-      //     .collection("companies")
-      //     .doc(this.comName)
-      //     .set({
-      //       comphone: this.comPhone,
-      //       commail: this.comMail,
-      //       comindustry: this.comIndustry,
-      //       compassword: this.comPassword,
-      //     })
-      //     .then(() => {
-      //       this.$router.push("/commaphome")
-      //     })
+      if ((this.comPhone, this.comName)) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.comMail, this.comPassword)
+          .then((userCredential) => {
+            return firebase
+              .firestore()
+              .collection("companies")
+              .doc(userCredential.uid)
+              .set({
+                comphone: this.comPhone,
+                commail: this.comMail,
+                comindustry: this.comIndustry,
+                compassword: this.comPassword,
+                comname: this.comName,
+              })
+          })
+          .then(() => {
+            this.$router.push("/commaphome")
+          })
+          .catch(() => {
+            this.message = "パスワードかメールアドレスが適切ではありません"
+          })
+      } else {
+        this.message = "必須項目を記入してください"
+      }
     },
   },
 }
