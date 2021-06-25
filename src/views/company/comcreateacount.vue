@@ -54,7 +54,7 @@ export default {
             return firebase
               .firestore()
               .collection("companies")
-              .doc(userCredential.uid)
+              .doc(userCredential.user.uid)
               .set({
                 comphone: this.comPhone,
                 commail: this.comMail,
