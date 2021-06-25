@@ -31,7 +31,7 @@ import firebase from "firebase"
 export default {
   data() {
     return {
-      pin_company: "神奈川県",
+      pin_company: "",
       pin_lat: this.$route.params.pinlat,
       pin_lng: this.$route.params.pinlng,
       pin_name: "",
@@ -72,6 +72,16 @@ export default {
         this.pin_range = ""
       }
     },
+  },
+  created() {
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+      })
   },
 }
 </script>

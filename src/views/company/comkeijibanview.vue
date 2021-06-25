@@ -12,15 +12,23 @@
     </div>
     <h2>
       コメントをみる
-      <div v-for="(submission, index) in submissions" :key="submission.id">
+      <div v-for="(submission, index) in submissions" :key="index">
         <div>
           <h5>{{ submission.user_nickname }}</h5>
           <h4>{{ submission.input_text }}</h4>
           <h5>
             {{ submission.format_submit_time }}
           </h5>
-          <button v-on:click="replySpaceOpen(submission.id)">↪️</button>
-          <h4>{{ submission.reply }}</h4>
+          <button v-on:click="addResolved(submission.id)">解決済にする</button>
+          <div v-if="submission.reply === ''">
+            <button v-on:click="replySpaceOpen(submission.id)">リプライ</button>
+          </div>
+          <div v-else>
+            <button v-on:click="replySpaceOpen(submission.id)">
+              リプライ変更
+            </button>
+            <h4>{{ submission.reply }}</h4>
+          </div>
         </div>
       </div>
     </h2>
@@ -44,7 +52,6 @@ export default {
     replySpaceOpen(value) {
       this.reply_space = "true"
       this.submission_id = value
-      console.log(this.submission_id)
     },
     submitReply() {
       firebase
@@ -64,6 +71,25 @@ export default {
           this.input_reply = ""
           this.submission_id = ""
           alert("リプライを送信しました")
+        })
+    },
+    addResolved(value) {
+      this.submission_id = value
+      firebase
+        .firestore()
+        .collection("pins")
+        .doc(this.pin_id)
+        .collection("board")
+        .doc(this.submission_id)
+        .set(
+          {
+            resolved: "true",
+          },
+          { merge: true }
+        )
+        .then(() => {
+          this.submission_id = ""
+          alert("解決済ボックスに送りました")
         })
     },
   },

@@ -84,6 +84,18 @@ export default {
       pins: [],
     }
   },
+  // created() {
+  //   //ページ遷移時にcompany_nameとfirebase上のcomnameを紐つけ
+  //   firebase
+  //     .firestore()
+  //     .collection("companies")
+  //     .doc(this.$auth.currentUser.uid)
+  //     .get()
+  //     .then((doc) => {
+  //       // this.pin_company = doc.data().comname
+  //       console.log(doc.data())
+  //     })
+  // },
   async mounted() {
     const currentPosTmp = await this.getCurrentPosition()
     const currentPos = {
