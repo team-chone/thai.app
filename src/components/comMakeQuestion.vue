@@ -5,6 +5,8 @@
     <input type="text" v-model="questionnaire_title" />
     <p>回答数の上限を設定（最小10）</p>
     <input type="number" min="10" v-model="questionnaire_limit" />
+    <p>アンケート回答によるポイント付与</p>
+    <input type="number" min="0" v-model="questionnaire_point" />
     <div v-for="(question, index) in questions" :key="question.id">
       <div>質問{{ index + 1 }}</div>
       <div>{{ question.question_title }}</div>
@@ -69,6 +71,7 @@ export default {
       pin_name: this.$route.params.pin_name,
       questionnaire_title: "",
       questionnaire_limit: "",
+      questionnaire_point: "",
       question_title: "",
       question_type1: "",
       question_type2: "",
@@ -89,6 +92,7 @@ export default {
           {
             questionnaire_title: this.questionnaire_title,
             questionnaire_limit: this.questionnaire_limit,
+            questionnaire_point: this.questionnaire_point,
             questionnaire_remains: this.questionnaire_limit,
             questions: this.questions,
           },

@@ -96,6 +96,7 @@ export default {
       questionnaire_limit: "",
       questionnaire_remains: "",
       questionnaire_title: "",
+      questionnaire_point: "",
 
       anser_must_question: [],
       anser_question: [],
@@ -104,12 +105,12 @@ export default {
       questions: [],
 
       user_id: "",
-      // user_age: "",
-      // user_gender: "",
-      // user_nickname: "",
-      user_age: "70",
-      user_gender: "女",
-      user_nickname: "のりこ",
+      user_age: "",
+      user_gender: "",
+      user_nickname: "",
+      // user_age: "70",
+      // user_gender: "女",
+      // user_nickname: "のりこ",
       ansered_nicknames: [],
     }
   },
@@ -146,6 +147,9 @@ export default {
                   { merge: true }
                 )
                 .then(() => {
+                  this.$auth.currentUser.point += this.questionnaire_point
+                })
+                .then(() => {
                   alert("ご回答ありがとうございます")
                   this.$router.push({
                     name: "maphome",
@@ -165,6 +169,7 @@ export default {
       .then((doc) => {
         this.questionnaire_title = doc.data().questionnaire_title
         this.questionnaire_limit = doc.data().questionnaire_limit
+        this.questionnaire_point = doc.data().questionnaire_point
         this.questionnaire_remains = doc.data().questionnaire_remains
         this.questions = doc.data().questions
         for (let i = 0; i < this.questions.length; i++) {
@@ -187,17 +192,17 @@ export default {
             })
           })
       })
-    // firebase
-    //   .firestore()
-    //   .collection("users")
-    //   .doc(this.$auth.currentUser.uid)
-    //   .get()
-    //   .then((doc) => {
-    //     this.user_id = doc.id
-    //     this.user_age = doc.data().age
-    //     this.user_gender = doc.data().gender
-    //     this.user_nickname = doc.data().nickname
-    //   })
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.user_id = doc.id
+        this.user_age = doc.data().age
+        this.user_gender = doc.data().gender
+        this.user_nickname = doc.data().nickname
+      })
   },
 }
 </script>

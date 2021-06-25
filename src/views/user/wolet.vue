@@ -9,8 +9,11 @@
 export default {
   data() {
     return {
-      point: "0",
+      point: "",
     }
+  },
+  mounted() {
+    this.point = this.$auth.currentUser.point
   },
 }
 </script>

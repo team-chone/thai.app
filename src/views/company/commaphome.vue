@@ -25,6 +25,8 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li><router-link to="/acount">アカウント</router-link></li>
+            <li><div @click="signOut">ログアウト</div></li>
+            <li></li>
             <li><a href="#">(受信トレイ)</a></li>
           </ul>
         </div>
@@ -128,6 +130,14 @@ export default {
       })
   },
   methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/")
+        })
+    },
     getCurrentPosition() {
       return new Promise(function (resolve, reject) {
         navigator.geolocation.getCurrentPosition(resolve, reject)
