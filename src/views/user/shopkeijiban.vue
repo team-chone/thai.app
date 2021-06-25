@@ -14,7 +14,7 @@
     </div>
     <h2>
       コメントをみる
-      <div v-for="submission in submissions">
+      <div v-for="(submission, index) in submissions" :key="index">
         <div>
           <h5>{{ submission.user_nickname }}</h5>
           <h4>{{ submission.input_text }}</h4>

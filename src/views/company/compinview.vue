@@ -3,7 +3,7 @@
     <h1>ピンを見る</h1>
 
     <div>
-      <div v-for="pin in companyPins">
+      <div v-for="(pin, index) in companyPins" :key="index">
         <div>{{ pin.pin_name }}</div>
         <div>{{ pin.pin_type }}</div>
         <div>
@@ -49,6 +49,13 @@ export default {
     }
   },
   created() {
+    // firebase
+    //   .firestore()
+    //   .collection("companies")
+    //   .doc(this.$auth.currentUser.uid)
+    //   .get()
+    //   .then((doc) => {
+    //     this.company_name = doc.data().comname
     firebase //pin_companyがcompany_nameと一致するpinを全て取得
       .firestore()
       .collection("pins")
@@ -62,6 +69,7 @@ export default {
           })
         })
       })
+    // })
   },
 }
 </script>

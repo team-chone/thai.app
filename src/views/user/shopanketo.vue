@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="questionnaire_title === ''">
+    <div v-if="questionnaire_title === '' || questionnaire_remains <= 0">
       <h1>このピンにアンケートはありません</h1>
     </div>
     <div v-else>
@@ -32,7 +32,6 @@
                 :name="index"
                 :value="question_select"
                 v-model="anser_question[index]"
-                　
               />{{ question_select }}
             </div>
             <input
@@ -41,6 +40,7 @@
               value="未回答だよ"
               checked="checked"
               v-model="anser_question[index]"
+              style="display: none"
             />
             <!-- 必須回答項目が何も選択されていないとき、未回答だよという値を持たせておく -->
             <!-- </div> -->
@@ -104,9 +104,12 @@ export default {
       questions: [],
 
       user_id: "",
-      user_age: "",
-      user_gender: "",
-      user_nickname: "",
+      // user_age: "",
+      // user_gender: "",
+      // user_nickname: "",
+      user_age: "70",
+      user_gender: "女",
+      user_nickname: "のりこ",
       ansered_nicknames: [],
     }
   },
@@ -184,17 +187,17 @@ export default {
             })
           })
       })
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(this.$auth.currentUser.uid)
-      .get()
-      .then((doc) => {
-        this.user_id = doc.id
-        this.user_age = doc.data().age
-        this.user_gender = doc.data().gender
-        this.user_nickname = doc.data().nickname
-      })
+    // firebase
+    //   .firestore()
+    //   .collection("users")
+    //   .doc(this.$auth.currentUser.uid)
+    //   .get()
+    //   .then((doc) => {
+    //     this.user_id = doc.id
+    //     this.user_age = doc.data().age
+    //     this.user_gender = doc.data().gender
+    //     this.user_nickname = doc.data().nickname
+    //   })
   },
 }
 </script>
