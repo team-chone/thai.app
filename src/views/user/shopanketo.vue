@@ -108,6 +108,7 @@ export default {
       user_age: "",
       user_gender: "",
       user_nickname: "",
+      user_point: "",
       // user_age: "70",
       // user_gender: "女",
       // user_nickname: "のりこ",
@@ -147,7 +148,15 @@ export default {
                   { merge: true }
                 )
                 .then(() => {
-                  this.$auth.currentUser.point += this.questionnaire_point
+                  this.user_point =
+                    Number(this.user_point) + Number(this.questionnaire_point)
+                  firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(this.$auth.currentUser.uid)
+                    .set({
+                      point: this.user_point,
+                    })
                 })
                 .then(() => {
                   alert("ご回答ありがとうございます")
@@ -202,6 +211,7 @@ export default {
         this.user_age = doc.data().age
         this.user_gender = doc.data().gender
         this.user_nickname = doc.data().nickname
+        this.user_point = doc.data().point
       })
   },
 }
