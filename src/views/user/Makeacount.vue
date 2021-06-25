@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="input title">
     <h1>アカウント作成</h1>
-    <div class="input">
-      <div>
+    <div>
+      <div class="input">
         ニックネーム：
         <input type="text" v-model="nickName" />
       </div>
-      <div>
+      <div class="input">
         年齢：
         <input type="number" v-model="age" />
       </div>
-      <div>
+      <div class="input">
         性別：
         <select v-model="gender">
           <option>選択してください</option>
@@ -19,8 +19,9 @@
           <option>どちらでもない</option>
         </select>
       </div>
-      <br />
-      <button @click="makeAcount">登録</button>
+      <div class="touroku input">
+        <button @click="makeAcount">登録</button>
+      </div>
     </div>
   </div>
 </template>
@@ -57,9 +58,19 @@ export default {
 }
 </script>
 
-<style>
-/* .input {
+<style scoped>
+.input {
   display: flex;
+  align-items: center;
   flex-direction: column;
-} */
+  margin: 10px;
+}
+.title {
+  font-family: ;
+}
+.touroku {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 </style>
