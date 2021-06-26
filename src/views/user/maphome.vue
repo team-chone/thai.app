@@ -24,9 +24,13 @@
       <transition name="menu">
         <div class="menu" v-show="ActiveBtn">
           <ul>
-            <li><router-link to="/acount">アカウント情報</router-link></li>
+            <li>
+              <router-link to="/acount">アカウント情報</router-link>
+            </li>
             <li><router-link to="/wolet">ウォレット</router-link></li>
-            <li><div @click="signOut">ログアウト</div></li>
+            <li>
+              <div class="logout_button" @click="signOut">ログアウト</div>
+            </li>
             <li><a href="#">(受信トレイ)</a></li>
           </ul>
         </div>
@@ -104,12 +108,7 @@
         >
           <img class="image2" src="../../image/fade.png" />
         </button>
-        <a v-on:click="search" class="btn-social-isometric">
-          <span
-            class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
-            ><img class="image" src="../../image/siborubutton.png" />
-            <!-- <i class="fa fa-rss"></i> -->
-          </span>
+        <a v-on:click="search" class="btn-social-isometric2">
           <span class="btn-social-isometric-text">検索</span>
         </a>
       </div>
@@ -431,6 +430,9 @@ export default {
   width: 150px;
   height: auto;
 }
+.logout_button {
+  cursor: pointer;
+}
 .image2 {
   width: 70%;
   height: 70%;
@@ -450,6 +452,18 @@ export default {
   display: inline-block;
   height: 50/4 * 3px;
   font-size: 25/4 * 3px;
+  line-height: 46/4 * 3px;
+  background: #eaeef1;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 1/4 * 3em;
+}
+.btn-social-isometric2 {
+  display: flex;
+  color: #484848;
+  display: inline-block;
+  height: 50/4 * 3px;
+  font-size: 25px;
   line-height: 46/4 * 3px;
   background: #eaeef1;
   text-decoration: none;
@@ -483,6 +497,7 @@ export default {
   text-align: center;
   border-bottom: solid 3px #dcdcdc;
 }
+
 .btn-social-isometric-icon--feedly {
   background: #eaeef1;
   border-bottom: solid 3px #dcdcdc;
@@ -492,7 +507,12 @@ export default {
   -webkit-transform: translateY(4px);
   transform: translateY(4px);
 }
+.btn-social-isometric2:hover {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+}
 .btn-social-isometric:hover .btn-social-isometric-text,
+.btn-social-isometric2:hover .btn-social-isometric-text,
 .btn-social-isometric:hover .btn-social-isometric-text2,
 .btn-social-isometric:hover .btn-social-isometric-icon {
   border-bottom: none;
@@ -549,7 +569,9 @@ export default {
 }
 
 /*ボタン*/
-.app {
+
+
+.hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
   top: 0;
   right: 0;
@@ -615,6 +637,9 @@ export default {
   list-style: none;
   line-height: 1;
   padding: 1rem;
+}
+.menu li:hover {
+  font-weight: bold;
 }
 .menu {
   background-color: rgba(197, 197, 197, 0.671);
