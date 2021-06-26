@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ company_name }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>ピンを見る</h1>
 
     <div>

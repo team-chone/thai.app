@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ pin_company }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>ピンを立てる</h1>
     <router-link to="/commaphome">戻る</router-link> |
     <!-- <router-link to="/compininformation">ピン情報入力</router-link> -->
@@ -93,7 +97,6 @@ export default {
       .get()
       .then((doc) => {
         this.pin_company = doc.data().comname
-        console.log(doc.data())
       })
   },
   async mounted() {

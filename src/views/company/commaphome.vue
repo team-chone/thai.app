@@ -170,7 +170,7 @@ export default {
       .get()
       .then((doc) => {
         this.pin_company = doc.data().comname
-        console.log(this.pin_company)
+        //console.log(this.pin_company)
       })
   },
 }

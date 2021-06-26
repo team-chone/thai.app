@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1>{{ pin_company }}</h1>
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>{{ pin_name }}掲示板</h1>
     <router-link to="/compinview">戻る</router-link> |
     <router-link to="/comanketoview">アンケートを見る</router-link>
@@ -94,6 +97,15 @@ export default {
     },
   },
   created() {
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+        //console.log(this.pin_company)
+      })
     firebase
       .firestore()
       .collection("pins")
