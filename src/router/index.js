@@ -1,5 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+// import firebase from "firebase"
 
 Vue.use(VueRouter)
 
@@ -11,24 +12,35 @@ const routes = [
   },
   {
     path: "/makeacount",
-    name: "Makeacount",
-    component: () => import("../views/user/Makeacount.vue"),
+    name: "makeacount",
+    component: () => import("../views/user/makeacount.vue"),
   },
   {
-    path: "/googleacount",
-    name: "googleacount",
-    component: () => import("../views/googleacount.vue"),
+    path: "/comcreateacount",
+    name: "comCreateAcount",
+    component: () => import("../views/company/comcreateacount.vue"),
   },
+  {
+    path: "/comlogin",
+    name: "comLogin",
+    component: () => import("../views/company/comlogin.vue"),
+  },
+
+  // {
+  //   path: "/googleacount",
+  //   name: "googleacount",
+  //   component: () => import("../views/googleacount.vue"),
+  // },
   // {
   //   path: "/otheracount",
   //   name: "otheracount",
   //   component: () => import("../views/otheracount.vue"),
   // },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/user/Login.vue"),
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: () => import("../views/user/login.vue"),
+  // },
   {
     path: "/maphome",
     name: "maphome",
@@ -50,9 +62,9 @@ const routes = [
     component: () => import("../views/user/shopkeijiban.vue"),
   },
   {
-    path: "/comlogin",
-    name: "comlogin",
-    component: () => import("../views/company/comlogin.vue"),
+    path: "/cominfo",
+    name: "cominfo",
+    component: () => import("../views/company/cominfo.vue"),
   },
   {
     path: "/commaphome",
@@ -87,7 +99,7 @@ const routes = [
   {
     path: "/aboutmibet",
     name: "aboutmibet",
-    component: () => import("../views/aboutmibet.vue"),
+    component: () => import("../views/user/aboutmibet.vue"),
   },
   {
     path: "/acount",
@@ -106,5 +118,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
+
+// let isSignedIn = () => {
+//   return firebase.auth().currentUser
+// }
+
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== "mibet" && !isSignedIn()) {
+//     next("/BeforeSignIn")
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

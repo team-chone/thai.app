@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <h1>ホーム画面</h1>
-    <div id="app">
+  <div class="info_main">
+    <div>
+      <div class="fade-in-bottom">
+        <img src="../image/MibetLogo2.png" class="logo" />
+      </div>
+
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
@@ -23,53 +26,150 @@
           <ul>
             <li><a href="#">項目1</a></li>
             <li><router-link to="/aboutmibet">サービス概要</router-link></li>
-            <li><router-link to="/comlogin">企業の方へ</router-link></li>
+            <li><router-link to="/cominfo">企業の方へ</router-link></li>
           </ul>
         </div>
       </transition>
     </div>
-
-    <button>アカウント作成</button>
-    <router-link to="/login">ログイン</router-link>
-    <button @click="check">確認</button>
+    <div class="input_content">
+      <button class="touroku_button" @click="createAcount">
+        アカウント作成
+      </button>
+    </div>
+    <div v-if="message" class="error_message input_content">
+      ※既にアカウントが存在します"
+    </div>
+    <div class="input_content">
+      <button class="login_button" @click="logIn">ログイン</button>
+    </div>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-// import firebase from "firebase"
-
-// export default {
-// methods: {
-//   logIn() {
-//     const provider = new firebase.auth.GoogleAuthProvider()
-//     firebase.auth().signInWithPopup(provider).then(
-//       firebase.firestore().collection("users").doc(this.$auth.uid).set({
-//         nicknamE: this.nickname
-//         agE: this.age
-//         gendeR: this.gender
-//       })
-//     )
-//   },
-// },
-// }
+import firebase from "firebase"
 export default {
   data() {
     return {
       ActiveBtn: false,
+      message: false,
     }
   },
   methods: {
-    check() {
-      if (this.$auth.currentUser) {
-        console.log("ログインしてるよ")
-      } else {
-        console.log("ログインしてないよ")
-      }
+    createAcount() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          return firebase
+            .firestore()
+            .collection("users")
+            .doc(result.user.uid)
+            .get()
+        })
+        .then((doc) => {
+          if (doc.exists) {
+            this.message = true
+          } else {
+            this.$router.push("/makeacount")
+          }
+        })
     },
+    logIn() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          return firebase
+            .firestore()
+            .collection("users")
+            .doc(result.user.uid)
+            .get()
+        })
+        .then((doc) => {
+          if (doc.exists) {
+            this.$router.push("/maphome")
+          } else {
+            this.message =
+              "存在しないアカウントです。初めにアカウント登録をしてください。"
+          }
+        })
+    },
+
+    // created: {
+    //   check() {
+    //     if (this.$auth.currentUser) {
+    //       this.$router.push("/maphome")
+    //     } else {
+    //     }
+    //   },
+    // },
   },
 }
 </script>
 <style>
+html {
+  background-color: #effbef;
+  height: 100%;
+  font-family: "Ubuntu", sans-serif;
+}
+.fade-in-bottom {
+  opacity: 0;
+  animation-name: fadein-bottom;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.info_main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 30%;
+}
+.login_button {
+  margin: 10px;
+  color: #ff5f17;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 1.5em;
+  font-size: 15px;
+  /* border: none; */
+  padding: 5px 10px;
+  font-weight: bold;
+}
+.touroku_button {
+  margin: 10px;
+  color: #fff;
+  background: linear-gradient(to right, #ff5f17, #ff9872);
+  cursor: pointer;
+  border-radius: 1.5em;
+  font-size: 15px;
+  border: none;
+  padding: 5px 10px;
+}
+.error_message {
+  color: red;
+}
 /*ボタン*/
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
