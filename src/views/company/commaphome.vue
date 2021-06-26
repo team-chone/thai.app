@@ -57,7 +57,7 @@
       <transition name="menu">
         <div class="menu" v-show="ActiveBtn">
           <ul>
-            <li><router-link to="/acount">アカウント</router-link></li>
+            <li><router-link to="/comacount">アカウント</router-link></li>
             <li><div @click="signOut">ログアウト</div></li>
             <li></li>
             <li><a href="#">(受信トレイ)</a></li>
@@ -389,6 +389,9 @@ export default {
 .menu-leave,
 .menu-enter-to {
   opacity: 1;
+}
+.menu li:hover {
+  font-weight: bold;
 }
 
 .menu li {
