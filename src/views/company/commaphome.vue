@@ -15,7 +15,7 @@
                 >
               </li>
               <li class="nav__item">
-                <img class="image" src="../../image/addpin.png" />
+                <img class="image" src="../../image/addpin2.png" />
                 <router-link to="/combuildpin" class="media"
                   ><font color="#000000">ピンを立てる</font></router-link
                 >
@@ -34,7 +34,7 @@
     <div class="page">
       <div class="page-title">
         <h1>ホーム画面</h1>
-        <img src="../../image/home.png" width="10%" />
+        <img src="../../image/home.png" width="5%" />
       </div>
     </div>
     <div id="app">

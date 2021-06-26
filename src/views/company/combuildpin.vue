@@ -15,7 +15,7 @@
                 >
               </li>
               <li class="nav__item active">
-                <img class="image" src="../../image/addpin.png" />
+                <img class="image" src="../../image/addpin2.png" />
                 <router-link to="/combuildpin" class="media"
                   ><font color="#000000">ピンを立てる</font></router-link
                 >
@@ -34,7 +34,7 @@
     <div class="page">
       <div class="page-title">
         <h1>ピンを立てる</h1>
-        <img src="../../image/addpin.png" width="10%" />
+        <img src="../../image/addpin2.png" width="10%" />
       </div>
     </div>
     <!-- <h1>{{ pin_company }}</h1>
