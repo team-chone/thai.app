@@ -76,7 +76,7 @@
         v-on:click="opensearch"
         class="btn-social-circle btn-social-circle--feedly"
       >
-        <img src="../../image/green-dot.png" />
+        <img class="siborubutton" src="../../image/siborubutton.png" />
       </button>
       <!-- 範囲内のピンをクリックしたときに出てくる -->
       <div v-if="pagemove" class="input">
@@ -96,7 +96,14 @@
             <option value="others">その他</option>
           </select>
         </p>
-        <button v-on:click="search">この条件で絞る</button>
+        <a v-on:click="search" class="btn-social-isometric">
+          <span
+            class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+            ><img class="image" src="../../image/siborubutton.png" />
+            <!-- <i class="fa fa-rss"></i> -->
+          </span>
+          <span class="btn-social-isometric-text">検索</span>
+        </a>
       </div>
       <!-- 条件を絞るを押した時に出てくるここまで -->
     </div>
@@ -377,6 +384,57 @@ export default {
 }
 </script>
 <style>
+.image {
+  margin-top: 5px;
+  width: 33px;
+  height: 33px;
+}
+.btn-social-isometric {
+  color: #484848;
+  display: inline-block;
+  height: 50px;
+  font-size: 25px;
+  line-height: 46px;
+  background: #eaeef1;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 1em;
+}
+.btn-social-isometric-icon {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  color: white;
+}
+.btn-social-isometric-icon i {
+  line-height: 46px;
+  font-size: 25px;
+}
+.btn-social-isometric-text {
+  display: inline-block;
+  width: 120px;
+  height: 43px;
+  text-align: center;
+  border-bottom: solid 4px #dcdcdc;
+}
+.btn-social-isometric-icon--feedly {
+  background: #7ece46;
+  border-bottom: solid 4px #65b130;
+}
+
+.btn-social-isometric:hover {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+}
+.btn-social-isometric:hover .btn-social-isometric-text,
+.btn-social-isometric:hover .btn-social-isometric-icon {
+  border-bottom: none;
+}
+.siborubutton {
+  width: 30px;
+  height: 30px;
+}
 .button-wrapper {
   text-align: center;
 }

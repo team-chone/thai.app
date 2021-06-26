@@ -9,17 +9,17 @@
           <nav class="nav">
             <ul class="nav__wrapper">
               <li class="nav__item">
-                <img src="../../image/blue-dot.png" />
+                <img class="image" src="../../image/home.png" />
                 <router-link to="/commaphome" class="media">ホーム</router-link>
               </li>
               <li class="nav__item active">
-                <img src="../../image/green-dot.png" />
+                <img class="image" src="../../image/addpin.png" />
                 <router-link to="/combuildpin" class="media"
                   >ピンを立てる</router-link
                 >
               </li>
               <li class="nav__item">
-                <img src="../../image/green-dot.png" />
+                <img class="image" src="../../image/viewpin.png" />
                 <router-link to="/compinview" class="media"
                   >ピンを見る</router-link
                 >

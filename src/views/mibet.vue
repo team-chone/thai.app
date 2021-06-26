@@ -2,7 +2,7 @@
   <div class="info_main">
     <h1 class="input_content">ホーム画面</h1>
     <div id="app">
-      <img src="../image/MibetLogo.png" alt="" />
+      <img src="../image/MibetLogo2.png" alt="" />
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
@@ -112,14 +112,37 @@ html {
   height: 100%;
   font-family: "Ubuntu", sans-serif;
 }
+.fade-in-bottom {
+  opacity: 0;
+  animation-name: fadein-bottom;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
 .info_main {
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px auto;
-  width: 600px;
+  margin: 0 auto;
+  margin-top: 30%;
 }
 .login_button {
   margin: 10px;
