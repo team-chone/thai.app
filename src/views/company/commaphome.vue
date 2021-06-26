@@ -1,9 +1,34 @@
 <template>
   <div>
-    <h1>{{ pin_company }}ホーム画面</h1>
-    <router-link to="/combuildpin">ピンを立てる</router-link> |
-    <router-link to="/compinview">ピンを見る</router-link>
-
+    <header class="site-header">
+      <div class="site-header__wrapper">
+        <div class="site-header__start">
+          <h1 class="brand">{{ pin_company }}ホーム画面</h1>
+        </div>
+        <div class="site-header__middle">
+          <nav class="nav">
+            <ul class="nav__wrapper">
+              <li class="nav__item active">
+                <img src="../../image/blue-dot.png" />
+                <router-link to="/commaphome" class="media">ホーム</router-link>
+              </li>
+              <li class="nav__item">
+                <img src="../../image/green-dot.png" />
+                <router-link to="/combuildpin" class="media"
+                  >ピンを立てる</router-link
+                >
+              </li>
+              <li class="nav__item">
+                <img src="../../image/green-dot.png" />
+                <router-link to="/compinview" class="media"
+                  >ピンを見る</router-link
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
     <div id="app">
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
@@ -149,18 +174,6 @@ export default {
       this.type = marker.pin_type
       this.infoWinOpen = true
     },
-    // mark(event) {
-    //   this.markers.push({
-    //     title: "mark" + this.i,
-    //     position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-    //     range: 150,
-    //     pinicon: {
-    //       url: require("../../image/green-dot.png"),
-    //       scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-    //     },
-    //   })
-    //   this.i += 1
-    // },
   },
   created() {
     firebase
@@ -177,6 +190,132 @@ export default {
 </script>
 
 <style>
+/* ヘッダーの情報 */
+.brand {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.site-header {
+  position: relative;
+  background-color: #def7ff;
+}
+
+.site-header__middle {
+  flex: 1;
+}
+
+.site-header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+@media (min-width: 940px) {
+  .site-header__wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+.nav {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@media (min-width: 940px) {
+  .nav__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 939px) {
+  .nav__wrapper {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #d9f0f7;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+  .nav__wrapper.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 940px) {
+  .nav__item:last-child a {
+    border-right: 1px solid #222;
+  }
+}
+
+@media (min-width: 1100px) {
+  .nav__item {
+    min-width: 140px;
+    flex: 1;
+  }
+}
+
+.nav__item a {
+  display: block;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid transparent;
+}
+@media (min-width: 940px) {
+  .nav__item a {
+    text-align: center;
+    border-left: 1px solid #222;
+    border-bottom: 4px solid transparent;
+  }
+}
+.nav__item svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 22px;
+  height: 22px;
+  margin-right: 1rem;
+}
+@media (min-width: 940px) {
+  .nav__item svg {
+    display: block;
+    margin: 0 auto 0.5rem;
+  }
+}
+.nav__item.active a {
+  border-left-color: #222;
+}
+@media (min-width: 940px) {
+  .nav__item.active a {
+    border-bottom-color: #222;
+  }
+}
+.nav__toggle {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+@media (min-width: 940px) {
+  .nav__toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 1239px) {
+  .search__toggle {
+    display: block;
+  }
+}
+
+.inactive-item {
+  opacity: 0;
+}
+/* ヘッダーの情報ここまで */
 /*ボタン*/
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
