@@ -22,6 +22,9 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li>
+              <router-link to="/maphome">ホーム</router-link>
+            </li>
+            <li>
               <router-link to="/acount">アカウント情報</router-link>
             </li>
             <li><router-link to="/wolet">ウォレット</router-link></li>

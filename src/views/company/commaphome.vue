@@ -58,7 +58,9 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li><router-link to="/comacount">アカウント</router-link></li>
-            <li><div @click="signOut">ログアウト</div></li>
+            <li>
+              <div class="logout_button" @click="signOut">ログアウト</div>
+            </li>
             <li></li>
             <li><a href="#">(受信トレイ)</a></li>
           </ul>
@@ -331,6 +333,9 @@ export default {
 }
 /* ヘッダーの情報ここまで */
 /*ボタン*/
+.logout_button {
+  cursor: pointer;
+}
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
   top: 0;
