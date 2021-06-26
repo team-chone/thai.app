@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="all">
     <header class="site-header">
       <div class="site-header__wrapper">
         <div class="site-header__start">
-          <h1 class="brand">{{ pin_company }}ホーム画面</h1>
+          <h1 class="brand">{{ company_name }}</h1>
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -29,6 +29,12 @@
         </div>
       </div>
     </header>
+    <div class="page">
+      <div class="page-title">
+        <h1>ホーム画面</h1>
+        <img src="../../image/home.png" width="10%" />
+      </div>
+    </div>
     <div id="app">
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">

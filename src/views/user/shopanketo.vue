@@ -2,6 +2,14 @@
   <div>
     <div v-if="questionnaire_title === '' || questionnaire_remains <= 0">
       <h1>このピンにアンケートはありません</h1>
+      <a v-on:click="modoru" class="btn-social-isometric">
+        <span
+          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+          ><img class="image" src="../../image/home.png" />
+          <!-- <i class="fa fa-rss"></i> -->
+        </span>
+        <span class="btn-social-isometric-text2">地図に戻る</span>
+      </a>
     </div>
     <div v-else>
       <div v-if="ansered_nicknames.includes(user_nickname)">
@@ -116,6 +124,11 @@ export default {
     }
   },
   methods: {
+    modoru() {
+      this.$router.push({
+        name: "maphome",
+      })
+    },
     sendQuesttionnaire() {
       //pinsのドキュメントのサブコレクション〇〇（アンケート名）ansersに回答を格納
       if (this.ansered_nicknames.includes(this.user_nickname)) {
