@@ -99,7 +99,7 @@ const routes = [
   {
     path: "/aboutmibet",
     name: "aboutmibet",
-    component: () => import("../views/aboutmibet.vue"),
+    component: () => import("../views/user/aboutmibet.vue"),
   },
   {
     path: "/acount",
