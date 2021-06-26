@@ -1,26 +1,26 @@
 <template>
-  <div class="input title">
-    <h1>アカウント作成</h1>
+  <div class="input_main">
+    <h1 align="center" class="input_title">アカウント登録</h1>
     <div>
-      <div class="input">
+      <div class="input_content">
         ニックネーム：
-        <input type="text" v-model="nickName" />
+        <input class="un" type="text" v-model="nickName" />
       </div>
-      <div class="input">
+      <div class="input_content">
         年齢：
-        <input type="number" v-model="age" />
+        <input class="un" type="number" v-model="age" />
       </div>
-      <div class="input">
+      <div class="input_content">
         性別：
-        <select v-model="gender">
+        <select class="un" v-model="gender">
           <option>選択してください</option>
           <option>男</option>
           <option>女</option>
           <option>どちらでもない</option>
         </select>
       </div>
-      <div class="touroku input">
-        <button @click="makeAcount">登録</button>
+      <div class="input_content">
+        <button class="touroku_button" @click="makeAcount">登録</button>
       </div>
     </div>
   </div>
@@ -58,19 +58,43 @@ export default {
 }
 </script>
 
-<style scoped>
-.input {
+<style>
+/* html {
+  background-color: #effbef;
+  height: 100%;
+  font-family: "Ubuntu", sans-serif;
+} */
+.input_main {
+  background-color: white;
+  border-radius: 1.5em;
+  margin: 50px auto;
+  width: 350px;
+  height: 50%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+}
+.input_title {
+  padding: 20px;
+}
+.input_content {
   display: flex;
   align-items: center;
   flex-direction: column;
   margin: 10px;
 }
-.title {
-  font-family: ;
+.touroku_button {
+  margin: 10px;
+  color: #fff;
+  background: linear-gradient(to right, #ff5f17, #ff9872);
+  cursor: pointer;
+  border-radius: 1.5em;
+  font-size: 15px;
+  border: none;
+  padding: 5px 10px;
 }
-.touroku {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.un {
+  color: rgb(38, 50, 56);
+  background: #ffefd5;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  border-radius: 20px;
 }
 </style>
