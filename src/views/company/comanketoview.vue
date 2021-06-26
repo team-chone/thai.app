@@ -5,13 +5,15 @@
     <router-link to="/combuildpin">ピンを立てる</router-link> |
     <router-link to="/compinview">ピンを見る</router-link>
     <h1>{{ pin_name }}</h1>
-
-    <router-link to="/compinview">戻る</router-link> |
-    <router-link to="/comkeijibanview">掲示板を見る</router-link>
-
-    <button v-on:click="screenChange1">アンケートを作成する</button>
-    <button v-on:click="screenChange2">アンケートを編集する</button>
-    <button v-on:click="screenChange3">アンケートの結果をみる</button>
+    <div v-on:click="screenChange1" v-bind:class="change_style1">
+      アンケートを作成する
+    </div>
+    <div v-on:click="screenChange2" v-bind:class="change_style2">
+      アンケートを編集する
+    </div>
+    <div v-on:click="screenChange3" v-bind:class="change_style3">
+      アンケートの結果をみる
+    </div>
     <com-make-question v-if="screen_type === '1'"></com-make-question>
     <com-edit-question v-if="screen_type === '2'"></com-edit-question>
     <com-analyze-question v-if="screen_type === '3'"></com-analyze-question>
@@ -32,11 +34,17 @@ export default {
       screen_type: false,
       questionnaire_title: "",
       pin_company: "",
+      change_style1: "nonstyle",
+      change_style2: "nonstyle",
+      change_style3: "nonstyle",
     }
   },
   methods: {
     screenChange1() {
       //表示されるコンポーネントの切り替え
+      this.change_style1 = "style"
+      this.change_style2 = "nonstyle"
+      this.change_style3 = "nonstyle"
       firebase
         .firestore()
         .collection("pins")
@@ -52,9 +60,15 @@ export default {
         })
     },
     screenChange2() {
+      this.change_style1 = "nonstyle"
+      this.change_style2 = "style"
+      this.change_style3 = "nonstyle"
       this.screen_type = "2"
     },
     screenChange3() {
+      this.change_style1 = "nonstyle"
+      this.change_style2 = "nonstyle"
+      this.change_style3 = "style"
       this.screen_type = "3"
     },
   },
@@ -80,3 +94,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+.style {
+  color: red;
+}
+.nonstyle {
+  color: black;
+}
+</style>

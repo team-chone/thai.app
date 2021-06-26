@@ -1,43 +1,49 @@
 <template>
-  <div>
+  <div class="all">
     <h1>{{ company_name }}</h1>
     <router-link to="/commaphome">ホーム</router-link>｜
     <router-link to="/combuildpin">ピンを立てる</router-link> |
     <router-link to="/compinview">ピンを見る</router-link>
-    <h1>ピンを見る</h1>
-
-    <div class="pin-list">
-      <div v-for="(pin, index) in companyPins" :key="index">
-        <div class="pin">
-          <div>{{ pin.pin_name }}</div>
-          <div>{{ pin.pin_type }}</div>
-          <div>
-            <router-link
-              :to="{
-                name: 'comanketoview',
-                params: {
-                  company_name: pin.company_name,
-                  pin_id: pin.id,
-                  pin_name: pin.pin_name,
-                  pin_type: pin.pin_type,
-                  pin_range: pin.pin_range,
-                },
-              }"
-              >アンケート</router-link
-            >|
-            <router-link
-              :to="{
-                name: 'comkeijibanview',
-                params: {
-                  company_name: pin.company_name,
-                  pin_id: pin.id,
-                  pin_name: pin.pin_name,
-                  pin_type: pin.pin_type,
-                  pin_range: pin.pin_range,
-                },
-              }"
-              >掲示板</router-link
-            >
+    <div class="page">
+      <div class="page-title">
+        <h1>ピンを見る</h1>
+        <img src="../../image/viewpin.png" width="10%" />
+      </div>
+      <div class="pin-list">
+        <div v-for="(pin, index) in companyPins" :key="index">
+          <div class="pin-box">
+            <div class="pin-name">{{ pin.pin_name }}</div>
+            <div class="pin-type">{{ pin.pin_type }}</div>
+            <div class="pin-menu">
+              <router-link
+                :to="{
+                  name: 'comanketoview',
+                  params: {
+                    company_name: pin.company_name,
+                    pin_id: pin.id,
+                    pin_name: pin.pin_name,
+                    pin_type: pin.pin_type,
+                    pin_range: pin.pin_range,
+                  },
+                }"
+                class="anketo-button"
+                ><img src="../../image/questionnaire.png" width="10%"
+              /></router-link>
+              <router-link
+                :to="{
+                  name: 'comkeijibanview',
+                  params: {
+                    company_name: pin.company_name,
+                    pin_id: pin.id,
+                    pin_name: pin.pin_name,
+                    pin_type: pin.pin_type,
+                    pin_range: pin.pin_range,
+                  },
+                }"
+                class="keijiban-button"
+                ><img src="../../image/board.png" width="10%"
+              /></router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -81,19 +87,59 @@ export default {
 }
 </script>
 <style scoped>
-.pin-list {
-  width: 90%;
-  margin: 0 auto;
-  background-color: #ff5f17;
+/* .pin-list {
   padding-bottom: 5%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+} */
+.page-title {
+  text-align: center;
 }
-.pin {
-  width: 100%;
-  background-color: #f3e2a9;
-  margin-top: 5%;
+.viewpin-img {
+  display: flex;
+  justify-content: center;
+}
+.pin-box {
+  padding-top: 1%;
+  background-color: white;
+  margin: 5% auto;
+  width: 70%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.pin-name {
+  font-size: large;
+  font-weight: bold;
+}
+.pin-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.anketo-button,
+.keijiban-button {
+  margin-top: 2px;
+  padding-top: 5px;
+  text-decoration: none;
+  text-align: center;
+  border-top: 2px solid;
+  border-color: #facc2e;
+}
+.anketo-button {
+  border-right: 1px solid;
+  border-color: #facc2e;
+}
+.keijiban-button {
+  border-left: 1px solid;
+  border-color: #facc2e;
+}
+.anketo-button:hover,
+.keijiban-button:hover {
+  background-color: #f5ecce;
 }
 </style>

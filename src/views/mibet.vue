@@ -144,7 +144,7 @@ html {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-top: 30%;
+  margin-top: 20%;
 }
 .login_button {
   margin: 10px;
