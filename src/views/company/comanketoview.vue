@@ -15,7 +15,7 @@
                 >
               </li>
               <li class="nav__item">
-                <img class="image" src="../../image/addpin.png" />
+                <img class="image" src="../../image/addpin2.png" />
                 <router-link to="/combuildpin" class="media"
                   ><font color="#000000">ピンを立てる</font></router-link
                 >
