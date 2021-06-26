@@ -499,7 +499,6 @@ export default {
 
 .input__label {
   display: inline-block;
-  float: right;
   padding: 0 1em;
   width: 40%;
   color: #6a7989;
