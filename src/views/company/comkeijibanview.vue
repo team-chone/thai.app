@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>{{ pin_company }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
     <router-link to="/combuildpin">ピンを立てる</router-link> |
     <router-link to="/compinview">ピンを見る</router-link>
     <h1>{{ pin_name }}掲示板</h1>
