@@ -390,6 +390,9 @@ export default {
 .menu-enter-to {
   opacity: 1;
 }
+.menu li:hover {
+  font-weight: bold;
+}
 
 .menu li {
   list-style: none;

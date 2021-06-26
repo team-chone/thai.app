@@ -612,6 +612,9 @@ export default {
   line-height: 1;
   padding: 1rem;
 }
+.menu li:hover {
+  font-weight: bold;
+}
 .menu {
   background-color: rgba(197, 197, 197, 0.671);
   z-index: 30;
