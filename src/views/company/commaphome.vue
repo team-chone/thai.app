@@ -10,18 +10,20 @@
             <ul class="nav__wrapper">
               <li class="nav__item active">
                 <img class="image" src="../../image/home.png" />
-                <router-link to="/commaphome" class="media">ホーム</router-link>
+                <router-link to="/commaphome" class="media"
+                  ><font color="#000000">ホーム</font></router-link
+                >
               </li>
               <li class="nav__item">
                 <img class="image" src="../../image/addpin.png" />
                 <router-link to="/combuildpin" class="media"
-                  >ピンを立てる</router-link
+                  ><font color="#000000">ピンを立てる</font></router-link
                 >
               </li>
               <li class="nav__item">
                 <img class="image" src="../../image/viewpin.png" />
                 <router-link to="/compinview" class="media"
-                  >ピンを見る</router-link
+                  ><font color="#000000">ピンを見る</font></router-link
                 >
               </li>
             </ul>

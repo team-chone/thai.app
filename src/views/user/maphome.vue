@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Google Map</h1>
+    <img class="mibet" src="../../image/MibetLogo2.png" />
     <div id="app">
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
@@ -77,12 +77,12 @@
         v-on:click="pagemovefalse"
         class="btn-social-circle btn-social-circle--feedly"
       >
-        ↑
+        <img class="image2" src="../../image/fade.png" />
       </button>
       <a v-on:click="toanketo" class="btn-social-isometric">
         <span
           class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
-          ><img class="image" src="../../image/questionnaire.png" />
+          ><img class="image" src="../../image/questionnaire2.png" />
           <!-- <i class="fa fa-rss"></i> -->
         </span>
         <span class="btn-social-isometric-text2">アンケート</span>
@@ -90,7 +90,7 @@
       <a v-on:click="tokeijiban" class="btn-social-isometric">
         <span
           class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
-          ><img class="image" src="../../image/board.png" />
+          ><img class="image" src="../../image/board2.png" />
           <!-- <i class="fa fa-rss"></i> -->
         </span>
         <span class="btn-social-isometric-text">掲示板</span>
@@ -107,12 +107,12 @@
 
       <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
       <!-- 条件を絞るを押したときに出てくる -->
-      <div v-if="kensaku">
+      <div v-if="kensaku" class="button-wrapper">
         <button
           v-on:click="kensakufalse"
           class="btn-social-circle btn-social-circle--feedly"
         >
-          ↑
+          <img class="image2" src="../../image/fade.png" />
         </button>
         <a v-on:click="search" class="btn-social-isometric">
           <span
@@ -122,10 +122,7 @@
           </span>
           <span class="btn-social-isometric-text">検索</span>
         </a>
-        <p>
-          <a class="migihasi" v-on:click="kensakufalse"></a>
-          店名<input type="text" v-model="tenmei" />
-        </p>
+        <p>店名<input type="text" v-model="tenmei" /></p>
 
         <p>
           業種<select v-model="gyousyu_select">
@@ -421,6 +418,14 @@ export default {
 }
 </script>
 <style>
+.mibet {
+  width: 200px;
+  height: auto;
+}
+.image2 {
+  width: 70%;
+  height: 70%;
+}
 .migihasi {
   top: 0;
   right: 0;
@@ -431,6 +436,7 @@ export default {
   height: 33px;
 }
 .btn-social-isometric {
+  display: flex;
   color: #484848;
   display: inline-block;
   height: 50px;
@@ -453,22 +459,24 @@ export default {
   font-size: 25px;
 }
 .btn-social-isometric-text {
+  align-items: center;
   display: inline-block;
   width: 120px;
-  height: 40px;
+  height: 39.5px;
   text-align: center;
   border-bottom: solid 4px #dcdcdc;
 }
 .btn-social-isometric-text2 {
+  align-items: center;
   display: inline-block;
   width: 150px;
-  height: 40px;
+  height: 39.5px;
   text-align: center;
   border-bottom: solid 4px #dcdcdc;
 }
 .btn-social-isometric-icon--feedly {
-  background: #7ece46;
-  border-bottom: solid 4px #65b130;
+  background: #eaeef1;
+  border-bottom: solid 4px #dcdcdc;
 }
 
 .btn-social-isometric:hover {
@@ -485,7 +493,20 @@ export default {
   height: 30px;
 }
 .button-wrapper {
+  animation-name: fadedown;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
   text-align: center;
+}
+@keyframes fadedown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .btn-social-circle {
   z-index: 1;
