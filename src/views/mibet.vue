@@ -1,8 +1,10 @@
 <template>
   <div class="info_main">
-    <h1 class="input_content">ホーム画面</h1>
     <div id="app">
-      <img src="../image/MibetLogo2.png" alt="" />
+      <div class="fade-in-bottom">
+        <img src="../image/MibetLogo2.png" alt="" class="logo" />
+      </div>
+
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
