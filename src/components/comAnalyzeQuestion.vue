@@ -14,7 +14,7 @@
           :key="index2"
         >
           {{ question_select }}
-          {{ question_percentage[index][index2] }}
+          {{ question_percentage[index][index2] }}%
         </div>
         <!-- <div v-for="(question_result,i) in question_results">
 
@@ -101,8 +101,9 @@ export default {
                     count++
                   }
                 }
-                this.question_percentage[x][i] =
-                  count / this.anser_question_results2[x].length
+                this.question_percentage[x][i] = Math.round(
+                  (count / this.anser_question_results2[x].length) * 100
+                )
               }
             }
             //console.log(this.question_percentage)
