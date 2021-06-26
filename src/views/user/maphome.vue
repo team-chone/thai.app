@@ -1,8 +1,11 @@
 <template>
   <div class="text-center">
-    <img class="mibet" src="../../image/MibetLogo2.png" />
-    <div id="app">
+    <div class="flex">
+      <img class="mibet" src="../../image/MibetLogo2.png" />
+    </div>
+    <div class="app">
       <!--ハンバーガーメニューのボタン-->
+
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
           class="line line_01"
@@ -71,31 +74,7 @@
         <img src="../../image/green-dot.png" />
       </button>
     </GmapMap>
-    <div v-if="pagemove" class="button-wrapper">
-      <h2>{{ marker.pin_name }}</h2>
-      <button
-        v-on:click="pagemovefalse"
-        class="btn-social-circle btn-social-circle--feedly"
-      >
-        <img class="image2" src="../../image/fade.png" />
-      </button>
-      <a v-on:click="toanketo" class="btn-social-isometric">
-        <span
-          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
-          ><img class="image" src="../../image/questionnaire2.png" />
-          <!-- <i class="fa fa-rss"></i> -->
-        </span>
-        <span class="btn-social-isometric-text2">アンケート</span>
-      </a>
-      <a v-on:click="tokeijiban" class="btn-social-isometric">
-        <span
-          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
-          ><img class="image" src="../../image/board2.png" />
-          <!-- <i class="fa fa-rss"></i> -->
-        </span>
-        <span class="btn-social-isometric-text">掲示板</span>
-      </a>
-    </div>
+
     <div class="button-wrapper">
       <button
         v-on:click="opensearch"
@@ -103,11 +82,22 @@
       >
         <img class="siborubutton" src="../../image/siborubutton.png" />
       </button>
+
       <!-- 範囲内のピンをクリックしたときに出てくる -->
 
       <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
       <!-- 条件を絞るを押したときに出てくる -->
       <div v-if="kensaku" class="button-wrapper">
+        <p>店名<input type="text" v-model="tenmei" /></p>
+
+        <p>
+          業種<select v-model="gyousyu_select">
+            <option value="">指定なし</option>
+            <option value="apparel">アパレル</option>
+            <option value="restaurant">レストラン</option>
+            <option value="others">その他</option>
+          </select>
+        </p>
         <button
           v-on:click="kensakufalse"
           class="btn-social-circle btn-social-circle--feedly"
@@ -122,17 +112,33 @@
           </span>
           <span class="btn-social-isometric-text">検索</span>
         </a>
-        <p>店名<input type="text" v-model="tenmei" /></p>
-
-        <p>
-          業種<select v-model="gyousyu_select">
-            <option value="">指定なし</option>
-            <option value="apparel">アパレル</option>
-            <option value="restaurant">レストラン</option>
-            <option value="others">その他</option>
-          </select>
-        </p>
       </div>
+      <div v-if="pagemove" class="button-wrapper">
+        <h2>{{ marker.pin_name }}</h2>
+        <button
+          v-on:click="pagemovefalse"
+          class="btn-social-circle btn-social-circle--feedly"
+        >
+          <img class="image2" src="../../image/fade.png" />
+        </button>
+        <a v-on:click="toanketo" class="btn-social-isometric">
+          <span
+            class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+            ><img class="image" src="../../image/questionnaire2.png" />
+            <!-- <i class="fa fa-rss"></i> -->
+          </span>
+          <span class="btn-social-isometric-text2">アンケート</span>
+        </a>
+        <a v-on:click="tokeijiban" class="btn-social-isometric">
+          <span
+            class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+            ><img class="image" src="../../image/board2.png" />
+            <!-- <i class="fa fa-rss"></i> -->
+          </span>
+          <span class="btn-social-isometric-text">掲示板</span>
+        </a>
+      </div>
+
       <!-- 条件を絞るを押した時に出てくるここまで -->
     </div>
   </div>
@@ -418,18 +424,21 @@ export default {
 }
 </script>
 <style>
+/* .flex {
+  display: flex;
+} */
 .mibet {
-  width: 200px;
+  width: 150px;
   height: auto;
 }
 .image2 {
   width: 70%;
   height: 70%;
 }
-.migihasi {
+/* .migihasi {
   top: 0;
   right: 0;
-}
+} */
 .image {
   margin-top: 8px;
   width: 33px;
@@ -439,44 +448,44 @@ export default {
   display: flex;
   color: #484848;
   display: inline-block;
-  height: 50px;
-  font-size: 25px;
-  line-height: 46px;
+  height: 50/4 * 3px;
+  font-size: 25/4 * 3px;
+  line-height: 46/4 * 3px;
   background: #eaeef1;
   text-decoration: none;
   box-sizing: border-box;
-  margin: 1em;
+  margin: 1/4 * 3em;
 }
 .btn-social-isometric-icon {
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 50/4 * 3px;
+  height: 50/4 * 3px;
   text-align: center;
   color: white;
 }
 .btn-social-isometric-icon i {
-  line-height: 46px;
-  font-size: 25px;
+  line-height: 46/4 * 3px;
+  font-size: 25/4 * 3px;
 }
 .btn-social-isometric-text {
   align-items: center;
   display: inline-block;
-  width: 120px;
-  height: 39.5px;
+  width: 120/4 * 3px;
+  height: 39.5/4 * 3px;
   text-align: center;
-  border-bottom: solid 4px #dcdcdc;
+  border-bottom: solid 3px #dcdcdc;
 }
 .btn-social-isometric-text2 {
   align-items: center;
   display: inline-block;
-  width: 150px;
-  height: 39.5px;
+  width: 150/4 * 3px;
+  height: 39.5/4 * 3px;
   text-align: center;
-  border-bottom: solid 4px #dcdcdc;
+  border-bottom: solid 3px #dcdcdc;
 }
 .btn-social-isometric-icon--feedly {
   background: #eaeef1;
-  border-bottom: solid 4px #dcdcdc;
+  border-bottom: solid 3px #dcdcdc;
 }
 
 .btn-social-isometric:hover {
@@ -501,7 +510,7 @@ export default {
 @keyframes fadedown {
   from {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: translateY(-80px);
   }
   to {
     opacity: 1;
@@ -540,10 +549,12 @@ export default {
 }
 
 /*ボタン*/
-.hamburger_btn {
+.app {
   position: fixed; /*常に最上部に表示したいので固定*/
   top: 0;
   right: 0;
+}
+.hamburger_btn {
   width: 70px;
   height: 72px;
   cursor: pointer;
