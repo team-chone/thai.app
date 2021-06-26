@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>会社mapホーム画面</h1>
+    <h1>{{ pin_company }}ホーム画面</h1>
     <router-link to="/combuildpin">ピンを立てる</router-link> |
     <router-link to="/compinview">ピンを見る</router-link>
 
@@ -83,7 +83,7 @@ export default {
         streetViewControl: false,
         styles: [],
       },
-      pin_company: "神奈川県",
+      pin_company: "",
       marker: {},
       markers: [],
       infoOptions: {
@@ -161,6 +161,17 @@ export default {
     //   })
     //   this.i += 1
     // },
+  },
+  created() {
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+        console.log(this.pin_company)
+      })
   },
 }
 </script>

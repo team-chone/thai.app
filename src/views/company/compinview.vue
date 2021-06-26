@@ -44,32 +44,33 @@ import firebase from "firebase"
 export default {
   data() {
     return {
-      company_name: "神奈川県", //company_nameは企業名と紐付ける必要あり。今はとりあえず「神奈川県」としている。
+      company_name: "", //company_nameは企業名と紐付ける必要あり。今はとりあえず「神奈川県」としている。
       companyPins: [],
     }
   },
   created() {
-    // firebase
-    //   .firestore()
-    //   .collection("companies")
-    //   .doc(this.$auth.currentUser.uid)
-    //   .get()
-    //   .then((doc) => {
-    //     this.company_name = doc.data().comname
-    firebase //pin_companyがcompany_nameと一致するpinを全て取得
+    firebase
       .firestore()
-      .collection("pins")
-      .where("pin_company", "==", this.company_name)
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
       .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          this.companyPins.push({
-            id: doc.id,
-            ...doc.data(),
+      .then((doc) => {
+        this.company_name = doc.data().comname
+        //console.log(this.company_name)
+        firebase //pin_companyがcompany_nameと一致するpinを全て取得
+          .firestore()
+          .collection("pins")
+          .where("pin_company", "==", this.company_name)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.companyPins.push({
+                id: doc.id,
+                ...doc.data(),
+              })
+            })
           })
-        })
       })
-    // })
   },
 }
 </script>
