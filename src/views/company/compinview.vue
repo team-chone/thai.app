@@ -44,6 +44,7 @@
                 ><img src="../../image/board.png" width="10%"
               /></router-link>
             </div>
+
           </div>
         </div>
       </div>
