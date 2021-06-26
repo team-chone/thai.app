@@ -9,17 +9,17 @@
           <nav class="nav">
             <ul class="nav__wrapper">
               <li class="nav__item active">
-                <img src="../../image/blue-dot.png" />
+                <img src="../../image/green-dot.png" />
                 <router-link to="/commaphome" class="media">ホーム</router-link>
               </li>
               <li class="nav__item">
-                <img src="../../image/green-dot.png" />
+                <!-- <img src="../../image/addpin.png" /> -->
                 <router-link to="/combuildpin" class="media"
                   >ピンを立てる</router-link
                 >
               </li>
               <li class="nav__item">
-                <img src="../../image/green-dot.png" />
+                <!-- <img src="../../image/viewpin.png" /> -->
                 <router-link to="/compinview" class="media"
                   >ピンを見る</router-link
                 >
@@ -198,7 +198,7 @@ export default {
 
 .site-header {
   position: relative;
-  background-color: #def7ff;
+  background-color: #ff5f17;
 }
 
 .site-header__middle {
@@ -303,12 +303,6 @@ export default {
 @media (min-width: 940px) {
   .nav__toggle {
     display: none;
-  }
-}
-
-@media (max-width: 1239px) {
-  .search__toggle {
-    display: block;
   }
 }
 

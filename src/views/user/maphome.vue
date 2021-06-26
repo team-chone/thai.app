@@ -31,6 +31,7 @@
     </div>
 
     <GmapMap
+      class="map"
       ref="gmp"
       map-type-id="roadmap"
       :center="maplocation"
@@ -62,32 +63,43 @@
         <p style="color: #000">
           {{ marker.title }}
           {{ movebutton }}
-        </p>
-      </GmapInfoWindow>
+        </p> </GmapInfoWindow
+      ><button
+        v-on:click="opensearch"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        <img src="../../image/green-dot.png" />
+      </button>
     </GmapMap>
-    <button v-on:click="kyori">お店を探す</button>
-    <button v-on:click="opensearch">条件を絞る</button>
-    <!-- 範囲内のピンをクリックしたときに出てくる -->
-    <div v-if="pagemove" class="input">
-      <h2>{{ marker.pin_name }}</h2>
-      <button v-on:click="toanketo">アンケートに答える</button>
-      <button v-on:click="tokeijiban">掲示板</button>
+    <div class="button-wrapper">
+      <button
+        v-on:click="opensearch"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        <img src="../../image/green-dot.png" />
+      </button>
+      <!-- 範囲内のピンをクリックしたときに出てくる -->
+      <div v-if="pagemove" class="input">
+        <h2>{{ marker.pin_name }}</h2>
+        <button v-on:click="toanketo">アンケートに答える</button>
+        <button v-on:click="tokeijiban">掲示板</button>
+      </div>
+      <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
+      <!-- 条件を絞るを押したときに出てくる -->
+      <div v-if="kensaku">
+        店名<input type="text" v-model="tenmei" />
+        <p>
+          業種<select v-model="gyousyu_select">
+            <option value="">指定なし</option>
+            <option value="apparel">アパレル</option>
+            <option value="restaurant">レストラン</option>
+            <option value="others">その他</option>
+          </select>
+        </p>
+        <button v-on:click="search">この条件で絞る</button>
+      </div>
+      <!-- 条件を絞るを押した時に出てくるここまで -->
     </div>
-    <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
-    <!-- 条件を絞るを押したときに出てくる -->
-    <div v-if="kensaku">
-      店名<input type="text" v-model="tenmei" />
-      <p>
-        業種<select v-model="gyousyu_select">
-          <option value="">指定なし</option>
-          <option value="apparel">アパレル</option>
-          <option value="restaurant">レストラン</option>
-          <option value="others">その他</option>
-        </select>
-      </p>
-      <button v-on:click="search">この条件で絞る</button>
-    </div>
-    <!-- 条件を絞るを押した時に出てくるここまで -->
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -365,6 +377,39 @@ export default {
 }
 </script>
 <style>
+.button-wrapper {
+  text-align: center;
+}
+.btn-social-circle {
+  z-index: 1;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 30px;
+  padding: 5px;
+  font-size: 25px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: inset 0 2px 0px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0px rgba(0, 0, 0, 0.18);
+  transition: 0.2s;
+}
+.btn-social-circle .fa {
+  line-height: 30px;
+}
+.btn-social-circle:hover {
+  box-shadow: none;
+}
+
+.btn-social-circle--feedly {
+  background: #ff5f17;
+  border: solid 5px #ff5f17;
+}
 .input {
   position: relative;
   z-index: 1;
