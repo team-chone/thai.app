@@ -111,7 +111,7 @@
 
       <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
       <!-- 条件を絞るを押したときに出てくる -->
-      <div v-if="kensaku">
+      <div v-if="kensaku" class="button-wrapper">
         <button
           v-on:click="kensakufalse"
           class="btn-social-circle btn-social-circle--feedly"
@@ -469,7 +469,7 @@ export default {
   align-items: center;
   display: inline-block;
   width: 120px;
-  height: 40px;
+  height: 39.5px;
   text-align: center;
   border-bottom: solid 4px #dcdcdc;
 }
@@ -477,7 +477,7 @@ export default {
   align-items: center;
   display: inline-block;
   width: 150px;
-  height: 40px;
+  height: 39.5px;
   text-align: center;
   border-bottom: solid 4px #dcdcdc;
 }
@@ -500,7 +500,20 @@ export default {
   height: 30px;
 }
 .button-wrapper {
+  animation-name: fadedown;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
   text-align: center;
+}
+@keyframes fadedown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .btn-social-circle {
   z-index: 1;
