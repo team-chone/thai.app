@@ -129,6 +129,9 @@ export default {
   display: flex;
   justify-content: center;
 }
+.page {
+  padding-bottom: 10%;
+}
 .pin-box {
   padding-top: 1%;
   background-color: white;
