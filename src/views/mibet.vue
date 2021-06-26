@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>ホーム画面</h1>
+  <div class="mibet">
     <div id="app">
+      <img src="../image/Mibetロゴ.png" alt="" />
       <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
@@ -101,6 +101,11 @@ export default {
 }
 </script>
 <style>
+html {
+  height: 100%;
+  background-color: #effbef;
+}
+
 /*ボタン*/
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/

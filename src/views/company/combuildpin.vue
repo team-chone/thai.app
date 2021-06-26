@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ pin_company }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>ピンを立てる</h1>
     <router-link to="/commaphome">戻る</router-link> |
     <!-- <router-link to="/compininformation">ピン情報入力</router-link> -->
@@ -75,7 +79,7 @@ export default {
       aopin: false,
       //ピン情報関係
       pinjouhou: false,
-      pin_company: "神奈川県",
+      pin_company: "",
       pin_lat: "",
       pin_lng: "",
       pin_name: "",
@@ -84,18 +88,17 @@ export default {
       pins: [],
     }
   },
-  // created() {
-  //   //ページ遷移時にcompany_nameとfirebase上のcomnameを紐つけ
-  //   firebase
-  //     .firestore()
-  //     .collection("companies")
-  //     .doc(this.$auth.currentUser.uid)
-  //     .get()
-  //     .then((doc) => {
-  //       // this.pin_company = doc.data().comname
-  //       console.log(doc.data())
-  //     })
-  // },
+  created() {
+    //ページ遷移時にcompany_nameとfirebase上のcomnameを紐つけ
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+      })
+  },
   async mounted() {
     const currentPosTmp = await this.getCurrentPosition()
     const currentPos = {
