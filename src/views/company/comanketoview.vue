@@ -1,9 +1,35 @@
 <template>
   <div>
-    <h1>{{ pin_company }}</h1>
-    <router-link to="/commaphome">ホーム</router-link>｜
-    <router-link to="/combuildpin">ピンを立てる</router-link> |
-    <router-link to="/compinview">ピンを見る</router-link>
+    <header class="site-header">
+      <div class="site-header__wrapper">
+        <div class="site-header__start">
+          <h1 class="brand">{{ pin_company }}アンケート</h1>
+        </div>
+        <div class="site-header__middle">
+          <nav class="nav">
+            <ul class="nav__wrapper">
+              <li class="nav__item">
+                <img class="image" src="../../image/home.png" />
+                <router-link to="/commaphome" class="media">ホーム</router-link>
+              </li>
+              <li class="nav__item">
+                <img class="image" src="../../image/addpin.png" />
+                <router-link to="/combuildpin" class="media"
+                  >ピンを立てる</router-link
+                >
+              </li>
+              <li class="nav__item active">
+                <img class="image" src="../../image/viewpin.png" />
+                <router-link to="/compinview" class="media"
+                  >ピンを見る</router-link
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
     <h1>{{ pin_name }}</h1>
 
     <router-link to="/compinview">戻る</router-link> |

@@ -12,8 +12,8 @@ const routes = [
   },
   {
     path: "/makeacount",
-    name: "makeacount",
-    component: () => import("../views/user/makeacount.vue"),
+    name: "Makeacount",
+    component: () => import("../views/user/Makeacount.vue"),
   },
   {
     path: "/comcreateacount",

@@ -31,6 +31,7 @@
     </div>
 
     <GmapMap
+      class="map"
       ref="gmp"
       map-type-id="roadmap"
       :center="maplocation"
@@ -62,32 +63,81 @@
         <p style="color: #000">
           {{ marker.title }}
           {{ movebutton }}
-        </p>
-      </GmapInfoWindow>
+        </p> </GmapInfoWindow
+      ><button
+        v-on:click="opensearch"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        <img src="../../image/green-dot.png" />
+      </button>
     </GmapMap>
-    <button v-on:click="kyori">お店を探す</button>
-    <button v-on:click="opensearch">条件を絞る</button>
-    <!-- 範囲内のピンをクリックしたときに出てくる -->
-    <div v-if="pagemove">
+    <div v-if="pagemove" class="button-wrapper">
       <h2>{{ marker.pin_name }}</h2>
-      <button v-on:click="toanketo">アンケートに答える</button>
-      <button v-on:click="tokeijiban">掲示板</button>
+      <button
+        v-on:click="pagemovefalse"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        ↑
+      </button>
+      <a v-on:click="toanketo" class="btn-social-isometric">
+        <span
+          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+          ><img class="image" src="../../image/questionnaire.png" />
+          <!-- <i class="fa fa-rss"></i> -->
+        </span>
+        <span class="btn-social-isometric-text2">アンケート</span>
+      </a>
+      <a v-on:click="tokeijiban" class="btn-social-isometric">
+        <span
+          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+          ><img class="image" src="../../image/board.png" />
+          <!-- <i class="fa fa-rss"></i> -->
+        </span>
+        <span class="btn-social-isometric-text">掲示板</span>
+      </a>
     </div>
-    <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
-    <!-- 条件を絞るを押したときに出てくる -->
-    <div v-if="kensaku">
-      店名<input type="text" v-model="tenmei" />
-      <p>
-        業種<select v-model="gyousyu_select">
-          <option value="">指定なし</option>
-          <option value="apparel">アパレル</option>
-          <option value="restaurant">レストラン</option>
-          <option value="others">その他</option>
-        </select>
-      </p>
-      <button v-on:click="search">この条件で絞る</button>
+    <div class="button-wrapper">
+      <button
+        v-on:click="opensearch"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        <img class="siborubutton" src="../../image/siborubutton.png" />
+      </button>
+      <!-- 範囲内のピンをクリックしたときに出てくる -->
+
+      <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
+      <!-- 条件を絞るを押したときに出てくる -->
+      <div v-if="kensaku">
+        <button
+          v-on:click="kensakufalse"
+          class="btn-social-circle btn-social-circle--feedly"
+        >
+          ↑
+        </button>
+        <a v-on:click="search" class="btn-social-isometric">
+          <span
+            class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+            ><img class="image" src="../../image/siborubutton.png" />
+            <!-- <i class="fa fa-rss"></i> -->
+          </span>
+          <span class="btn-social-isometric-text">検索</span>
+        </a>
+        <p>
+          <a class="migihasi" v-on:click="kensakufalse"></a>
+          店名<input type="text" v-model="tenmei" />
+        </p>
+
+        <p>
+          業種<select v-model="gyousyu_select">
+            <option value="">指定なし</option>
+            <option value="apparel">アパレル</option>
+            <option value="restaurant">レストラン</option>
+            <option value="others">その他</option>
+          </select>
+        </p>
+      </div>
+      <!-- 条件を絞るを押した時に出てくるここまで -->
     </div>
-    <!-- 条件を絞るを押した時に出てくるここまで -->
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -167,6 +217,12 @@ export default {
   },
 
   methods: {
+    kensakufalse() {
+      this.kensaku = false
+    },
+    pagemovefalse() {
+      this.pagemove = false
+    },
     signOut() {
       firebase
         .auth()
@@ -219,7 +275,6 @@ export default {
                 Math.sin(difflon / 2)
           )
         )
-      console.log(this.nagasa)
     },
 
     //距離を比較して範囲内のものを見つける関数
@@ -366,6 +421,103 @@ export default {
 }
 </script>
 <style>
+.migihasi {
+  top: 0;
+  right: 0;
+}
+.image {
+  margin-top: 8px;
+  width: 33px;
+  height: 33px;
+}
+.btn-social-isometric {
+  color: #484848;
+  display: inline-block;
+  height: 50px;
+  font-size: 25px;
+  line-height: 46px;
+  background: #eaeef1;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 1em;
+}
+.btn-social-isometric-icon {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  color: white;
+}
+.btn-social-isometric-icon i {
+  line-height: 46px;
+  font-size: 25px;
+}
+.btn-social-isometric-text {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  border-bottom: solid 4px #dcdcdc;
+}
+.btn-social-isometric-text2 {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border-bottom: solid 4px #dcdcdc;
+}
+.btn-social-isometric-icon--feedly {
+  background: #7ece46;
+  border-bottom: solid 4px #65b130;
+}
+
+.btn-social-isometric:hover {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+}
+.btn-social-isometric:hover .btn-social-isometric-text,
+.btn-social-isometric:hover .btn-social-isometric-text2,
+.btn-social-isometric:hover .btn-social-isometric-icon {
+  border-bottom: none;
+}
+.siborubutton {
+  width: 30px;
+  height: 30px;
+}
+.button-wrapper {
+  text-align: center;
+}
+.btn-social-circle {
+  z-index: 1;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 30px;
+  padding: 5px;
+  font-size: 25px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: inset 0 2px 0px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0px rgba(0, 0, 0, 0.18);
+  transition: 0.2s;
+}
+.btn-social-circle .fa {
+  line-height: 30px;
+}
+.btn-social-circle:hover {
+  box-shadow: none;
+}
+
+.btn-social-circle--feedly {
+  background: #ff5f17;
+  border: solid 5px #ff5f17;
+}
+
 /*ボタン*/
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
