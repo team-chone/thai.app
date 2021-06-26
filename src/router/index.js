@@ -107,6 +107,11 @@ const routes = [
     component: () => import("../views/user/acount.vue"),
   },
   {
+    path: "/comacount",
+    name: "comacount",
+    component: () => import("../views/company/comacount.vue"),
+  },
+  {
     path: "/wolet",
     name: "wolet",
     component: () => import("../views/user/wolet.vue"),

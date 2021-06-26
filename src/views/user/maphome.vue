@@ -21,9 +21,13 @@
       <transition name="menu">
         <div class="menu" v-show="ActiveBtn">
           <ul>
-            <li><router-link to="/acount">アカウント情報</router-link></li>
+            <li>
+              <router-link to="/acount">アカウント情報</router-link>
+            </li>
             <li><router-link to="/wolet">ウォレット</router-link></li>
-            <li><div @click="signOut">ログアウト</div></li>
+            <li>
+              <div class="logout_button" @click="signOut">ログアウト</div>
+            </li>
             <li><a href="#">(受信トレイ)</a></li>
           </ul>
         </div>
@@ -421,6 +425,9 @@ export default {
 .mibet {
   width: 200px;
   height: auto;
+}
+.logout_button {
+  cursor: pointer;
 }
 .image2 {
   width: 70%;
