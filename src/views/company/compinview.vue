@@ -84,7 +84,7 @@ export default {
 .pin-list {
   width: 90%;
   margin: 0 auto;
-  background-color: #facc2e;
+  background-color: #ff5f17;
   padding-bottom: 5%;
   display: flex;
   flex-direction: column;
