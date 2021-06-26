@@ -118,10 +118,11 @@
             </div>
           </div>
         </div>
-
-        <button v-on:click="sendQuesttionnaire">
-          以上の内容でアンケートを送信
-        </button>
+        <div class="button">
+          <a v-on:click="sendQuesttionnaire" class="btn-social-isometric">
+            <span class="btn-social-isometric-text2">送信</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -300,14 +301,14 @@ h3 {
   background-color: white;
   margin: 0 auto;
   margin-bottom: 5%;
-  width: 70%;
+  width: 80%;
   box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
   border-radius: 1.5em;
 }
 .questions-box {
   background-color: white;
   margin: 0 auto;
-  width: 70%;
+  width: 80%;
   box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
   border-radius: 1.5em;
   display: flex;
@@ -329,5 +330,9 @@ h3 {
 .must {
   font-size: small;
   color: red;
+}
+.button {
+  display: flex;
+  justify-content: center;
 }
 </style>

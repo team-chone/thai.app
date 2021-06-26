@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ pin_name }}の掲示板</h1>
     <a v-on:click="modoru" class="btn-social-isometric">
       <span class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
         ><img class="image" src="../../image/home.png" />
@@ -8,8 +7,12 @@
       </span>
       <span class="btn-social-isometric-text2">地図に戻る</span>
     </a>
+    <div class="page-title">
+      <h1>{{ pin_name }}の掲示板</h1>
+      <img src="../../image/board2.png" width="10%" />
+    </div>
 
-    <div>
+    <div class="coment-box">
       <h2>コメントを追加する</h2>
       <textarea
         class="input-textarea"
@@ -17,22 +20,31 @@
         placeholder="ライスの大盛りの量が少なく感じます"
         maxlength="140"
       ></textarea>
-      <button v-on:click="submit">投稿</button>
+      <a v-on:click="submit" class="btn btn-border">投稿</a>
     </div>
-    <h2>
-      コメントをみる
-      <div v-for="(submission, index) in submissions" :key="index">
-        <div>
-          <h5>{{ submission.user_nickname }}</h5>
-          <h4>{{ submission.input_text }}</h4>
+    <div class="coment-view">
+      <h2>コメントをみる</h2>
+      <div
+        v-for="(submission, index) in submissions"
+        :key="index"
+        class="coment"
+      >
+        <div class="balloon1-left">
+          <div class="acount">
+            <img src="../../image/human.png" width="5%" />
+            <h5 class="nickname">{{ submission.user_nickname }}</h5>
+          </div>
+          <h4>「{{ submission.input_text }}」</h4>
           <h5>
             {{ submission.format_submit_time }}
           </h5>
+        </div>
+
+        <div class="balloon1-right">
           <h4>{{ submission.reply }}</h4>
         </div>
       </div>
-    </h2>
-    <div></div>
+    </div>
   </div>
 </template>
 <script>
@@ -107,3 +119,121 @@ export default {
   },
 }
 </script>
+<style scoped>
+h1 {
+  text-align: center;
+  font-size: x-large;
+}
+h2 {
+  font-size: large;
+  text-align: center;
+}
+.page-title {
+  text-align: center;
+}
+.input-textarea {
+  width: 70%;
+}
+a.btn-border {
+  margin-top: 2%;
+  color: #ff5f17;
+  border: 2px solid #ff5f17;
+  border-radius: 0;
+  background: #fff;
+  padding: 5px 20px;
+}
+
+a.btn-border:hover {
+  color: #fff;
+  background: #ff5f17;
+}
+.acount {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.nickname {
+  margin-left: 4%;
+}
+.balloon1-left {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #f5d0a9;
+}
+
+.balloon1-left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #f5d0a9;
+}
+
+.balloon1-right {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 15px 1.5em 0;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #effbef;
+}
+
+.balloon1-right:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-left: 15px solid #effbef;
+}
+
+.balloon1-right h4 {
+  margin: 0;
+  padding: 0;
+}
+.coment-box {
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  width: 80%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  border-radius: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1%;
+  padding-bottom: 2%;
+}
+.coment-view {
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  width: 80%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  border-radius: 1.5em;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1%;
+  padding-bottom: 2%;
+}
+.coment {
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: 2px solid #effbef;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+</style>
