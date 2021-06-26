@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>会社mapホーム画面</h1>
+    <h1>{{ pin_company }}ホーム画面</h1>
     <router-link to="/combuildpin">ピンを立てる</router-link> |
     <router-link to="/compinview">ピンを見る</router-link>
 
@@ -25,6 +25,8 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li><router-link to="/acount">アカウント</router-link></li>
+            <li><div @click="signOut">ログアウト</div></li>
+            <li></li>
             <li><a href="#">(受信トレイ)</a></li>
           </ul>
         </div>
@@ -81,7 +83,7 @@ export default {
         streetViewControl: false,
         styles: [],
       },
-      pin_company: "神奈川県",
+      pin_company: "",
       marker: {},
       markers: [],
       infoOptions: {
@@ -128,6 +130,14 @@ export default {
       })
   },
   methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/")
+        })
+    },
     getCurrentPosition() {
       return new Promise(function (resolve, reject) {
         navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -151,6 +161,17 @@ export default {
     //   })
     //   this.i += 1
     // },
+  },
+  created() {
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+        //console.log(this.pin_company)
+      })
   },
 }
 </script>

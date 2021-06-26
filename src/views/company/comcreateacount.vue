@@ -1,15 +1,15 @@
 <template>
   <div class="input">
     <div>
-      企業名：
+      企業名*：
       <input type="text" v-model="comName" />
     </div>
     <div>
-      メールアドレス：
+      メールアドレス*：
       <input type="text" v-model="comMail" />
     </div>
     <div>
-      電話番号：
+      電話番号*：
       <input type="text" v-model="comPhone" />
     </div>
     <div>
@@ -22,11 +22,12 @@
       </select>
     </div>
     <div>
-      パスワード：
+      パスワード*（6文字以上）:
       <input type="text" v-model="comPassword" />
     </div>
     <br />
     <button @click="makeComAcount">登録</button>
+    {{ message }}
   </div>
 </template>
 <script>
@@ -40,32 +41,38 @@ export default {
       comMail: "",
       comName: "",
       comIndustry: "",
+      message: "",
     }
   },
   methods: {
     makeComAcount() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.comMail, this.comPassword)
-        .then((userCredential) => {
-          const user = userCredential.user
-          if (user) {
-            console.log(user)
-          }
-        })
-      //   firebase
-      //     .firestore()
-      //     .collection("companies")
-      //     .doc(this.comName)
-      //     .set({
-      //       comphone: this.comPhone,
-      //       commail: this.comMail,
-      //       comindustry: this.comIndustry,
-      //       compassword: this.comPassword,
-      //     })
-      //     .then(() => {
-      //       this.$router.push("/commaphome")
-      //     })
+      if ((this.comPhone, this.comName)) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.comMail, this.comPassword)
+          .then((userCredential) => {
+            return firebase
+              .firestore()
+              .collection("companies")
+              .doc(userCredential.user.uid)
+              .set({
+                comphone: this.comPhone,
+                commail: this.comMail,
+                comindustry: this.comIndustry,
+                compassword: this.comPassword,
+                comname: this.comName,
+              })
+          })
+          .then(() => {
+            this.$router.push("/commaphome")
+          })
+          .catch(() => {
+            this.message =
+              "パスワードかメールアドレスが適切ではない、もしくは既に登録されているメールアドレスです。"
+          })
+      } else {
+        this.message = "必須項目を記入してください"
+      }
     },
   },
 }

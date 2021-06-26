@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ pin_company }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>{{ pin_name }}</h1>
 
     <router-link to="/compinview">戻る</router-link> |
@@ -96,16 +100,25 @@ export default {
       pin_id: this.$route.params.pin_id,
       screen_type: false,
       questionnaire_title: "",
+      pin_company: "",
     }
   },
   methods: {
     screenChange1() {
       //表示されるコンポーネントの切り替え
-      if (this.questionnaire_title === "") {
-        this.screen_type = "1"
-      } else {
-        alert("一つのピンに設定できるアンケートは一つまでです")
-      }
+      firebase
+        .firestore()
+        .collection("pins")
+        .doc(this.pin_id)
+        .get()
+        .then((doc) => {
+          this.questionnaire_title = doc.data().questionnaire_title
+          if (this.questionnaire_title === "") {
+            this.screen_type = "1"
+          } else {
+            alert("一つのピンに設定できるアンケートは一つまでです")
+          }
+        })
     },
     screenChange2() {
       this.screen_type = "2"
@@ -122,7 +135,16 @@ export default {
       .get()
       .then((doc) => {
         this.questionnaire_title = doc.data().questionnaire_title
-        console.log(this.questionnaire_title)
+      })
+
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+        //console.log(this.pin_company)
       })
   },
 }

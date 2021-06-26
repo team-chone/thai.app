@@ -19,6 +19,7 @@ const initialUserState = {
   uid: "",
   displayName: "",
   photoURL: "",
+  point: "",
 }
 const $auth = Vue.observable({
   currentUser: { ...initialUserState },
@@ -26,11 +27,12 @@ const $auth = Vue.observable({
 firebase.auth().onAuthStateChanged((user) => {
   let state
   if (user) {
-    const { uid, displayName, photoURL } = user
+    const { uid, displayName, photoURL, point } = user
     state = {
       uid,
       displayName,
       photoURL,
+      point,
     }
   } else {
     state = initialUserState

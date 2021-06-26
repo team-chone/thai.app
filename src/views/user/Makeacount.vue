@@ -34,6 +34,7 @@ export default {
       nickName: "",
       age: "",
       gender: "",
+      point: "",
     }
   },
   methods: {
@@ -46,6 +47,7 @@ export default {
           nickname: this.nickName,
           age: this.age,
           gender: this.gender,
+          point: "",
         })
         .then(() => {
           this.$router.push("/maphome")
