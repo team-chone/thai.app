@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="all">
     <header class="site-header">
       <div class="site-header__wrapper">
         <div class="site-header__start">
-          <h1 class="brand">{{ pin_company }}ピンを立てる</h1>
-          <img class="addpin" src="../../image/addpin.png" />
+          <h1 class="brand">{{ pin_company }}</h1>
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -30,6 +29,12 @@
         </div>
       </div>
     </header>
+    <div class="page">
+      <div class="page-title">
+        <h1>ピンを立てる</h1>
+        <img src="../../image/addpin.png" width="10%" />
+      </div>
+    </div>
     <!-- <h1>{{ pin_company }}</h1>
     <router-link to="/commaphome">ホーム</router-link>｜
     <router-link to="/combuildpin">ピンを立てる</router-link> |
@@ -247,8 +252,4 @@ export default {
   },
 }
 </script>
-<style>
-.addpin {
-  width: 10%;
-}
-</style>
+<style></style>

@@ -3,7 +3,7 @@
     <header class="site-header">
       <div class="site-header__wrapper">
         <div class="site-header__start">
-          <h1 class="brand">{{ company_name }}</h1>
+          <h1 class="brand">{{ pin_company }}</h1>
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -190,13 +190,18 @@ export default {
       .then((doc) => {
         this.pin_company = doc.data().comname
         //console.log(this.pin_company)
+        console.log = this.pin_company
       })
   },
 }
 </script>
 
 <style>
+.page-title {
+  text-align: center;
+}
 .image {
+  margin-left: 33%;
   width: 50px;
   height: 50px;
 }
@@ -220,6 +225,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+}
+.media {
+  text-decoration: none;
 }
 @media (min-width: 940px) {
   .site-header__wrapper {
