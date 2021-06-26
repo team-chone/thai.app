@@ -154,9 +154,12 @@ export default {
                     .firestore()
                     .collection("users")
                     .doc(this.$auth.currentUser.uid)
-                    .set({
-                      point: this.user_point,
-                    })
+                    .set(
+                      {
+                        point: this.user_point,
+                      },
+                      { merge: true }
+                    )
                 })
                 .then(() => {
                   alert("ご回答ありがとうございます")
@@ -199,6 +202,7 @@ export default {
             snapshot.docs.forEach((doc) => {
               this.ansered_nicknames.push(doc.data().user_nickname)
             })
+            // console.log(this.ansered_nicknames)
           })
       })
     firebase
@@ -212,6 +216,7 @@ export default {
         this.user_gender = doc.data().gender
         this.user_nickname = doc.data().nickname
         this.user_point = doc.data().point
+        console.log(this.user_nickname)
       })
   },
 }

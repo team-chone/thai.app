@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ pin_company }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>{{ pin_name }}</h1>
 
     <router-link to="/compinview">戻る</router-link> |
@@ -96,6 +100,7 @@ export default {
       pin_id: this.$route.params.pin_id,
       screen_type: false,
       questionnaire_title: "",
+      pin_company: "",
     }
   },
   methods: {
@@ -130,6 +135,16 @@ export default {
       .get()
       .then((doc) => {
         this.questionnaire_title = doc.data().questionnaire_title
+      })
+
+    firebase
+      .firestore()
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        this.pin_company = doc.data().comname
+        //console.log(this.pin_company)
       })
   },
 }

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1>{{ company_name }}</h1>
+    <router-link to="/commaphome">ホーム</router-link>｜
+    <router-link to="/combuildpin">ピンを立てる</router-link> |
+    <router-link to="/compinview">ピンを見る</router-link>
     <h1>ピンを見る</h1>
 
     <div>
@@ -44,32 +48,33 @@ import firebase from "firebase"
 export default {
   data() {
     return {
-      company_name: "神奈川県", //company_nameは企業名と紐付ける必要あり。今はとりあえず「神奈川県」としている。
+      company_name: "", //company_nameは企業名と紐付ける必要あり。今はとりあえず「神奈川県」としている。
       companyPins: [],
     }
   },
   created() {
-    // firebase
-    //   .firestore()
-    //   .collection("companies")
-    //   .doc(this.$auth.currentUser.uid)
-    //   .get()
-    //   .then((doc) => {
-    //     this.company_name = doc.data().comname
-    firebase //pin_companyがcompany_nameと一致するpinを全て取得
+    firebase
       .firestore()
-      .collection("pins")
-      .where("pin_company", "==", this.company_name)
+      .collection("companies")
+      .doc(this.$auth.currentUser.uid)
       .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          this.companyPins.push({
-            id: doc.id,
-            ...doc.data(),
+      .then((doc) => {
+        this.company_name = doc.data().comname
+        //console.log(this.company_name)
+        firebase //pin_companyがcompany_nameと一致するpinを全て取得
+          .firestore()
+          .collection("pins")
+          .where("pin_company", "==", this.company_name)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.companyPins.push({
+                id: doc.id,
+                ...doc.data(),
+              })
+            })
           })
-        })
       })
-    // })
   },
 }
 </script>
