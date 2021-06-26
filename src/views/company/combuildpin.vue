@@ -69,28 +69,61 @@
     <!-- ピンを立てた時に出てくる情報入力画面 -->
     <div v-if="pinjouhou">
       <h1>ピン情報入力画面</h1>
-
-      <input type="text" placeholder="ピンの名前の入力" v-model="pin_name" />
-      <select v-model="pin_type">
-        <option value="restaurant">飲食</option>
-        <option value="apparel">アパレル</option>
-        <option value="cinema">映画館</option>
-      </select>
-      <div>
-        <label><input type="radio" value="10" v-model="pin_range" />10m</label>
-        <label><input type="radio" value="20" v-model="pin_range" />20m</label>
-        <label><input type="radio" value="30" v-model="pin_range" />30m</label>
-        <label><input type="radio" value="40" v-model="pin_range" />40m</label>
-        <label><input type="radio" value="50" v-model="pin_range" />50m</label>
-        <label><input type="radio" value="60" v-model="pin_range" />60m</label>
-        <label><input type="radio" value="70" v-model="pin_range" />70m</label>
-        <label><input type="radio" value="80" v-model="pin_range" />80m</label>
-        <label><input type="radio" value="90" v-model="pin_range" />90m</label>
-        <label
-          ><input type="radio" value="100" v-model="pin_range" />100m</label
-        >
+      <div class="pin-info">
+        <input
+          type="text"
+          placeholder="ピンの名前の入力"
+          v-model="pin_name"
+          class="input-name"
+        />
+        <select v-model="pin_type" class="select-type">
+          <option value="飲食">飲食</option>
+          <option value="スーパー">スーパー</option>
+          <option value="ショッピングセンター">ショッピングセンター</option>
+          <option value="コンビニ">コンビニ</option>
+          <option value="インフラ">インフラ</option>
+          <option value="家具・家電">家具・家電</option>
+          <option value="日用品・書籍・スポーツ">日用品・書籍・スポーツ</option>
+          <option value="アパレル">アパレル</option>
+          <option value="ホテル">ホテル</option>
+          <option value="アミューズメント">アミューズメント</option>
+        </select>
+        <div class="select-range">
+          <label
+            ><input type="radio" value="10" v-model="pin_range" />10m</label
+          >
+          <label
+            ><input type="radio" value="20" v-model="pin_range" />20m</label
+          >
+          <label
+            ><input type="radio" value="30" v-model="pin_range" />30m</label
+          >
+          <label
+            ><input type="radio" value="40" v-model="pin_range" />40m</label
+          >
+          <label
+            ><input type="radio" value="50" v-model="pin_range" />50m</label
+          >
+          <label
+            ><input type="radio" value="60" v-model="pin_range" />60m</label
+          >
+          <label
+            ><input type="radio" value="70" v-model="pin_range" />70m</label
+          >
+          <label
+            ><input type="radio" value="80" v-model="pin_range" />80m</label
+          >
+          <label
+            ><input type="radio" value="90" v-model="pin_range" />90m</label
+          >
+          <label
+            ><input type="radio" value="100" v-model="pin_range" />100m</label
+          >
+        </div>
       </div>
-      <button v-on:click="addPin">ピンを追加する</button>
+      <div class="button-box">
+        <a v-on:click="addPin" class="btn-border">ピンを追加する</a>
+      </div>
     </div>
     <!-- ピンを立てた時に出てくる情報入力画面ここまで -->
   </div>
@@ -254,4 +287,52 @@ export default {
   },
 }
 </script>
-<style></style>
+<style>
+.all {
+  padding-bottom: 5%;
+}
+h1 {
+  font-size: x-large;
+  text-align: center;
+}
+.pin-info {
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  width: 80%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  border-radius: 1.5em;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.input-name {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 2%;
+}
+.select-type {
+  width: 30%;
+  margin: 0 auto;
+  margin-bottom: 2%;
+}
+.button-box {
+  display: flex;
+  justify-content: center;
+}
+a.btn-border {
+  margin-top: 2%;
+  color: #ff5f17;
+  border: 2px solid #ff5f17;
+  border-radius: 0;
+  background: #fff;
+  padding: 5px 20px;
+}
+
+a.btn-border:hover {
+  color: #fff;
+  background: #ff5f17;
+}
+</style>

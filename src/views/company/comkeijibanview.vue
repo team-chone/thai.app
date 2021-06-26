@@ -31,9 +31,11 @@
         </div>
       </div>
     </header>
-    <h1>{{ pin_name }}掲示板</h1>
-    <router-link to="/compinview">戻る</router-link> |
-    <router-link to="/comanketoview">アンケートを見る</router-link>
+    <div class="page-title">
+      <h1>{{ pin_name }}掲示板</h1>
+      <img src="../../image/board2.png" width="10%" />
+    </div>
+
     <div v-if="reply_space === 'true'">
       <textarea
         v-model="input_reply"
@@ -41,28 +43,44 @@
       ></textarea>
       <button v-on:click="submitReply">リプライ送信</button>
     </div>
-    <h2>
-      コメントをみる
-      <div v-for="(submission, index) in submissions" :key="index">
-        <div>
-          <h5>{{ submission.user_nickname }}</h5>
-          <h4>{{ submission.input_text }}</h4>
+    <div class="coment-view">
+      <div
+        v-for="(submission, index) in submissions"
+        :key="index"
+        class="coment"
+      >
+        <div class="balloon1-left">
+          <div class="acount">
+            <img src="../../image/human.png" width="5%" />
+            <h5 class="nickname">{{ submission.user_nickname }}</h5>
+          </div>
+          <h4>「{{ submission.input_text }}」</h4>
           <h5>
             {{ submission.format_submit_time }}
           </h5>
-          <button v-on:click="addResolved(submission.id)">解決済にする</button>
-          <div v-if="submission.reply === ''">
-            <button v-on:click="replySpaceOpen(submission.id)">リプライ</button>
+        </div>
+        <div class="buttons">
+          <div v-on:click="addResolved(submission.id)" class="button">
+            <img src="../../image/check.png" width="20%" />
           </div>
-          <div v-else>
-            <button v-on:click="replySpaceOpen(submission.id)">
-              リプライ変更
-            </button>
-            <h4>{{ submission.reply }}</h4>
+          <div>
+            <div v-if="submission.reply === ''">
+              <div v-on:click="replySpaceOpen(submission.id)" class="button">
+                <img src="../../image/replay.png" width="20%" />
+              </div>
+            </div>
+            <div v-else>
+              <div v-on:click="replySpaceOpen(submission.id)" class="button">
+                <img src="../../image/change.png" width="20%" />
+              </div>
+            </div>
           </div>
         </div>
+        <div class="balloon1-right">
+          <h4>{{ submission.reply }}</h4>
+        </div>
       </div>
-    </h2>
+    </div>
   </div>
 </template>
 
@@ -152,3 +170,107 @@ export default {
   },
 }
 </script>
+<style scoped>
+.page-title {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+  font-size: x-large;
+}
+.page-title {
+  text-align: center;
+}
+.acount {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.nickname {
+  margin-left: 4%;
+}
+.balloon1-left {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #f5d0a9;
+}
+
+.balloon1-left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #f5d0a9;
+}
+
+.balloon1-right {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 15px 1.5em 0;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #effbef;
+}
+
+.balloon1-right:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-left: 15px solid #effbef;
+}
+
+.balloon1-right h4 {
+  margin: 0;
+  padding: 0;
+}
+.coment-view {
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  width: 80%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  border-radius: 1.5em;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1%;
+  padding-bottom: 2%;
+}
+.coment {
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: 2px solid #effbef;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #effbef;
+  height: 5%;
+}
+.button:hover {
+  background-color: #effbef;
+}
+</style>

@@ -1,44 +1,70 @@
 <template>
   <div>
-    <h2>アンケートの新規作成</h2>
-    <p>アンケートの題名を入力</p>
-    <input type="text" v-model="questionnaire_title" />
-    <p>回答数の上限を設定（最小10）</p>
-    <input type="number" min="10" v-model="questionnaire_limit" />
-    <p>アンケート回答によるポイント付与</p>
-    <input type="number" min="0" v-model="questionnaire_point" />
-    <div v-for="(question, index) in questions" :key="question.id">
-      <div>質問{{ index + 1 }}</div>
-      <div>{{ question.question_title }}</div>
-      <div v-if="question.question_type1 === 'ture'">必須</div>
-      <!-- <div v-if="question.question_type2 === 'ture'">複数回答可能</div> -->
-      <div v-for="select in question.question_selects" :key="select.id">
-        <div>{{ select }}</div>
-      </div>
-      <div v-on:click="deleteQuestion(index)">消去</div>
-    </div>
-    <p>質問の作成</p>
-    <div>
-      <p>質問の本文入力</p>
-      <input type="text" v-model="question_title" />
-      <p>回答必須の質問であるか</p>
-      <div>
-        <label
-          ><input
-            type="radio"
-            value="ture"
-            v-model="question_type1"
-          />必須</label
+    <h1>アンケートの新規作成</h1>
+    <div class="questionnaire-box">
+      <h2>アンケートの題名を入力</h2>
+      <input
+        type="text"
+        v-model="questionnaire_title"
+        class="questionnaire-title"
+      />
+      <h2>回答数の上限を設定（最小10）</h2>
+      <input
+        type="number"
+        min="10"
+        v-model="questionnaire_limit"
+        class="questionnaire-info"
+      />
+      <h2>アンケート回答によるポイント付与</h2>
+      <input
+        type="number"
+        min="0"
+        v-model="questionnaire_point"
+        class="questionnaire-info"
+      />
+      <div class="questions-box">
+        <div
+          v-for="(question, index) in questions"
+          :key="question.id"
+          class="question-box"
         >
-        <label
-          ><input
-            type="radio"
-            value="false"
-            v-model="question_type1"
-          />必須でない</label
-        >
+          <div>質問{{ index + 1 }}</div>
+          <div>
+            <h3>{{ question.question_title }}</h3>
+          </div>
+          <div v-if="question.question_type1 === 'ture'" class="must">必須</div>
+          <!-- <div v-if="question.question_type2 === 'ture'">複数回答可能</div> -->
+          <div v-for="select in question.question_selects" :key="select.id">
+            <div>{{ select }}</div>
+          </div>
+          <div v-on:click="deleteQuestion(index)" class="delete-button">
+            消去
+          </div>
+        </div>
       </div>
-      <!-- <p>複数回答可能であるか</p>
+      <div class="make-question">
+        <h2>質問の作成</h2>
+        <div>
+          <h3>質問の本文入力</h3>
+          <input type="text" v-model="question_title" class="question-text" />
+          <h3>回答必須の質問であるか</h3>
+          <div>
+            <label
+              ><input
+                type="radio"
+                value="ture"
+                v-model="question_type1"
+              />必須</label
+            >
+            <label
+              ><input
+                type="radio"
+                value="false"
+                v-model="question_type1"
+              />必須でない</label
+            >
+          </div>
+          <!-- <h3>複数回答可能であるか</h3>
       <label
         ><input type="radio" value="ture" v-model="question_type2" />可能</label
       >
@@ -49,16 +75,38 @@
           v-model="question_type2"
         />不可能</label
       > -->
-      <div v-for="(select, index) in selects" :key="select.id">
-        {{ select }}
-        <div v-on:click="deleteSelect(index)">消去</div>
+          <div class="selections">
+            <div
+              v-for="(select, index) in selects"
+              :key="select.id"
+              class="selection"
+            >
+              <div>{{ select }}</div>
+              <div v-on:click="deleteSelect(index)" class="delete-button">
+                消去
+              </div>
+            </div>
+          </div>
+
+          <div class="make-selection">
+            <h3>選択肢の入力</h3>
+            <input type="text" v-model="question_select" />
+            <button v-on:click="addSelect" class="add-select">
+              選択肢の追加
+            </button>
+          </div>
+
+          <button v-on:click="addQuestion" class="add-question">
+            この質問を追加する
+          </button>
+        </div>
       </div>
-      <p>選択肢の入力</p>
-      <input type="text" v-model="question_select" />
-      <button v-on:click="addSelect">選択肢の追加</button>
-      <button v-on:click="addQuestion">この質問を追加する</button>
     </div>
-    <button v-on:click="addQuestionnaire">以上の内容でアンケートを作成</button>
+    <div class="button-box">
+      <a v-on:click="addQuestionnaire" class="btn-border"
+        >以上の内容でアンケートを作成</a
+      >
+    </div>
   </div>
 </template>
 
@@ -139,3 +187,123 @@ export default {
   },
 }
 </script>
+<style scoped>
+h1 {
+  text-align: center;
+  font-size: x-large;
+}
+h2 {
+  font-size: large;
+}
+h3 {
+  font-size: medium;
+}
+.questionnaire-box {
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 2%;
+  width: 80%;
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+  border-radius: 1.5em;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.questionnaire-title {
+  width: 50%;
+  margin: 0 auto;
+}
+.questionnaire-info {
+  width: 20%;
+  margin: 0 auto;
+}
+.questions-box {
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 90%;
+  background-color: #f5d0a9;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.question-box {
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 30%;
+  min-height: 100px;
+  background-color: white;
+}
+.make-question {
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 50%;
+  background-color: #f5d0a9;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.question-text {
+  width: 80%;
+}
+.selections {
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 100%;
+  background-color: #f7dfc7;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.selection {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.make-selection {
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 100%;
+  background-color: #f7dfc7;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.add-select {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.add-question {
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+.must {
+  color: red;
+}
+a.btn-border {
+  margin-top: 2%;
+  color: #ff5f17;
+  border: 2px solid #ff5f17;
+  border-radius: 0;
+  background: #fff;
+  padding: 5px 20px;
+}
+.button-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+a.btn-border:hover {
+  color: #fff;
+  background: #ff5f17;
+}
+</style>
