@@ -71,6 +71,31 @@
         <img src="../../image/green-dot.png" />
       </button>
     </GmapMap>
+    <div v-if="pagemove" class="button-wrapper">
+      <h2>{{ marker.pin_name }}</h2>
+      <button
+        v-on:click="pagemovefalse"
+        class="btn-social-circle btn-social-circle--feedly"
+      >
+        ↑
+      </button>
+      <a v-on:click="toanketo" class="btn-social-isometric">
+        <span
+          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+          ><img class="image" src="../../image/questionnaire.png" />
+          <!-- <i class="fa fa-rss"></i> -->
+        </span>
+        <span class="btn-social-isometric-text2">アンケート</span>
+      </a>
+      <a v-on:click="tokeijiban" class="btn-social-isometric">
+        <span
+          class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+          ><img class="image" src="../../image/board.png" />
+          <!-- <i class="fa fa-rss"></i> -->
+        </span>
+        <span class="btn-social-isometric-text">掲示板</span>
+      </a>
+    </div>
     <div class="button-wrapper">
       <button
         v-on:click="opensearch"
@@ -79,23 +104,16 @@
         <img class="siborubutton" src="../../image/siborubutton.png" />
       </button>
       <!-- 範囲内のピンをクリックしたときに出てくる -->
-      <div v-if="pagemove" class="input">
-        <h2>{{ marker.pin_name }}</h2>
-        <button v-on:click="toanketo">アンケートに答える</button>
-        <button v-on:click="tokeijiban">掲示板</button>
-      </div>
+
       <!-- 範囲内のピンをクリックしたときに出てくるここまで -->
       <!-- 条件を絞るを押したときに出てくる -->
       <div v-if="kensaku">
-        店名<input type="text" v-model="tenmei" />
-        <p>
-          業種<select v-model="gyousyu_select">
-            <option value="">指定なし</option>
-            <option value="apparel">アパレル</option>
-            <option value="restaurant">レストラン</option>
-            <option value="others">その他</option>
-          </select>
-        </p>
+        <button
+          v-on:click="kensakufalse"
+          class="btn-social-circle btn-social-circle--feedly"
+        >
+          ↑
+        </button>
         <a v-on:click="search" class="btn-social-isometric">
           <span
             class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
@@ -104,6 +122,19 @@
           </span>
           <span class="btn-social-isometric-text">検索</span>
         </a>
+        <p>
+          <a class="migihasi" v-on:click="kensakufalse"></a>
+          店名<input type="text" v-model="tenmei" />
+        </p>
+
+        <p>
+          業種<select v-model="gyousyu_select">
+            <option value="">指定なし</option>
+            <option value="apparel">アパレル</option>
+            <option value="restaurant">レストラン</option>
+            <option value="others">その他</option>
+          </select>
+        </p>
       </div>
       <!-- 条件を絞るを押した時に出てくるここまで -->
     </div>
@@ -186,6 +217,12 @@ export default {
   },
 
   methods: {
+    kensakufalse() {
+      this.kensaku = false
+    },
+    pagemovefalse() {
+      this.pagemove = false
+    },
     signOut() {
       firebase
         .auth()
@@ -384,8 +421,12 @@ export default {
 }
 </script>
 <style>
+.migihasi {
+  top: 0;
+  right: 0;
+}
 .image {
-  margin-top: 5px;
+  margin-top: 8px;
   width: 33px;
   height: 33px;
 }
@@ -414,7 +455,14 @@ export default {
 .btn-social-isometric-text {
   display: inline-block;
   width: 120px;
-  height: 43px;
+  height: 40px;
+  text-align: center;
+  border-bottom: solid 4px #dcdcdc;
+}
+.btn-social-isometric-text2 {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
   text-align: center;
   border-bottom: solid 4px #dcdcdc;
 }
@@ -428,6 +476,7 @@ export default {
   transform: translateY(4px);
 }
 .btn-social-isometric:hover .btn-social-isometric-text,
+.btn-social-isometric:hover .btn-social-isometric-text2,
 .btn-social-isometric:hover .btn-social-isometric-icon {
   border-bottom: none;
 }
@@ -467,176 +516,6 @@ export default {
 .btn-social-circle--feedly {
   background: #ff5f17;
   border: solid 5px #ff5f17;
-}
-.input {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  margin: 1em;
-  max-width: 350px;
-  width: calc(100% - 2em);
-  vertical-align: top;
-}
-
-.input__field {
-  position: relative;
-  display: block;
-  float: right;
-  padding: 0.8em;
-  width: 60%;
-  border: none;
-  border-radius: 0;
-  background: #f0f0f0;
-  color: #aaa;
-  font-weight: bold;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-appearance: none; /* for box shadows to show on iOS */
-}
-
-.input__field:focus {
-  outline: none;
-}
-
-.input__label {
-  display: inline-block;
-  padding: 0 1em;
-  width: 40%;
-  color: #6a7989;
-  font-weight: bold;
-  font-size: 70.25%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.input__label-content {
-  position: relative;
-  display: block;
-  padding: 1.6em 0;
-  width: 100%;
-}
-
-.graphic {
-  position: absolute;
-  top: 0;
-  left: 0;
-  fill: none;
-}
-
-.icon {
-  color: #ddd;
-  font-size: 150%;
-}
-.input--hoshi {
-  overflow: hidden;
-}
-
-.input__field--hoshi {
-  margin-top: 1em;
-  padding: 0.85em 0.15em;
-  width: 100%;
-  background: transparent;
-  color: #595f6e;
-}
-
-.input__label--hoshi {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 0 0.25em;
-  width: 100%;
-  height: calc(100% - 1em);
-  text-align: left;
-  pointer-events: none;
-}
-
-.input__label-content--hoshi {
-  position: absolute;
-}
-
-.input__label--hoshi::before,
-.input__label--hoshi::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 10px);
-  border-bottom: 1px solid #b9c1ca;
-}
-
-.input__label--hoshi::after {
-  margin-top: 2px;
-  border-bottom: 4px solid red;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-}
-
-.input__label--hoshi-color-1::after {
-  border-color: hsl(200, 100%, 50%);
-}
-
-.input__label--hoshi-color-2::after {
-  border-color: hsl(160, 100%, 50%);
-}
-
-.input__label--hoshi-color-3::after {
-  border-color: hsl(20, 100%, 50%);
-}
-
-.input__field--hoshi:focus + .input__label--hoshi::after,
-.input--filled .input__label--hoshi::after {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-.input__field--hoshi:focus + .input__label--hoshi .input__label-content--hoshi,
-.input--filled .input__label-content--hoshi {
-  -webkit-animation: anim-1 0.3s forwards;
-  animation: anim-1 0.3s forwards;
-}
-
-@-webkit-keyframes anim-1 {
-  50% {
-    opacity: 0;
-    -webkit-transform: translate3d(1em, 0, 0);
-    transform: translate3d(1em, 0, 0);
-  }
-  51% {
-    opacity: 0;
-    -webkit-transform: translate3d(-1em, -40%, 0);
-    transform: translate3d(-1em, -40%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translate3d(0, -40%, 0);
-    transform: translate3d(0, -40%, 0);
-  }
-}
-
-@keyframes anim-1 {
-  50% {
-    opacity: 0;
-    -webkit-transform: translate3d(1em, 0, 0);
-    transform: translate3d(1em, 0, 0);
-  }
-  51% {
-    opacity: 0;
-    -webkit-transform: translate3d(-1em, -40%, 0);
-    transform: translate3d(-1em, -40%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translate3d(0, -40%, 0);
-    transform: translate3d(0, -40%, 0);
-  }
 }
 
 /*ボタン*/
