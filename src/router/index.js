@@ -13,7 +13,7 @@ const routes = [
   {
     path: "/makeacount",
     name: "Makeacount",
-    component: () => import("../views/user/makeacount.vue"),
+    component: () => import("../views/user/Makeacount.vue"),
   },
   {
     path: "/comcreateacount",
