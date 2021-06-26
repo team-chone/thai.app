@@ -1,7 +1,14 @@
 <template>
   <div>
     <h1>{{ pin_name }}の掲示板</h1>
-    <router-link to="/maphome">戻る</router-link>
+    <a v-on:click="modoru" class="btn-social-isometric">
+      <span class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
+        ><img class="image" src="../../image/home.png" />
+        <!-- <i class="fa fa-rss"></i> -->
+      </span>
+      <span class="btn-social-isometric-text2">地図に戻る</span>
+    </a>
+
     <div>
       <h2>コメントを追加する</h2>
       <textarea
@@ -41,6 +48,11 @@ export default {
     }
   },
   methods: {
+    modoru() {
+      this.$router.push({
+        name: "maphome",
+      })
+    },
     submit() {
       const submit_time = firebase.firestore.Timestamp.now().toDate()
       const submission = {

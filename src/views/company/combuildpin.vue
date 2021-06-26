@@ -4,6 +4,7 @@
       <div class="site-header__wrapper">
         <div class="site-header__start">
           <h1 class="brand">{{ pin_company }}ピンを立てる</h1>
+          <img class="addpin" src="../../image/addpin.png" />
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -246,3 +247,8 @@ export default {
   },
 }
 </script>
+<style>
+.addpin {
+  width: 10%;
+}
+</style>
