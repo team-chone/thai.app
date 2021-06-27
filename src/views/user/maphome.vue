@@ -570,7 +570,6 @@ export default {
 
 /*ボタン*/
 
-
 .hamburger_btn {
   position: fixed; /*常に最上部に表示したいので固定*/
   top: 0;
