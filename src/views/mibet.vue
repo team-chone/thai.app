@@ -24,7 +24,6 @@
       <transition name="menu">
         <div class="menu" v-show="ActiveBtn">
           <ul>
-            <li><a href="#">項目1</a></li>
             <li><router-link to="/aboutmibet">サービス概要</router-link></li>
             <li><router-link to="/cominfo">企業の方へ</router-link></li>
           </ul>

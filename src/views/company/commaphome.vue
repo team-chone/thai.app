@@ -59,10 +59,24 @@
           <ul>
             <li><router-link to="/comacount">アカウント</router-link></li>
             <li>
-              <div class="logout_button" @click="signOut">ログアウト</div>
+              <div @click="signOut">ログアウト</div>
             </li>
-            <li></li>
             <li><a href="#">(受信トレイ)</a></li>
+            <li>
+              <router-link to="/commaphome"
+                ><font color="#000000">ホーム</font></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/combuildpin"
+                ><font color="#000000">ピンを立てる</font></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/compinview"
+                ><font color="#000000">ピンを見る</font></router-link
+              >
+            </li>
           </ul>
         </div>
       </transition>
