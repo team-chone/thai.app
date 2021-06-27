@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <div v-if="questionnaire_title === '' || questionnaire_remains <= 0">
       <a v-on:click="modoru" class="btn-social-isometric">
         <span
@@ -8,7 +8,9 @@
         </span>
         <span class="btn-social-isometric-text2">地図に戻る</span>
       </a>
-      <h1>このピンにアンケートはありません</h1>
+      <div class="anim-box">
+        <h3>このピンにアンケートはありません</h3>
+      </div>
     </div>
     <div v-else>
       <div v-if="ansered_nicknames.includes(user_nickname)">
@@ -19,7 +21,9 @@
           </span>
           <span class="btn-social-isometric-text2">地図に戻る</span>
         </a>
-        <h1>あなたはすでにこの質問に答えています</h1>
+        <div class="anim-box">
+          <h3>あなたはすでにこの質問に答えています</h3>
+        </div>
       </div>
       <div v-else>
         <a v-on:click="modoru" class="btn-social-isometric">
@@ -119,9 +123,9 @@
           </div>
         </div>
         <div class="button">
-          <a v-on:click="sendQuesttionnaire" class="btn-social-isometric">
-            <span class="btn-social-isometric-text2">送信</span>
-          </a>
+          <button class="login_button" v-on:click="sendQuesttionnaire">
+            送信
+          </button>
         </div>
       </div>
     </div>
@@ -331,8 +335,80 @@ h3 {
   font-size: small;
   color: red;
 }
+.btn-social-isometric {
+  display: flex;
+  color: #484848;
+  display: inline-block;
+  height: 50/4 * 3px;
+  font-size: 25/4 * 3px;
+  line-height: 46/4 * 3px;
+  background: #eaeef1;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 1/4 * 3em;
+  margin-left: 10px;
+  /* margin-bottom: 2%; */
+}
+.btn-social-isometric-text2 {
+  align-items: center;
+  display: inline-block;
+  width: 150/4 * 3px;
+  height: 39.5/4 * 3px;
+  text-align: center;
+  border-bottom: solid 3px #dcdcdc;
+}
 .button {
   display: flex;
   justify-content: center;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.login_button {
+  margin: 10px;
+  color: #ff5f17;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 1.5em;
+  font-size: 15px;
+  /* border: none; */
+  padding: 5px 15px;
+  font-weight: bold;
+}
+.anim-box {
+  background-color: #e6e6e6;
+
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-around;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  width: 60%;
+
+  position: fixed;
+  top: 30%;
+  right: 20%;
+  z-index: 5;
+  border-radius: 1em;
+}
+.anim-box.popup.is-animated {
+  animation: popup 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 forwards;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(40px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  80%,
+  100% {
+    opacity: 1;
+  }
 }
 </style>
