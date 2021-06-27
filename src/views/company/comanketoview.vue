@@ -35,6 +35,7 @@
       <h1>{{ pin_name }}のアンケート</h1>
       <img src="../../image/questionnaire2.png" width="10%" />
     </div>
+    <hamburger />
     <div class="select-box">
       <div v-on:click="screenChange1" v-bind:class="change_style1">
         アンケートを作成する
@@ -58,8 +59,14 @@ import comMakeQuestion from "../../components/comMakeQuestion.vue"
 import comEditQuestion from "../../components/comEditQuestion.vue"
 import comAnalyzeQuestion from "../../components/comAnalyzeQuestion.vue"
 import firebase from "firebase"
+import Hamburger from "../../components/comhamburger.vue"
 export default {
-  components: { comMakeQuestion, comEditQuestion, comAnalyzeQuestion },
+  components: {
+    comMakeQuestion,
+    comEditQuestion,
+    comAnalyzeQuestion,
+    Hamburger,
+  },
   data() {
     return {
       pin_name: this.$route.params.pin_name,

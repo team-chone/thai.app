@@ -35,7 +35,7 @@
       <h1>{{ pin_name }}掲示板</h1>
       <img src="../../image/board2.png" width="10%" />
     </div>
-
+    <hamburger />
     <div v-if="reply_space === 'true'">
       <textarea
         v-model="input_reply"
@@ -86,7 +86,9 @@
 
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
 export default {
+  components: { hamburger },
   data() {
     return {
       pin_id: this.$route.params.pin_id,
