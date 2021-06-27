@@ -20,24 +20,64 @@
       <transition name="menu">
         <div class="menu" v-show="ActiveBtn">
           <ul>
-            <li><router-link to="/comacount">アカウント</router-link></li>
             <li>
-              <div @click="signOut">ログアウト</div>
+              <router-link to="/comacount"
+                ><img
+                  src="../image/human.png"
+                  width="8%"
+                  class="hamlogo"
+                />アカウント</router-link
+              >
             </li>
-            <li><a href="#">(受信トレイ)</a></li>
+            <li>
+              <div @click="signOut">
+                <img
+                  src="../image/logout.png"
+                  width="8%"
+                  class="hamlogo"
+                />ログアウト
+              </div>
+            </li>
+            <li>
+              <a href="#"
+                ><img
+                  src="../image/recieve.png"
+                  width="8%"
+                  class="hamlogo"
+                />(受信トレイ)</a
+              >
+            </li>
             <li>
               <router-link to="/commaphome"
-                ><font color="#000000">ホーム</font></router-link
+                ><font color="#000000"
+                  ><img
+                    src="../image/home.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ホーム</font
+                ></router-link
               >
             </li>
             <li>
               <router-link to="/combuildpin"
-                ><font color="#000000">ピンを立てる</font></router-link
+                ><font color="#000000"
+                  ><img
+                    src="../image/addpin2.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ピンを立てる</font
+                ></router-link
               >
             </li>
             <li>
               <router-link to="/compinview"
-                ><font color="#000000">ピンを見る</font></router-link
+                ><font color="#000000"
+                  ><img
+                    src="../image/viewpin.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ピンを見る</font
+                ></router-link
               >
             </li>
           </ul>
@@ -162,5 +202,8 @@ export default {
 .menu ul {
   margin: 1rem;
   padding: 0;
+}
+.hamlogo {
+  margin-right: 5%;
 }
 </style>

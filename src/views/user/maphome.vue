@@ -25,13 +25,41 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li>
-              <router-link to="/acount">アカウント情報</router-link>
+              <router-link to="/acount"
+                ><img
+                  src="../../image/human.png"
+                  width="8%"
+                  class="hamlogo"
+                />アカウント情報</router-link
+              >
             </li>
-            <li><router-link to="/wolet">ウォレット</router-link></li>
             <li>
-              <div class="logout_button" @click="signOut">ログアウト</div>
+              <router-link to="/wolet"
+                ><img
+                  src="../../image/coin.png"
+                  width="8%"
+                  class="hamlogo"
+                />ウォレット</router-link
+              >
             </li>
-            <li><a href="#">(受信トレイ)</a></li>
+            <li>
+              <div class="logout_button" @click="signOut">
+                <img
+                  src="../../image/logout.png"
+                  width="8%"
+                  class="hamlogo"
+                />ログアウト
+              </div>
+            </li>
+            <li>
+              <a href="#"
+                ><img
+                  src="../../image/recieve.png"
+                  width="8%"
+                  class="hamlogo"
+                />(受信トレイ)</a
+              >
+            </li>
           </ul>
         </div>
       </transition>
@@ -683,5 +711,8 @@ export default {
 .menu ul {
   margin: 1rem;
   padding: 0;
+}
+.hamlogo {
+  margin-right: 5%;
 }
 </style>

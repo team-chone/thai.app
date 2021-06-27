@@ -182,7 +182,7 @@ a.btn-border:hover {
   background: #ff5f17;
 }
 .anim-box {
-  background-color: rgb(253, 219, 181);
+  background-color: #e6e6e6;
 
   box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
 
