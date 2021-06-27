@@ -7,9 +7,6 @@
         <span class="user_point">{{ user_point }}</span
         ><span class="user_point_p">p</span>
       </div>
-      <div>
-        <router-link to="/maphome">戻る</router-link>
-      </div>
     </div>
   </div>
 </template>
