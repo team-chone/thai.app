@@ -35,12 +35,15 @@
         アカウント作成
       </button>
     </div>
-    <div v-if="message" class="error_message input_content">
-      ※既にアカウントが存在します"
-    </div>
+    <!-- <div v-if="message1" class="error_message input_content">
+      ※既にアカウントが存在します
+    </div> -->
     <div class="input_content">
       <button class="login_button" @click="logIn">ログイン</button>
     </div>
+    <!-- <div v-if="message2" class="error_message input_content">
+      ※存在しないアカウントです。初めにアカウント登録をしてください。
+    </div> -->
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -50,7 +53,8 @@ export default {
   data() {
     return {
       ActiveBtn: false,
-      message: false,
+      // message1: false,
+      // message2: false,
     }
   },
   methods: {
@@ -68,7 +72,8 @@ export default {
         })
         .then((doc) => {
           if (doc.exists) {
-            this.message = true
+            // this.message1 = true
+            alert("※既にアカウントが存在します")
           } else {
             this.$router.push("/makeacount")
           }
@@ -90,8 +95,9 @@ export default {
           if (doc.exists) {
             this.$router.push("/maphome")
           } else {
-            this.message =
-              "存在しないアカウントです。初めにアカウント登録をしてください。"
+            alert(
+              "※存在しないアカウントです。初めにアカウント登録をしてください。"
+            )
           }
         })
     },
