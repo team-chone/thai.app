@@ -34,7 +34,7 @@
     <div class="page">
       <div class="page-title">
         <h1>ピンを立てる</h1>
-        <img src="../../image/addpin2.png" width="10%" />
+        <img src="../../image/addpin2.png" width="5%" />
       </div>
     </div>
     <!-- <h1>{{ pin_company }}</h1>

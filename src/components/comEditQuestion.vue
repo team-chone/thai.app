@@ -25,9 +25,11 @@
       </div>
 
       <div v-if="deleteAlert === 'ture'" class="anim-box">
-        本当に取り消して良いですか
-        <button v-on:click="deleteQuestionnaire">はい</button>
-        <button v-on:click="deleteCancel">いいえ</button>
+        <h3>本当に取り消して良いですか</h3>
+        <div class="select-box">
+          <button v-on:click="deleteQuestionnaire">はい</button>
+          <button v-on:click="deleteCancel">いいえ</button>
+        </div>
       </div>
       <div class="questions-box">
         <div
@@ -180,13 +182,28 @@ a.btn-border:hover {
   background: #ff5f17;
 }
 .anim-box {
-  background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
-  border-radius: 5px;
+  background-color: rgb(253, 219, 181);
+
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
   width: 40%;
-  height: 250px;
+
   position: fixed;
   top: 30%;
   right: 30%;
+}
+.select-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: large;
 }
 .anim-box.fadein.is-animated {
   animation: fadeIn 0.7s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
