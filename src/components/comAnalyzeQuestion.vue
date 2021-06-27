@@ -7,12 +7,7 @@
         <h1 class="title">{{ questionnaire_title }}</h1>
         <div class="questionnaire-info">
           <div>
-            <h3>
-              残り{{ questionnaire_remains }}回/{{ questionnaire_limit }}回
-            </h3>
-          </div>
-          <div class="point-box">
-            <h3>報酬：{{ questionnaire_point }}</h3>
+            <h3>回答者：{{ questionnaire_limit - questionnaire_remains }}人</h3>
           </div>
         </div>
       </div>
