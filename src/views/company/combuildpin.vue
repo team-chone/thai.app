@@ -167,6 +167,25 @@ export default {
       .get()
       .then((doc) => {
         this.pin_company = doc.data().comname
+
+        //同じ会社のピンだけを追加
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_company", "==", this.pin_company)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
       })
   },
   async mounted() {
@@ -181,24 +200,6 @@ export default {
       pin_lat: this.maplocation.lat,
       pin_lng: this.maplocation.lng,
     })
-    //同じ会社のピンだけを追加
-    firebase
-      .firestore()
-      .collection("pins")
-      .where("pin_company", "==", this.pin_company)
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          this.markers.push({
-            id: doc.id,
-            ...doc.data(),
-            pinicon: {
-              url: require("../../image/green-dot.png"),
-              scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-            },
-          })
-        })
-      })
   },
   methods: {
     getCurrentPosition() {

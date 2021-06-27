@@ -95,13 +95,24 @@
         <p>店名<input type="text" v-model="tenmei" /></p>
 
         <p>
-          業種<select v-model="gyousyu_select">
+          業種
+          <select v-model="gyousyu_select" class="select-type">
             <option value="">指定なし</option>
-            <option value="apparel">アパレル</option>
-            <option value="restaurant">レストラン</option>
-            <option value="others">その他</option>
+            <option value="飲食">飲食</option>
+            <option value="スーパー">スーパー</option>
+            <option value="ショッピングセンター">ショッピングセンター</option>
+            <option value="コンビニ">コンビニ</option>
+            <option value="インフラ">インフラ</option>
+            <option value="家具・家電">家具・家電</option>
+            <option value="日用品・書籍・スポーツ">
+              日用品・書籍・スポーツ
+            </option>
+            <option value="アパレル">アパレル</option>
+            <option value="ホテル">ホテル</option>
+            <option value="アミューズメント">アミューズメント</option>
           </select>
         </p>
+
         <button
           v-on:click="kensakufalse"
           class="btn-social-circle btn-social-circle--feedly"
@@ -113,13 +124,16 @@
         </a>
       </div>
       <div v-if="pagemove" class="button-wrapper">
-        <h2>{{ marker.pin_name }}</h2>
-        <button
-          v-on:click="pagemovefalse"
-          class="btn-social-circle btn-social-circle--feedly"
-        >
-          <img class="image2" src="../../image/fade.png" />
-        </button>
+        <p>
+          <button
+            v-on:click="pagemovefalse"
+            class="btn-social-circle btn-social-circle--feedly ue"
+          >
+            <img class="image2" src="../../image/fade.png" />
+          </button>
+
+          <a class="font">{{ marker.pin_name }}</a>
+        </p>
         <a v-on:click="toanketo" class="btn-social-isometric">
           <span
             class="btn-social-isometric-icon btn-social-isometric-icon--feedly"
@@ -423,6 +437,15 @@ export default {
 }
 </script>
 <style>
+.font {
+  font-size: 20px;
+  font: bold;
+}
+.select-type {
+  width: 30%;
+  margin: 0 auto;
+  margin-bottom: 2%;
+}
 /* .flex {
   display: flex;
 } */
@@ -457,6 +480,7 @@ export default {
   text-decoration: none;
   box-sizing: border-box;
   margin: 1/4 * 3em;
+  margin-left: 10px;
 }
 .btn-social-isometric2 {
   display: flex;

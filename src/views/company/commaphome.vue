@@ -135,6 +135,7 @@ export default {
     }
   },
   async mounted() {
+    await this.created
     const currentPosTmp = await this.getCurrentPosition()
     const currentPos = {
       lat: currentPosTmp.coords.latitude,
@@ -146,23 +147,23 @@ export default {
       pin_lat: this.maplocation.lat,
       pin_lng: this.maplocation.lng,
     })
-    firebase
-      .firestore()
-      .collection("pins")
-      .where("pin_company", "==", this.pin_company)
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          this.markers.push({
-            id: doc.id,
-            ...doc.data(),
-            pinicon: {
-              url: require("../../image/green-dot.png"),
-              scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-            },
-          })
-        })
-      })
+    // firebase
+    //   .firestore()
+    //   .collection("pins")
+    //   .where("pin_company", "==", this.pin_company)
+    //   .get()
+    //   .then((snapshot) => {
+    //     snapshot.docs.forEach((doc) => {
+    //       this.markers.push({
+    //         id: doc.id,
+    //         ...doc.data(),
+    //         pinicon: {
+    //           url: require("../../image/green-dot.png"),
+    //           scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+    //         },
+    //       })
+    //     })
+    //   })
   },
   methods: {
     signOut() {
@@ -194,7 +195,23 @@ export default {
       .then((doc) => {
         this.pin_company = doc.data().comname
         //console.log(this.pin_company)
-        console.log = this.pin_company
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_company", "==", this.pin_company)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
       })
   },
 }
@@ -217,7 +234,7 @@ export default {
 
 .site-header {
   position: relative;
-  background-color: #ff5f17;
+  background-color: #ffc44d;
 }
 
 /* .site-header__middle {
