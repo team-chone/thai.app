@@ -37,6 +37,7 @@
         <img src="../../image/addpin2.png" width="5%" />
       </div>
     </div>
+    <hamburger />
     <!-- <h1>{{ pin_company }}</h1>
     <router-link to="/commaphome">ホーム</router-link>｜
     <router-link to="/combuildpin">ピンを立てる</router-link> |
@@ -130,7 +131,9 @@
 </template>
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
 export default {
+  components: { hamburger },
   data() {
     return {
       maplocation: { lng: 0, lat: 0 },

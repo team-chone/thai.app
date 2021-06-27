@@ -37,6 +37,7 @@
         <h1>ピンを見る</h1>
         <img src="../../image/viewpin.png" width="5%" />
       </div>
+      <hamburger />
       <div class="pin-list">
         <div v-for="(pin, index) in companyPins" :key="index">
           <div class="pin-box">
@@ -81,7 +82,11 @@
 
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
+
 export default {
+  components: { hamburger },
+
   data() {
     return {
       company_name: "", //company_nameは企業名と紐付ける必要あり。今はとりあえず「神奈川県」としている。
