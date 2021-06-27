@@ -37,50 +37,8 @@
         <img src="../../image/home.png" width="5%" />
       </div>
     </div>
-    <div id="app">
-      <!--ハンバーガーメニューのボタン-->
-      <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
-        <span
-          class="line line_01"
-          v-bind:class="{ btn_line01: ActiveBtn }"
-        ></span>
-        <span
-          class="line line_02"
-          v-bind:class="{ btn_line02: ActiveBtn }"
-        ></span>
-        <span
-          class="line line_03"
-          v-bind:class="{ btn_line03: ActiveBtn }"
-        ></span>
-      </div>
-      <!--サイドバー-->
-      <transition name="menu">
-        <div class="menu" v-show="ActiveBtn">
-          <ul>
-            <li><router-link to="/comacount">アカウント</router-link></li>
-            <li>
-              <div @click="signOut">ログアウト</div>
-            </li>
-            <li><a href="#">(受信トレイ)</a></li>
-            <li>
-              <router-link to="/commaphome"
-                ><font color="#000000">ホーム</font></router-link
-              >
-            </li>
-            <li>
-              <router-link to="/combuildpin"
-                ><font color="#000000">ピンを立てる</font></router-link
-              >
-            </li>
-            <li>
-              <router-link to="/compinview"
-                ><font color="#000000">ピンを見る</font></router-link
-              >
-            </li>
-          </ul>
-        </div>
-      </transition>
-    </div>
+    <hamburger />
+
     <GmapMap
       ref="gmp"
       map-type-id="roadmap"
@@ -118,7 +76,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
 export default {
+  components: { hamburger },
   data() {
     return {
       ActiveBtn: false, //これだけハンバーガーバーの変数

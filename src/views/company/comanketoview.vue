@@ -33,8 +33,9 @@
     </header>
     <div class="page-title">
       <h1>{{ pin_name }}のアンケート</h1>
-      <img src="../../image/questionnaire2.png" width="10%" />
+      <img src="../../image/questionnaire2.png" width="5%" />
     </div>
+    <hamburger />
     <div class="select-box">
       <div v-on:click="screenChange1" v-bind:class="change_style1">
         アンケートを作成する
@@ -58,8 +59,14 @@ import comMakeQuestion from "../../components/comMakeQuestion.vue"
 import comEditQuestion from "../../components/comEditQuestion.vue"
 import comAnalyzeQuestion from "../../components/comAnalyzeQuestion.vue"
 import firebase from "firebase"
+import Hamburger from "../../components/comhamburger.vue"
 export default {
-  components: { comMakeQuestion, comEditQuestion, comAnalyzeQuestion },
+  components: {
+    comMakeQuestion,
+    comEditQuestion,
+    comAnalyzeQuestion,
+    Hamburger,
+  },
   data() {
     return {
       pin_name: this.$route.params.pin_name,
@@ -75,9 +82,9 @@ export default {
   methods: {
     screenChange1() {
       //表示されるコンポーネントの切り替え
-      this.change_style1 = "style"
-      this.change_style2 = "nonstyle"
-      this.change_style3 = "nonstyle"
+      // this.change_style1 = "style"
+      // this.change_style2 = "nonstyle"
+      // this.change_style3 = "nonstyle"
       firebase
         .firestore()
         .collection("pins")
@@ -87,8 +94,14 @@ export default {
           this.questionnaire_title = doc.data().questionnaire_title
           if (this.questionnaire_title === "") {
             this.screen_type = "1"
+            this.change_style1 = "style"
+            this.change_style2 = "nonstyle"
+            this.change_style3 = "nonstyle"
           } else {
             alert("一つのピンに設定できるアンケートは一つまでです")
+            this.change_style1 = "nonstyle"
+            this.change_style2 = "nonstyle"
+            this.change_style3 = "nonstyle"
           }
         })
     },

@@ -33,15 +33,17 @@
     </header>
     <div class="page-title">
       <h1>{{ pin_name }}掲示板</h1>
-      <img src="../../image/board2.png" width="10%" />
+      <img src="../../image/board2.png" width="5%" />
     </div>
-
-    <div v-if="reply_space === 'true'">
+    <hamburger />
+    <div v-if="reply_space === 'true'" class="anim-box">
       <textarea
         v-model="input_reply"
         placeholder="ご意見ありがとうございます"
+        class="input-reply"
       ></textarea>
-      <button v-on:click="submitReply">リプライ送信</button>
+      <button v-on:click="submitReply" class="button2">リプライ送信</button>
+      <button v-on:click="cancel" class="button2">戻る</button>
     </div>
     <div class="coment-view">
       <div
@@ -86,7 +88,9 @@
 
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
 export default {
+  components: { hamburger },
   data() {
     return {
       pin_id: this.$route.params.pin_id,
@@ -101,6 +105,9 @@ export default {
     replySpaceOpen(value) {
       this.reply_space = "true"
       this.submission_id = value
+    },
+    cancel() {
+      this.reply_space = "false"
     },
     submitReply() {
       firebase
@@ -269,5 +276,51 @@ h1 {
 }
 .button:hover {
   background-color: #effbef;
+}
+.anim-box {
+  background-color: #e6e6e6;
+
+  box-shadow: 0px 11px 35px 2px rgb(0, 0, 0, 0.14);
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-around;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  width: 40%;
+
+  position: fixed;
+  top: 30%;
+  right: 30%;
+  z-index: 5;
+  border-radius: 1em;
+}
+.anim-box.popup.is-animated {
+  animation: popup 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 forwards;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(40px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  80%,
+  100% {
+    opacity: 1;
+  }
+}
+.input-reply {
+  width: 80%;
+  margin: 0 auto;
+}
+.button2 {
+  width: 20%;
+  margin: 0 auto;
+  margin-top: 2%;
 }
 </style>

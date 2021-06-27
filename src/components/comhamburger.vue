@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- <img class="mibet" src="../../image/MibetLogo2.png" /> -->
+    <!--ハンバーガーメニューのボタン-->
     <div>
-      <!--ハンバーガーメニューのボタン-->
       <div class="hamburger_btn" v-on:click="ActiveBtn = !ActiveBtn">
         <span
           class="line line_01"
@@ -22,30 +21,16 @@
         <div class="menu" v-show="ActiveBtn">
           <ul>
             <li>
-              <router-link to="/maphome"
-                ><img src="../image/home.png" width="8%" />ホーム</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/acount"
+              <router-link to="/comacount"
                 ><img
                   src="../image/human.png"
                   width="8%"
                   class="hamlogo"
-                />アカウント情報</router-link
+                />アカウント</router-link
               >
             </li>
             <li>
-              <router-link to="/wolet"
-                ><img
-                  src="../image/coin.png"
-                  width="8%"
-                  class="hamlogo"
-                />ウォレット</router-link
-              >
-            </li>
-            <li>
-              <div class="logout_button" @click="signOut">
+              <div @click="signOut">
                 <img
                   src="../image/logout.png"
                   width="8%"
@@ -60,6 +45,39 @@
                   width="8%"
                   class="hamlogo"
                 />(受信トレイ)</a
+              >
+            </li>
+            <li>
+              <router-link to="/commaphome"
+                ><font color="#000000"
+                  ><img
+                    src="../image/home.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ホーム</font
+                ></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/combuildpin"
+                ><font color="#000000"
+                  ><img
+                    src="../image/addpin2.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ピンを立てる</font
+                ></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/compinview"
+                ><font color="#000000"
+                  ><img
+                    src="../image/viewpin.png"
+                    width="8%"
+                    class="hamlogo"
+                  />ピンを見る</font
+                ></router-link
               >
             </li>
           </ul>

@@ -72,7 +72,7 @@ export default {
         input_text: this.input_text,
         format_submit_time: `${submit_time.getFullYear()}/${
           submit_time.getMonth() + 1
-        }/${submit_time.getDate()} ${submit_time.getHours()}:${submit_time.getMinutes()}:${submit_time.getSeconds()}`,
+        }/${submit_time.getDate()} ${submit_time.getHours()}:${submit_time.getMinutes()}`,
         favorite: 0,
         reply: "",
       }

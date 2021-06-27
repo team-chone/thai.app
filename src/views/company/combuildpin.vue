@@ -37,6 +37,7 @@
         <img src="../../image/addpin2.png" width="5%" />
       </div>
     </div>
+    <hamburger />
     <!-- <h1>{{ pin_company }}</h1>
     <router-link to="/commaphome">ホーム</router-link>｜
     <router-link to="/combuildpin">ピンを立てる</router-link> |
@@ -70,12 +71,14 @@
     <div v-if="pinjouhou">
       <h1>ピン情報入力画面</h1>
       <div class="pin-info">
+        <h2>ピンの名前</h2>
         <input
           type="text"
           placeholder="ピンの名前の入力"
           v-model="pin_name"
           class="input-name"
         />
+        <h2>ピンの業種</h2>
         <select v-model="pin_type" class="select-type">
           <option value="飲食">飲食</option>
           <option value="スーパー">スーパー</option>
@@ -88,6 +91,7 @@
           <option value="ホテル">ホテル</option>
           <option value="アミューズメント">アミューズメント</option>
         </select>
+        <h2>ピンの半径</h2>
         <div class="select-range">
           <label
             ><input type="radio" value="10" v-model="pin_range" />10m</label
@@ -130,7 +134,9 @@
 </template>
 <script>
 import firebase from "firebase"
+import hamburger from "../../components/comhamburger.vue"
 export default {
+  components: { hamburger },
   data() {
     return {
       maplocation: { lng: 0, lat: 0 },
@@ -296,6 +302,9 @@ h1 {
   font-size: x-large;
   text-align: center;
 }
+h2 {
+  font-size: large;
+}
 .pin-info {
   background-color: white;
   margin: 0 auto;
@@ -306,8 +315,7 @@ h1 {
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-top: 2%;
-  padding-bottom: 2%;
+  padding-bottom: 1%;
 }
 .input-name {
   width: 50%;
