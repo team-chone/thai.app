@@ -3,7 +3,7 @@
     <header class="site-header">
       <div class="site-header__wrapper">
         <div class="site-header__start">
-          <h1 class="brand">{{ pin_company }}アンケート</h1>
+          <h1 class="brand">{{ pin_company }}</h1>
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -31,17 +31,22 @@
         </div>
       </div>
     </header>
+    <div class="page-title">
+      <h1>{{ pin_name }}のアンケート</h1>
+      <img src="../../image/questionnaire2.png" width="10%" />
+    </div>
+    <div class="select-box">
+      <div v-on:click="screenChange1" v-bind:class="change_style1">
+        アンケートを作成する
+      </div>
+      <div v-on:click="screenChange2" v-bind:class="change_style2">
+        アンケートを編集する
+      </div>
+      <div v-on:click="screenChange3" v-bind:class="change_style3">
+        アンケートの結果をみる
+      </div>
+    </div>
 
-    <h1>{{ pin_name }}</h1>
-    <div v-on:click="screenChange1" v-bind:class="change_style1">
-      アンケートを作成する
-    </div>
-    <div v-on:click="screenChange2" v-bind:class="change_style2">
-      アンケートを編集する
-    </div>
-    <div v-on:click="screenChange3" v-bind:class="change_style3">
-      アンケートの結果をみる
-    </div>
     <com-make-question v-if="screen_type === '1'"></com-make-question>
     <com-edit-question v-if="screen_type === '2'"></com-edit-question>
     <com-analyze-question v-if="screen_type === '3'"></com-analyze-question>
@@ -123,10 +128,52 @@ export default {
 }
 </script>
 <style scoped>
-.style {
-  color: red;
+.page-title {
+  text-align: center;
 }
+h1 {
+  text-align: center;
+  font-size: x-large;
+}
+.select-box {
+  margin-top: 5%;
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+}
+.style {
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  background-color: #facc2e;
+  border: 2px solid #f5ecce;
+  color: #fff;
+  font-size: medium;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
 .nonstyle {
-  color: black;
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  border: 2px solid #facc2e;
+  font-size: medium;
+  color: #facc2e;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: 0.4s;
+}
+
+.nonstyle:hover {
+  background-color: #facc2e;
+  border-color: #f5ecce;
+  color: #fff;
 }
 </style>
