@@ -35,7 +35,7 @@
     <div class="page">
       <div class="page-title">
         <h1>ピンを見る</h1>
-        <img src="../../image/viewpin.png" width="10%" />
+        <img src="../../image/viewpin.png" width="5%" />
       </div>
       <div class="pin-list">
         <div v-for="(pin, index) in companyPins" :key="index">

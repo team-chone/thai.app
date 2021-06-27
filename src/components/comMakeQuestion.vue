@@ -37,34 +37,34 @@
           <div v-for="select in question.question_selects" :key="select.id">
             <div>{{ select }}</div>
           </div>
-          <div v-on:click="deleteQuestion(index)" class="delete-button">
+          <button v-on:click="deleteQuestion(index)" class="delete-button">
             消去
-          </div>
+          </button>
         </div>
       </div>
       <div class="make-question">
         <h2>質問の作成</h2>
+
+        <h3>質問の本文入力</h3>
+        <input type="text" v-model="question_title" class="question-text" />
+        <h3>回答必須の質問であるか</h3>
         <div>
-          <h3>質問の本文入力</h3>
-          <input type="text" v-model="question_title" class="question-text" />
-          <h3>回答必須の質問であるか</h3>
-          <div>
-            <label
-              ><input
-                type="radio"
-                value="ture"
-                v-model="question_type1"
-              />必須</label
-            >
-            <label
-              ><input
-                type="radio"
-                value="false"
-                v-model="question_type1"
-              />必須でない</label
-            >
-          </div>
-          <!-- <h3>複数回答可能であるか</h3>
+          <label
+            ><input
+              type="radio"
+              value="ture"
+              v-model="question_type1"
+            />必須</label
+          >
+          <label
+            ><input
+              type="radio"
+              value="false"
+              v-model="question_type1"
+            />必須でない</label
+          >
+        </div>
+        <!-- <h3>複数回答可能であるか</h3>
       <label
         ><input type="radio" value="ture" v-model="question_type2" />可能</label
       >
@@ -75,31 +75,28 @@
           v-model="question_type2"
         />不可能</label
       > -->
-          <div class="selections">
-            <div
-              v-for="(select, index) in selects"
-              :key="select.id"
-              class="selection"
-            >
-              <div>{{ select }}</div>
-              <div v-on:click="deleteSelect(index)" class="delete-button">
-                消去
-              </div>
-            </div>
+        <div class="selections">
+          <div
+            v-for="(select, index) in selects"
+            :key="select.id"
+            class="selection"
+          >
+            <div>{{ select }}</div>
+            <button v-on:click="deleteSelect(index)">消去</button>
           </div>
+        </div>
 
-          <div class="make-selection">
-            <h3>選択肢の入力</h3>
-            <input type="text" v-model="question_select" />
-            <button v-on:click="addSelect" class="add-select">
-              選択肢の追加
-            </button>
-          </div>
-
-          <button v-on:click="addQuestion" class="add-question">
-            この質問を追加する
+        <div class="make-selection">
+          <h3>選択肢の入力</h3>
+          <input type="text" v-model="question_select" />
+          <button v-on:click="addSelect" class="add-select">
+            選択肢の追加
           </button>
         </div>
+
+        <button v-on:click="addQuestion" class="add-question">
+          この質問を追加する
+        </button>
       </div>
     </div>
     <div class="button-box">
@@ -223,7 +220,7 @@ h3 {
   margin: 0 auto;
   margin-top: 2%;
   width: 90%;
-  background-color: #f5d0a9;
+  background-color: #f3be86;
   border-radius: 1em;
   display: flex;
   flex-direction: row;
@@ -236,12 +233,13 @@ h3 {
   margin-bottom: 2%;
   width: 30%;
   min-height: 100px;
-  background-color: white;
+  background-color: #f5d0a9;
+  border-radius: 1em;
 }
 .make-question {
   margin: 0 auto;
   margin-top: 2%;
-  width: 50%;
+  width: 70%;
   background-color: #f5d0a9;
   border-radius: 1em;
   display: flex;
@@ -255,7 +253,7 @@ h3 {
 .selections {
   margin: 0 auto;
   margin-top: 2%;
-  width: 100%;
+  width: 90%;
   background-color: #f7dfc7;
   border-radius: 1em;
   display: flex;
@@ -270,7 +268,7 @@ h3 {
 .make-selection {
   margin: 0 auto;
   margin-top: 2%;
-  width: 100%;
+  width: 50%;
   background-color: #f7dfc7;
   border-radius: 1em;
   display: flex;
@@ -305,5 +303,8 @@ a.btn-border {
 a.btn-border:hover {
   color: #fff;
   background: #ff5f17;
+}
+.delete-button {
+  margin-bottom: 2%;
 }
 </style>

@@ -3,7 +3,7 @@
     <header class="site-header">
       <div class="site-header__wrapper">
         <div class="site-header__start">
-          <h1 class="brand">{{ pin_company }}掲示板</h1>
+          <h1 class="brand">{{ pin_company }}</h1>
         </div>
         <div class="site-header__middle">
           <nav class="nav">
@@ -177,9 +177,6 @@ export default {
 h1 {
   text-align: center;
   font-size: x-large;
-}
-.page-title {
-  text-align: center;
 }
 .acount {
   display: flex;
