@@ -8,24 +8,24 @@
         <div class="site-header__middle">
           <nav class="nav">
             <ul class="nav__wrapper">
-              <li class="nav__item active">
+              <div class="nav__item active">
                 <img class="image" src="../../image/home.png" />
                 <router-link to="/commaphome" class="media"
                   ><font color="#000000">ホーム</font></router-link
                 >
-              </li>
-              <li class="nav__item">
+              </div>
+              <div class="nav__item">
                 <img class="image" src="../../image/addpin2.png" />
                 <router-link to="/combuildpin" class="media"
                   ><font color="#000000">ピンを立てる</font></router-link
                 >
-              </li>
-              <li class="nav__item">
+              </div>
+              <div class="nav__item">
                 <img class="image" src="../../image/viewpin.png" />
                 <router-link to="/compinview" class="media"
                   ><font color="#000000">ピンを見る</font></router-link
                 >
-              </li>
+              </div>
             </ul>
           </nav>
         </div>
@@ -59,10 +59,24 @@
           <ul>
             <li><router-link to="/comacount">アカウント</router-link></li>
             <li>
-              <div class="logout_button" @click="signOut">ログアウト</div>
+              <div @click="signOut">ログアウト</div>
             </li>
-            <li></li>
             <li><a href="#">(受信トレイ)</a></li>
+            <li>
+              <router-link to="/commaphome"
+                ><font color="#000000">ホーム</font></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/combuildpin"
+                ><font color="#000000">ピンを立てる</font></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/compinview"
+                ><font color="#000000">ピンを見る</font></router-link
+              >
+            </li>
           </ul>
         </div>
       </transition>
@@ -135,6 +149,7 @@ export default {
     }
   },
   async mounted() {
+    await this.created
     const currentPosTmp = await this.getCurrentPosition()
     const currentPos = {
       lat: currentPosTmp.coords.latitude,
@@ -146,23 +161,23 @@ export default {
       pin_lat: this.maplocation.lat,
       pin_lng: this.maplocation.lng,
     })
-    firebase
-      .firestore()
-      .collection("pins")
-      .where("pin_company", "==", this.pin_company)
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          this.markers.push({
-            id: doc.id,
-            ...doc.data(),
-            pinicon: {
-              url: require("../../image/green-dot.png"),
-              scaledSize: { width: 40, height: 40, f: "px", b: "px" },
-            },
-          })
-        })
-      })
+    // firebase
+    //   .firestore()
+    //   .collection("pins")
+    //   .where("pin_company", "==", this.pin_company)
+    //   .get()
+    //   .then((snapshot) => {
+    //     snapshot.docs.forEach((doc) => {
+    //       this.markers.push({
+    //         id: doc.id,
+    //         ...doc.data(),
+    //         pinicon: {
+    //           url: require("../../image/green-dot.png"),
+    //           scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+    //         },
+    //       })
+    //     })
+    //   })
   },
   methods: {
     signOut() {
@@ -194,7 +209,23 @@ export default {
       .then((doc) => {
         this.pin_company = doc.data().comname
         //console.log(this.pin_company)
-        console.log = this.pin_company
+        firebase
+          .firestore()
+          .collection("pins")
+          .where("pin_company", "==", this.pin_company)
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              this.markers.push({
+                id: doc.id,
+                ...doc.data(),
+                pinicon: {
+                  url: require("../../image/green-dot.png"),
+                  scaledSize: { width: 40, height: 40, f: "px", b: "px" },
+                },
+              })
+            })
+          })
       })
   },
 }
@@ -217,7 +248,7 @@ export default {
 
 .site-header {
   position: relative;
-  background-color: #ff5f17;
+  background-color: #ffc44d;
 }
 
 /* .site-header__middle {

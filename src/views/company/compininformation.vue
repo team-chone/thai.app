@@ -5,10 +5,18 @@
     <router-link to="/commaphome">戻る</router-link>
 
     <input type="text" placeholder="ピンの名前の入力" v-model="pin_name" />
-    <select v-model="pin_type">
-      <option value="restaurant">飲食</option>
-      <option value="apparel">アパレル</option>
-      <option value="cinema">映画館</option>
+
+    <select v-model="pin_type" class="select-type">
+      <option value="飲食">飲食</option>
+      <option value="スーパー">スーパー</option>
+      <option value="ショッピングセンター">ショッピングセンター</option>
+      <option value="コンビニ">コンビニ</option>
+      <option value="インフラ">インフラ</option>
+      <option value="家具・家電">家具・家電</option>
+      <option value="日用品・書籍・スポーツ">日用品・書籍・スポーツ</option>
+      <option value="アパレル">アパレル</option>
+      <option value="ホテル">ホテル</option>
+      <option value="アミューズメント">アミューズメント</option>
     </select>
     <div>
       <label><input type="radio" value="10" v-model="pin_range" />10m</label>

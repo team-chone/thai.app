@@ -8,24 +8,24 @@
         <div class="site-header__middle">
           <nav class="nav">
             <ul class="nav__wrapper">
-              <li class="nav__item">
+              <div class="nav__item">
                 <img class="image" src="../../image/home.png" />
                 <router-link to="/commaphome" class="media"
                   ><font color="#000000">ホーム</font></router-link
                 >
-              </li>
-              <li class="nav__item">
+              </div>
+              <div class="nav__item">
                 <img class="image" src="../../image/addpin2.png" />
                 <router-link to="/combuildpin" class="media"
                   ><font color="#000000">ピンを立てる</font></router-link
                 >
-              </li>
-              <li class="nav__item active">
+              </div>
+              <div class="nav__item active">
                 <img class="image" src="../../image/viewpin.png" />
                 <router-link to="/compinview" class="media"
                   ><font color="#000000">ピンを見る</font></router-link
                 >
-              </li>
+              </div>
             </ul>
           </nav>
         </div>
