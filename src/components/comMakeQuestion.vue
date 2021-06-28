@@ -225,6 +225,7 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
   align-items: center;
 }
 .question-box {

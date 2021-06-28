@@ -47,7 +47,7 @@
               </div>
               <div class="point-box">
                 <img src="../../image/coin.png" width="5%" class="coin" />
-                <h3>報酬：{{ questionnaire_point }}</h3>
+                <h3>報酬：{{ questionnaire_point }}pt</h3>
               </div>
             </div>
           </div>
